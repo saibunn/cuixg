@@ -78,7 +78,7 @@ public class PermissionController {
         User u = securityUtil.getCurrUser();
         String key = "permission::userMenuList:" + u.getId();
         String v = redisTemplate.opsForValue().get(key);
-        if(StrUtil.isNotBlank(v)){
+        if(StrUtil.isNotBlank(v) && !"[]".equals(v)){
             menuList = new Gson().fromJson(v, new TypeToken<List<MenuVo>>(){}.getType());
             return new ResultUtil<List<MenuVo>>().setData(menuList);
         }

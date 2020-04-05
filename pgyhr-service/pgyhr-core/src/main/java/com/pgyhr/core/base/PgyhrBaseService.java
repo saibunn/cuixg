@@ -9,7 +9,11 @@ import java.util.List;
 
 
 /**
- * @author Exrickx
+ * @author cuixg
+ * @title: PgyhrBaseService
+ * @projectName pgyhr-module
+ * @description: 配置数据处理层
+ * @date 2020/4/4  11:33
  */
 // JDK8函数式接口注解 仅能包含一个抽象方法
 @FunctionalInterface

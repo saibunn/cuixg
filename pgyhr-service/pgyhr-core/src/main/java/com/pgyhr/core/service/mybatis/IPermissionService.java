@@ -18,10 +18,11 @@ import java.util.List;
 public interface IPermissionService extends IService<Permission> {
 
     /**
-     * 通过用户id获取
+     * 通过用户id获取 缓存
      * @param userId
      * @return
      */
-    @Cacheable(key = "#userId")
+    //@Cacheable(key = "#userId")
     List<Permission> findByUserId(String userId);
+
 }
