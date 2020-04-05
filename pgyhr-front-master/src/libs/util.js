@@ -253,38 +253,58 @@ util.initRouter = function (vm) {
         // 未登录
         return;
     }
-    if (!vm.$store.state.app.added) {
-        // 第一次加载 读取数据
-        let accessToken = window.localStorage.getItem('accessToken');
-        // 加载菜单
-        axios.get(getMenuList, { headers: { 'accessToken': accessToken } }).then(res => {
-            let menuData = res.result;
-            if (!menuData) {
-                return;
-            }
-            util.initAllMenuData(constRoutes, menuData);
-            util.initRouterNode(otherRoutes, otherRouter);
-            // 添加所有主界面路由
-            vm.$store.commit('updateAppRouter', constRoutes.filter(item => item.children.length > 0));
-            // 添加全局路由
-            vm.$store.commit('updateDefaultRouter', otherRoutes);
-            // 添加菜单路由
-            util.initMenuData(vm, menuData);
-            // 缓存数据 修改加载标识
-            window.localStorage.setItem('menuData', JSON.stringify(menuData));
-            vm.$store.commit('setAdded', true);
-        });
-    } else {
-        // 读取缓存数据
-        let data = window.localStorage.getItem('menuData');
-        if(!data){
-            vm.$store.commit('setAdded', false);
+    // 第一次加载 读取数据
+    let accessToken = window.localStorage.getItem('accessToken');
+    // 加载菜单
+    axios.get(getMenuList, { headers: { 'accessToken': accessToken } }).then(res => {
+        let menuData = res.result;
+        if (!menuData) {
             return;
         }
-        let menuData = JSON.parse(data);
+        util.initAllMenuData(constRoutes, menuData);
+        util.initRouterNode(otherRoutes, otherRouter);
+        // 添加所有主界面路由
+        vm.$store.commit('updateAppRouter', constRoutes.filter(item => item.children.length > 0));
+        // 添加全局路由
+        vm.$store.commit('updateDefaultRouter', otherRoutes);
         // 添加菜单路由
         util.initMenuData(vm, menuData);
-    }
+        // 缓存数据 修改加载标识
+        window.localStorage.setItem('menuData', JSON.stringify(menuData));
+        vm.$store.commit('setAdded', true);
+    });
+    // if (!vm.$store.state.app.added) {
+    //     // 第一次加载 读取数据
+    //     let accessToken = window.localStorage.getItem('accessToken');
+    //     // 加载菜单
+    //     axios.get(getMenuList, { headers: { 'accessToken': accessToken } }).then(res => {
+    //         let menuData = res.result;
+    //         if (!menuData) {
+    //             return;
+    //         }
+    //         util.initAllMenuData(constRoutes, menuData);
+    //         util.initRouterNode(otherRoutes, otherRouter);
+    //         // 添加所有主界面路由
+    //         vm.$store.commit('updateAppRouter', constRoutes.filter(item => item.children.length > 0));
+    //         // 添加全局路由
+    //         vm.$store.commit('updateDefaultRouter', otherRoutes);
+    //         // 添加菜单路由
+    //         util.initMenuData(vm, menuData);
+    //         // 缓存数据 修改加载标识
+    //         window.localStorage.setItem('menuData', JSON.stringify(menuData));
+    //         vm.$store.commit('setAdded', true);
+    //     });
+    // } else {
+    //     // 读取缓存数据
+    //     let data = window.localStorage.getItem('menuData');
+    //     if(!data){
+    //         vm.$store.commit('setAdded', false);
+    //         return;
+    //     }
+    //     let menuData = JSON.parse(data);
+    //     // 添加菜单路由
+    //     util.initMenuData(vm, menuData);
+    // }
 };
 
 // 添加所有顶部导航栏下的菜单路由
@@ -373,7 +393,7 @@ util.initRouterNode = function (routers, data) {
         let meta = {};
         // 给页面添加权限、标题、第三方网页链接
         meta.permTypes = menu.permTypes ? menu.permTypes : null;
-        meta.title = menu.title ? menu.title + " - pgyhr前后端分离开发平台 By: Exrick" : null;
+        meta.title = menu.title ? menu.title + " - pgyhr前后端分离开发平台" : null;
         meta.url = menu.url ? menu.url : null;
         menu.meta = meta;
 
