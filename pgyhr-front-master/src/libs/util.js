@@ -5,8 +5,11 @@ import router from '@/router/index';
 import Cookies from "js-cookie";
 
 let util = {
+    // 默认分页大小 5
+    DEFAULT_PAGE_SIZE: 5,
+    DEBUG: true
+}
 
-};
 
 util.title = function (title) {
     title = title || 'pgyhr前后端分离开发平台';
