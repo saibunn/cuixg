@@ -28,7 +28,7 @@ const actions = {
     [companyTypes.COMPANY_PAGE]({commit}, params){
         console.log("this.COMPANY_PAGE=================="+JSON.stringify(params));
         return companyApi.getCompanyPage(params).then(response => {
-                commit(companyTypes.COMPANY_PAGE, response.data)
+                commit(companyTypes.COMPANY_PAGE, response.result)
             }
         )
     },
@@ -37,11 +37,12 @@ const actions = {
 
 // 更改组件状态
 const mutations = {
-    [companyTypes.COMPANY_PAGE](state, data){
-        var list = data.records;
+    [companyTypes.COMPANY_PAGE](state, result){
+        console.log("COMPANY_PAGE======result============"+JSON.stringify(result));
+        var list = result.records;
         state.rows = list;
-        console.log("COMPANY_PAGE=================="+JSON.stringify(state.rows));
-        state.companyPage.total = data.total;
+        console.log("COMPANY_PAGE=========state.rows========="+JSON.stringify(state.rows));
+        state.companyPage.total = result.total;
     },
 };
 

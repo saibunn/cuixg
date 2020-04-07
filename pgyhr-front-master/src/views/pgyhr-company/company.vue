@@ -252,8 +252,8 @@
 
 //
 //        this.companyItem = this.companyItem.companyCityId.length > 1 ? this.companyItem.companyCityId[1] : this.companyItem.companyCityId[0];
-//        var params = this.companyItem;
-//
+       var params = this.companyItem;
+
         let submitForm = {...this.companyItem};
 
         console.log("params:================="+JSON.stringify(submitForm));
