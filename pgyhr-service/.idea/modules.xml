@@ -4,13 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/pgyhr-admin/pgyhr-admin.iml" filepath="$PROJECT_DIR$/pgyhr-admin/pgyhr-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-base/pgyhr-base.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-base/pgyhr-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-company/pgyhr-company.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-company/pgyhr-company.iml" />
       <module fileurl="file://$PROJECT_DIR$/pgyhr-core/pgyhr-core.iml" filepath="$PROJECT_DIR$/pgyhr-core/pgyhr-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-generator/pgyhr-generator.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-generator/pgyhr-generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-modules.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-modules.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-open/pgyhr-open.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-open/pgyhr-open.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-quartz/pgyhr-quartz.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-quartz/pgyhr-quartz.iml" />
       <module fileurl="file://$PROJECT_DIR$/pgyhr-service.iml" filepath="$PROJECT_DIR$/pgyhr-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pgyhr-modules/pgyhr-your/pgyhr-your.iml" filepath="$PROJECT_DIR$/pgyhr-modules/pgyhr-your/pgyhr-your.iml" />
     </modules>
   </component>
 </project>

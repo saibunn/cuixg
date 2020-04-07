@@ -6,18 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="pgyhr-generator" />
-        <module name="pgyhr-quartz" />
         <module name="pgyhr-base" />
+        <module name="pgyhr-company" />
+        <module name="pgyhr-generator" />
         <module name="pgyhr-admin" />
-        <module name="pgyhr-open" />
-        <module name="pgyhr-your" />
         <module name="pgyhr-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="pgyhr-admin" target="1.8" />
       <module name="pgyhr-base" target="1.8" />
+      <module name="pgyhr-company" target="1.8" />
       <module name="pgyhr-core" target="1.8" />
       <module name="pgyhr-generator" target="1.8" />
       <module name="pgyhr-modules" target="1.8" />
@@ -25,6 +24,7 @@
       <module name="pgyhr-quartz" target="1.8" />
       <module name="pgyhr-service" target="1.8" />
       <module name="pgyhr-your" target="1.8" />
+      <module name="test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -43,19 +43,19 @@ public class PgyhrMPGenerator {
      * 类说明描述
      * 建议仅需修改
      */
-    private static final String description = "测试";
+    private static final String description = "客户公司";
 
     /**
      * 作者名
      * 建议仅需修改
      */
-    private static final String author = "Exrick";
+    private static final String author = "cuixiaoguang";
 
     /**
      * 数据库表名前缀
      * 下方请根据需要修改
      */
-    private static final String tablePre = "t_";
+    private static final String tablePre = "p_";
 
     /**
      * 主键类型
@@ -66,37 +66,37 @@ public class PgyhrMPGenerator {
      * 生成模块路径
      * (文件自动生成至该模块下)
      */
-    private static final String module = "/pgyhr-modules/pgyhr-your";
+    private static final String module = "/pgyhr-modules/pgyhr-company";
 
     /**
      * 实体类对应包
      * (文件自动生成至该包下)
      */
-    private static final String entityPackage = "com.pgyhr.your.entity";
+    private static final String entityPackage = "com.pgyhr.company.entity";
 
     /**
      * dao对应包 【注意修改后需到com.pgyhr.core.config.mybatisplus.MybatisPlusConfig配置你的mapper路径扫描】
      * (文件自动生成至该包下)
      */
-    private static final String daoPackage = "com.pgyhr.your.mapper";
+    private static final String daoPackage = "com.pgyhr.company.mapper";
 
     /**
      * service对应包
      * (文件自动生成至该包下)
      */
-    private static final String servicePackage = "com.pgyhr.your.service";
+    private static final String servicePackage = "com.pgyhr.company.service";
 
     /**
      * serviceImpl对应包
      * (文件自动生成至该包下)
      */
-    private static final String serviceImplPackage = "com.pgyhr.your.serviceimpl";
+    private static final String serviceImplPackage = "com.pgyhr.company.serviceimpl";
 
     /**
      * controller对应包
      * (文件自动生成至该包下)
      */
-    private static final String controllerPackage = "com.pgyhr.your.controller";
+    private static final String controllerPackage = "com.pgyhr.company.controller";
 
     /**
      * 运行该主函数即可生成代码

@@ -13,10 +13,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>pgyhr-base</module>
-        <module>pgyhr-quartz</module>
+        <module>pgyhr-company</module>
         <module>pgyhr-generator</module>
-        <module>pgyhr-open</module>
-        <module>pgyhr-your</module>
+
     </modules>
 
 

@@ -176,15 +176,16 @@
     <orderEntry type="library" name="Maven: com.qiniu:qiniu-java-sdk:7.2.27" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.squareup.okhttp3:okhttp:3.14.4" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.squareup.okio:okio:1.17.2" level="project" />
-    <orderEntry type="module" module-name="pgyhr-quartz" />
+    <orderEntry type="library" name="Maven: com.pgyhr:pgyhr-quartz:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-quartz:2.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.2.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.quartz-scheduler:quartz:2.3.2" level="project" />
     <orderEntry type="library" name="Maven: com.mchange:mchange-commons-java:0.2.15" level="project" />
-    <orderEntry type="module" module-name="pgyhr-open" />
-    <orderEntry type="module" module-name="pgyhr-your" />
+    <orderEntry type="library" name="Maven: com.pgyhr:pgyhr-open:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.pgyhr:pgyhr-your:1.0-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="pgyhr-company" />
     <orderEntry type="library" name="Maven: com.alibaba:druid-spring-boot-starter:1.1.21" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.21" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.29" level="project" />

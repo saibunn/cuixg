@@ -33,6 +33,11 @@
             <artifactId>pgyhr-your</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.pgyhr</groupId>
+            <artifactId>pgyhr-company</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
         <!-- 数据库连接池 -->
         <dependency>
