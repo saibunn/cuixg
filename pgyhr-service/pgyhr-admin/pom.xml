@@ -20,21 +20,6 @@
         </dependency>
         <dependency>
             <groupId>com.pgyhr</groupId>
-            <artifactId>pgyhr-quartz</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pgyhr</groupId>
-            <artifactId>pgyhr-open</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pgyhr</groupId>
-            <artifactId>pgyhr-your</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.pgyhr</groupId>
             <artifactId>pgyhr-company</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
