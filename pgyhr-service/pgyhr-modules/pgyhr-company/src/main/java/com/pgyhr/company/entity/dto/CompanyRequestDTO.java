@@ -24,7 +24,7 @@ public class CompanyRequestDTO extends CommonListDTO implements Serializable {
 	/**
 	 * 客户公司ID
 	 */
-	private Long companyCode;
+	private String companyCode;
 
 	/**
 	 * 客户公司名称
@@ -32,7 +32,7 @@ public class CompanyRequestDTO extends CommonListDTO implements Serializable {
 	private String companyName;
 
 	/**
-	 * 使用状态:0-使用，1-禁用
+	 * 使用状态:1-使用，0-禁用
 	 */
-	private Integer useStatus;
+	private Boolean isActive;
 }

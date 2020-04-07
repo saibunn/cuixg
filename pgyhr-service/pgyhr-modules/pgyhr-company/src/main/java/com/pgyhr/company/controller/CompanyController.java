@@ -38,11 +38,11 @@ public class CompanyController {
 
     @RequestMapping(value = "/getCompanyPage",method = RequestMethod.GET)
     @ApiOperation(value = "多条件分页获取用户列表")
-    public Result<Page<CompanyRequestDTO>> getCompanyPage(CompanyRequestDTO companyRequestDTO){
+    public Result<Page<CompanyPO>> getCompanyPage(CompanyRequestDTO companyRequestDTO){
 
-
+        Page<CompanyPO> companyPOPage = new Page<>(companyRequestDTO.getCurrentPage(),companyRequestDTO.getSize());
+        companyPOPage = companyService.getCompanyPageByParam(companyPOPage,companyRequestDTO);
         System.out.print("test");
-        List<CompanyPO> companyPOList = companyService.getCompanyPageByParam(companyRequestDTO);
-        return new ResultUtil<Page<CompanyRequestDTO>>().setData(null);
+        return new ResultUtil<Page<CompanyPO>>().setData(companyPOPage);
     }
 }

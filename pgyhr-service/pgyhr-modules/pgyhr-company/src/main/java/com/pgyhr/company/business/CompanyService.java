@@ -1,5 +1,6 @@
 package com.pgyhr.company.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pgyhr.company.entity.dto.CompanyRequestDTO;
 import com.pgyhr.company.entity.po.CompanyPO;
@@ -16,5 +17,5 @@ import java.util.List;
  */
 public interface CompanyService extends IService<CompanyPO> {
 
-    List<CompanyPO> getCompanyPageByParam(CompanyRequestDTO companyRequestDTO);
+    Page<CompanyPO> getCompanyPageByParam(Page<CompanyPO> companyPOPage, CompanyRequestDTO companyRequestDTO);
 }
