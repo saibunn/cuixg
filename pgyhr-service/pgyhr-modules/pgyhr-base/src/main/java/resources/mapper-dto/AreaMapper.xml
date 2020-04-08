@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.base.dao.mapper.AreaMapper">
+
+  <resultMap id="areaDataResultMap" type="com.pgyhr.base.entity.dto.AreaDataDTO">
+      <id column="areaId" property="areaId" />
+      <result column="areaCode" property="areaCode" />
+      <result column="areaName" property="areaName" />
+<!--    <collection property="areaDTOList" column="areaId" select="getAreaDTOInfoByParentId"-->
+<!--                javaType="ArrayList"  ofType="com.pgyhr.base.entity.dto.AreaDTO">-->
+<!--    </collection>-->
+  </resultMap>
+
+  <resultMap id="areaDataByParentIdMap" type="com.pgyhr.base.entity.dto.AreaDTO">
+      <result column="areaCode" property="areaCode" />
+      <result column="areaName" property="areaName" />
+  </resultMap>
+
+
+
+  <select id="queryAreaData" resultMap="areaDataResultMap">
+        SELECT
+        a.areaCode,
+        a.areaName,
+        a.parentId
+        FROM t_area a
+        where a.level=1
+  </select>
+
+
+  <select id="getAreaDTOInfoByParentId" parameterType="java.lang.Long"
+          resultType="AreaDTO"
+          resultMap="areaDataByParentIdMap">
+      SELECT
+        a.areaCode,
+        a.areaName
+        FROM t_area a
+        where a.level=2
+        and a.parentId = #{areaId,jdbcType=BIGINT}
+  </select>
+
+
+
+</mapper>
