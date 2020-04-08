@@ -28,19 +28,7 @@
 <template>
   <div>
     <Card>
-      <Alert type="warning" show-icon>说明：全新重构设计微信小程序，现已开源！后端即将在pgyhr中开发</Alert>
-      <div class="weapp">
-        <Poptip trigger="hover" title="打开微信扫一扫">
-          <div slot="content">
-            <img src="https://i.loli.net/2019/10/06/yrtuPTL9DXQUvd2.jpg" width="180px" />
-          </div>
-      </div>
-      <div class="weapp-imgs">
-        <img src="https://i.loli.net/2019/07/08/5d22e3df51b3b41948.png" />
-        <img src="https://i.loli.net/2019/07/08/5d22e3def39a024428.png" />
-        <img src="https://i.loli.net/2019/07/08/5d22e3df6ee8d14238.png" />
-        <img src="https://i.loli.net/2019/07/08/5d22e3df80a8539956.png" />
-      </div>
+
     </Card>
   </div>
 </template>
