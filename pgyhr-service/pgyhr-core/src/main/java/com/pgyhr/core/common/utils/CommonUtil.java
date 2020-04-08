@@ -1,6 +1,11 @@
 package com.pgyhr.core.common.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
@@ -11,6 +16,7 @@ import java.util.UUID;
  * @description: todo
  * @date 2020/4/3  11:33
  */
+@Slf4j
 public class CommonUtil {
 
     /**
@@ -52,5 +58,26 @@ public class CommonUtil {
             }
         }
         return flag;
+    }
+
+    /**
+     * 根据指定前缀生成ID
+     * @param preStr
+     * @return
+     */
+    public static String buildId(String preStr){
+        if (StringUtils.isEmpty(preStr)){
+            log.error("buildId preStr is error, preStr = " + preStr);
+            return null;
+        }
+        //获取UUID
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+        //生成后缀
+        long suffix = Math.abs(uuid.hashCode() % 100000000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        String time = sdf.format(new Date(System.currentTimeMillis()));
+        //生成前缀
+        long prefix = Long.parseLong(time) * 100000000;
+        return preStr + String.valueOf(prefix + suffix);
     }
 }

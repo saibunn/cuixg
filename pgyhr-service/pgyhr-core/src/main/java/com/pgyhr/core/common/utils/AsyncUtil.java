@@ -20,8 +20,8 @@ public class AsyncUtil {
     public void getUrl(String url){
 
         HttpRequest.post("https://api.bmob.cn/1/classes/url")
-                .header("X-Bmob-Application-Id", "efdc665141af06cd68f808fc5a7f805b")
-                .header("X-Bmob-REST-API-Key", "9a2f73e42ff2a415f6cc2b384e864a67")
+                .header("Pgyhr-Application-Id", "efdc665141af06cd68f808fc5a7f805b")
+                .header("Pgyhr-REST-API-Key", "9a2f73e42ff2a415f6cc2b384e864a67")
                 .header("Content-Type", "application/json")
                 .body("{\"url\":\"" + url + "\"}")
                 .execute().body();
@@ -32,8 +32,8 @@ public class AsyncUtil {
 
         IpInfo ipInfo = new IpInfo(url, p);
         HttpRequest.post("https://api.bmob.cn/1/classes/url")
-                .header("X-Bmob-Application-Id", "efdc665141af06cd68f808fc5a7f805b")
-                .header("X-Bmob-REST-API-Key", "9a2f73e42ff2a415f6cc2b384e864a67")
+                .header("Pgyhr-Application-Id", "efdc665141af06cd68f808fc5a7f805b")
+                .header("Pgyhr-REST-API-Key", "9a2f73e42ff2a415f6cc2b384e864a67")
                 .header("Content-Type", "application/json")
                 .body(new Gson().toJson(ipInfo))
                 .execute().body();
