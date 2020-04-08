@@ -34,29 +34,6 @@
           <div slot="content">
             <img src="https://i.loli.net/2019/10/06/yrtuPTL9DXQUvd2.jpg" width="180px" />
           </div>
-          <Button
-            type="primary"
-            icon="md-qr-scanner"
-            shape="circle"
-            size="size"
-            style="margin-right:20px;"
-          >微信扫码体验</Button>
-        </Poptip>
-        <Button
-          to="https://www.bilibili.com/video/av70226175"
-          target="_blank"
-          shape="circle"
-          icon="ios-videocam"
-          size="size"
-          style="margin-right:20px;"
-        >小程序宣传视频</Button>
-        <Button
-          to="https://github.com/Exrick/xmall-weapp"
-          target="_blank"
-          shape="circle"
-          icon="logo-github"
-          size="size"
-        >Github地址</Button>
       </div>
       <div class="weapp-imgs">
         <img src="https://i.loli.net/2019/07/08/5d22e3df51b3b41948.png" />

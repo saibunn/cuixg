@@ -60,13 +60,12 @@ export default {
     initUrl() {
       let url;
       if (this.currNav == "doc") {
-        url = "https://www.kancloud.cn/exrick/pgyhr/content";
+        url = "";
       } else if (this.currNav == "pgyhr-show") {
-        url = "http://xb.exrick.cn";
-      } else if (this.currNav == "xpay") {
-        url = "http://xpay.exrick.cn";
-      } else if (this.currNav == "xmall") {
-        url = "http://xmall.exrick.cn";
+        url = "";
+      } else if (this.currNav == "pay") {
+        url = "";
+      } else if (this.currNav == "mall") {
       }
       if (url) {
         this.url = url;
