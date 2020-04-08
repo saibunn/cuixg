@@ -51,7 +51,7 @@
         
           <Row>
             <i-col span="15" align="right">
-              <Button type="primary" style="width: 80px" @click="this.showAddOrganizationModel">新增</Button>
+              <Button type="primary" style="width: 80px" @click="this.showAddCompanyModel">新增</Button>
             </i-col>
           </Row>
           
@@ -75,35 +75,35 @@
           </Row>
         </Form>
   
-<!--      <Modal-->
-<!--        v-model="addOrganizationModel"-->
-<!--        title="新增客户"-->
-<!--        width="600">-->
-<!--        <add-organization-model ref="addCompanyModal"></add-organization-model>-->
-<!--        <div slot="footer">-->
-<!--          <Row>-->
-<!--            <i-col span="24" >-->
-<!--              <i-button type="ghost"  @click="this.closeAddOrganizationModel">关闭</i-button>-->
-<!--              <i-button type="primary" @click="this.addCompany" >保存</i-button>-->
+      <Modal
+        v-model="addCompanyModel"
+        title="新增客户"
+        width="600">
+        <add-company-model ref="addCompanyModal"></add-company-model>
+        <div slot="footer">
+          <Row>
+            <i-col span="24" >
+              <i-button type="ghost"  @click="this.closeAddCompanyModel">关闭</i-button>
+              <i-button type="primary" @click="this.addCompany" >保存</i-button>
 
-<!--            </i-col>-->
-<!--          </Row>-->
-<!--        </div>-->
-<!--      </Modal>-->
+            </i-col>
+          </Row>
+        </div>
+      </Modal>
       </div>
 </template>
 
 
 <script>
-  //import AddOrganizationModel from "./agent_dictionary_components/AddOrganizationModel.vue";
+  import addCompanyModel from "./company-components/addCompanyModel.vue";
   import {mapState, mapGetters, mapActions} from 'vuex';
   import companyTypes from "../../store/event-types/pgyhr-company/company-types.js";
   export default {
-    //components: {AddOrganizationModel},
+    components: {addCompanyModel},
     name: 'Company',
     data () {
       return {
-        addCompanyModel: false,
+        addCompanyModelFlg: false,
         showDetail: false,
   
         companyItem: {
@@ -146,17 +146,6 @@
           {
             title: '公司名称',
             key: 'companyName',
-          },
-          {
-            title: '使用次数',
-            key: 'useCount',
-          },
-          {
-            title: '标准',
-            key: 'standard',
-            render: (h, params) => {
-              return params.row.standard == 0 ? "政府" : "企业";
-            }
           },
           {
             title: '操作',
@@ -224,8 +213,8 @@
         this.showDetail=false;
       },
   
-      showAddOrganizationModel(){
-        this.addCompanyModel = true;
+      showAddCompanyModel(){
+        this.addCompanyModelFlg = true;
       },
   
   
@@ -265,13 +254,13 @@
       async addCompany(){
         this.$refs.addCompanyModal.validateInput();
         if (this.$refs.addCompanyModal.validateResult) {
-            this.addOrganizationModel = false;
+            this.addCompanyModelFlg = false;
   
             var params = this.$refs.addCompanyModal.addCompanyItem;
             console.log("addCompanyItem:================="+JSON.stringify(this.$refs.addCompanyModal.addCompanyItem));
             var type = '新增';
             var title = this.title + type;
-            this[CompanyType.ADD_SERVICE_ORGANIZATION](params).then((response) => {
+            this[CompanyType.ADD_COMPANY](params).then((response) => {
               if (response.data.code == 0) {
                 this.$Notice.success({
                   title: title,
@@ -296,9 +285,9 @@
 
     
       },
-  
-      closeAddOrganizationModel(){
-        this.addOrganizationModel = false;
+
+      closeAddCompanyModel(){
+        this.addCompanyModelFlg = false;
       },
       
     }
