@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2020/4/3  11:33
  */
 @Configuration
-@MapperScan({"com.pgyhr.*.mapper", "com.pgyhr.*.*.mapper"})
+@MapperScan({"com.pgyhr.*.mapper", "com.pgyhr.*.*.mapper","com.pgyhr.*.mapper-dto","com.pgyhr.*.*.mapper-dto"})
 public class MybatisPlusConfig {
 
     /**
