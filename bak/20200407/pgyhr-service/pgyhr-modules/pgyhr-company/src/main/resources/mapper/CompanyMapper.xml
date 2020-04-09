@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.company.dao.mapper.CompanyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.company.entity.po.CompanyPO">
+        <id column="company_code" property="companyCode" />
+        <result column="company_name" property="companyName" />
+        <result column="company_city_code" property="companyCityCode" />
+        <result column="company_city_name" property="companyCityName" />
+        <result column="use_status" property="useStatus" />
+        <result column="use_count" property="useCount" />
+        <result column="standard" property="standard" />
+        <result column="advance" property="advance" />
+        <result column="company_adress" property="companyAdress" />
+        <result column="company_zip_code" property="companyZipCode" />
+        <result column="company_zip_tel" property="companyZipTel" />
+        <result column="company_zip_fax" property="companyZipFax" />
+        <result column="company_mail" property="companyMail" />
+        <result column="employee_services_contact" property="employeeServicesContact" />
+        <result column="employee_services_contact_tel" property="employeeServicesContactTel" />
+        <result column="employee_services_contact_mail" property="employeeServicesContactMail" />
+        <result column="contact_person" property="contactPerson" />
+        <result column="contact_tel" property="contactTel" />
+        <result column="contact_mail" property="contactMail" />
+        <result column="department_manager" property="departmentManager" />
+        <result column="department_manager_tel" property="departmentManagerTel" />
+        <result column="department_manager_mail" property="departmentManagerMail" />
+        <result column="company_manager" property="companyManager" />
+        <result column="company_manager_tel" property="companyManagerTel" />
+        <result column="company_manager_mail" property="companyManagerMail" />
+        <result column="account_name" property="accountName" />
+        <result column="account_bank" property="accountBank" />
+        <result column="bank_account" property="bankAccount" />
+        <result column="associated_account" property="associatedAccount" />
+        <result column="invoice_title" property="invoiceTitle" />
+        <result column="tax_identification_number" property="taxIdentificationNumber" />
+        <result column="three_in_one_code" property="threeInOneCode" />
+        <result column="tax_payer_type" property="taxPayerType" />
+        <result column="customer_invoice_type" property="customerInvoiceType" />
+        <result column="remark" property="remark" />
+        <result column="is_active" property="isActive" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>
