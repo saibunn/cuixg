@@ -3,6 +3,7 @@ package com.pgyhr.base.entity.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @author cuixiaoguang
  * @since 2020-04-08
  */
+@TableName("t_area")
 public class AreaPO extends Model<AreaPO> {
 
     private static final long serialVersionUID=1L;

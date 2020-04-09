@@ -1,9 +1,5 @@
 package com.pgyhr.base.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,7 +11,7 @@ import java.util.List;
  * @author cuixiaoguang
  * @since 2020-04-08
  */
-public class AreaDataDTO extends Model<AreaDataDTO> {
+public class AreaDataDTO implements Serializable {
 
     private static final long serialVersionUID=1L;
 

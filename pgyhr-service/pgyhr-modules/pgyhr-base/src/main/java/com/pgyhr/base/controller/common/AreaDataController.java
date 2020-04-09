@@ -1,12 +1,9 @@
 package com.pgyhr.base.controller.common;
 
-import com.pgyhr.base.entity.Dict;
 import com.pgyhr.base.entity.dto.AreaDataDTO;
 import com.pgyhr.base.service.AreaService;
-import com.pgyhr.core.common.utils.IpInfoUtil;
 import com.pgyhr.core.common.utils.ResultUtil;
 import com.pgyhr.core.common.vo.Result;
-import com.pgyhr.core.entity.Department;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

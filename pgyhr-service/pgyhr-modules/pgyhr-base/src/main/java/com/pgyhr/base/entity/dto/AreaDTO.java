@@ -1,10 +1,5 @@
 package com.pgyhr.base.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import java.io.Serializable;
 
 /**
@@ -15,8 +10,7 @@ import java.io.Serializable;
  * @author cuixiaoguang
  * @since 2020-04-08
  */
-public class AreaDTO extends Model<AreaDTO> {
-
+public class AreaDTO implements Serializable {
     private static final long serialVersionUID=1L;
 
     /**
@@ -109,23 +103,5 @@ public class AreaDTO extends Model<AreaDTO> {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return this.areaId;
-    }
-
-    @Override
-    public String toString() {
-        return "TArea{" +
-        "areaId=" + areaId +
-        ", areaCode=" + areaCode +
-        ", areaName=" + areaName +
-        ", level=" + level +
-        ", cityCode=" + cityCode +
-        ", center=" + center +
-        ", parentId=" + parentId +
-        "}";
     }
 }

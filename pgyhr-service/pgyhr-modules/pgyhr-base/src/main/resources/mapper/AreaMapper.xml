@@ -6,9 +6,9 @@
       <id column="areaId" property="areaId" />
       <result column="areaCode" property="areaCode" />
       <result column="areaName" property="areaName" />
-<!--    <collection property="areaDTOList" column="areaId" select="getAreaDTOInfoByParentId"-->
-<!--                javaType="ArrayList"  ofType="com.pgyhr.base.entity.dto.AreaDTO">-->
-<!--    </collection>-->
+    <collection property="areaDTOList" column="areaId" select="getAreaDTOInfoByParentId"
+                javaType="ArrayList"  ofType="com.pgyhr.base.entity.dto.AreaDTO">
+    </collection>
   </resultMap>
 
   <resultMap id="areaDataByParentIdMap" type="com.pgyhr.base.entity.dto.AreaDTO">
@@ -20,6 +20,7 @@
 
   <select id="queryAreaData" resultMap="areaDataResultMap">
         SELECT
+        a.areaId,
         a.areaCode,
         a.areaName,
         a.parentId
@@ -28,8 +29,9 @@
   </select>
 
 
+
   <select id="getAreaDTOInfoByParentId" parameterType="java.lang.Long"
-          resultType="AreaDTO"
+          resultType="com.pgyhr.base.entity.dto.AreaDTO"
           resultMap="areaDataByParentIdMap">
       SELECT
         a.areaCode,
