@@ -6,7 +6,7 @@ import user from './modules/user';
 import dict from './modules/dict';
 
 import companyModule from './modules/pgyhr-company/company-module';
-
+import areaModule from './modules/common/area_module';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -22,6 +22,7 @@ const store = new Vuex.Store({
     },
     modules: {
         companyModule: companyModule,
+        areaModule: areaModule,
         app,
         user,
         dict

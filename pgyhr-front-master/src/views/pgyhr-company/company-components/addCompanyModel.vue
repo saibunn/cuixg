@@ -80,9 +80,9 @@
     created(){
     },
     computed: {
-      ...mapState('cityModule', {
-        cityData: state => state.cityData
-      }),
+      // ...mapState('cityModule', {
+      //   cityData: state => state.cityData
+      // }),
     },
   
     methods: {
