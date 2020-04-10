@@ -11,13 +11,9 @@
       <Row>
         <i-col span="22">
           <Form-item label="城市" prop="companyCityArr" >
-            <!--<Select v-model="addCompanyItem.companyCityId"  @on-change="v=>{selectCityChange(v.label)}" :label-in-value="true">-->
-              <!--<Option v-for="item in cityData" :key="item.cityCode" :value="item.cityCode"-->
-                      <!--:label="item.cityName"/>-->
-            <!--</Select>-->
             <Cascader
-              v-model="companyCityArr" @on-change="selectCityChange"
-              :data="cityData"
+              :value.sync="companyCityArr" @on-change="selectCityChange"
+              :data="areaData"
               trigger="hover"
               not-found-text="无匹配数据"
             ></Cascader>
@@ -80,20 +76,12 @@
     created(){
     },
     computed: {
-      // ...mapState('cityModule', {
-      //   cityData: state => state.cityData
-      // }),
+      ...mapState('areaModule', {
+        areaData: state => state.areaData
+      }),
     },
   
     methods: {
-//      ...mapActions('cityModule', [MutationTypes.CITY_DATA]),
-//
-//      async initData(){
-//        await this[MutationTypes.CITY_DATA]();
-//        console.log("this.cityData====================="+JSON.stringify(this.cityData));
-//      },
-  
-  
       selectCityChange(value, selectedData){
         
         this.addCompanyItem.companyCityId = value.length > 1 ? value[1] : value[0];

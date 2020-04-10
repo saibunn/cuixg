@@ -14,8 +14,9 @@ const state = {
 // 收集UI组件的所有事件，可以同步也可以异步提交
 const actions = {
   [areaTypes.AREA_DATA]({commit}, params){
+    console.log("get area_DATA==="+params);
     return areaApi.getAreaData(params).then(response => {
-      commit(areaTypes.area_DATA, response.data)
+      commit(areaTypes.AREA_DATA, response.result)
     })
   },
   //
@@ -34,13 +35,15 @@ const actions = {
 
 // 更改组件状态
 const mutations = {
-  [areaTypes.area_DATA](state, data){
-    //console.log("area_DATA==="+JSON.stringify(data.object));
+  [areaTypes.AREA_DATA](state, data){
+    console.log("result AREA_DATA==="+JSON.stringify(data));
+
+
     state.areaData = [];
-    const list = data.object;
+    const list = data;
     list.forEach(i => {
       const areaArr=[];
-      const areaList = i.areas;
+      const areaList = i.areaDTOList;
       areaList.forEach(j => {
         areaArr.push({
           value: j.areaCode,
@@ -48,8 +51,8 @@ const mutations = {
         })
       });
       state.areaData.push({
-        value: i.provinceCode,
-        label: i.provinceName,
+        value: i.areaCode,
+        label: i.areaName,
         children: areaArr
       });
 
@@ -57,7 +60,7 @@ const mutations = {
 
     });
 
-    //console.log("area_DATA1123543==="+JSON.stringify(state.areaData));
+    console.log("area_DATA1123543==="+JSON.stringify(state.areaData));
   },
 
   // [areaTypes.MUTATE_area_ALL_DATA](state, data){

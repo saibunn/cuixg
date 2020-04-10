@@ -22,6 +22,17 @@
           <Row>
 
             <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
+              <Form-item label="城市" prop="companyAreaId">
+                <Cascader
+                        :value.sync="companyItem.companyAreaId"
+                        :data="areaData"
+                        trigger="hover"
+                        not-found-text="无匹配数据"
+                ></Cascader>
+              </Form-item>
+            </i-col>
+
+            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
               <Form-item label="公司编号" prop="companyCode" >
                 <i-input v-model="companyItem.companyCode"></i-input>
               </Form-item>
@@ -31,7 +42,6 @@
               <Form-item label="公司名称" prop="companyName" class="ivu-form-item-batch">
                 <i-input v-model="companyItem.companyName"></i-input>
               </Form-item>
-            </i-col>
             </i-col>
 
             <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
@@ -57,7 +67,7 @@
           
           <Row style="margin-top: 10px">
             <i-col span="22">
-              <Table border :columns="companyColumns" :data="companyData" width="800"   ref="serviceRepositoryTable"></Table>
+              <Table border :columns="companyColumns" :data="companyData" width="800"   ref="companyDataTable"></Table>
             </i-col>
           </Row>
         
@@ -76,7 +86,7 @@
         </Form>
   
       <Modal
-        v-model="addCompanyModel"
+        v-model="addCompanyModelFlg"
         title="新增客户"
         width="600">
         <add-company-model ref="addCompanyModal"></add-company-model>
@@ -107,6 +117,7 @@
         showDetail: false,
   
         companyItem: {
+          companyAreaId:[],
           companyCode:'',
           companyName:'',
           active:'',
@@ -193,6 +204,10 @@
     
       }),
 
+      ...mapState('areaModule', {
+        areaData: state => state.areaData
+      }),
+
     },
     
     methods: {
@@ -244,6 +259,7 @@
        var params = this.companyItem;
 
         let submitForm = {...this.companyItem};
+        submitForm.companyAreaId = submitForm.companyAreaId.length > 1 ? submitForm.companyAreaId[1] : submitForm.companyAreaId[0];
 
         console.log("params:================="+JSON.stringify(submitForm));
         

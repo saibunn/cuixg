@@ -149,8 +149,6 @@ import messageTip from "./main-components/message-tip.vue";
 import circleLoading from "@/views/my-components/pgyhr/circle-loading.vue";
 import Cookies from "js-cookie";
 import util from "@/libs/util.js";
-import {mapState, mapGetters, mapActions} from 'vuex';
-import areaTypes from "../store/event-types/common/area_types.js";
 export default {
   components: {
     shrinkableMenu,
@@ -218,13 +216,6 @@ export default {
     timeout(orgCmd) {}
   },
   methods: {
-    ...mapActions('areaModule', [areaTypes.AREA_DATA]),
-
-    // async initData(){
-    //   console.log("areaTypes.AREA_DATA111:=================");
-    //   await this[areaTypes.AREA_DATA]();
-    // },
-
     init() {
       let pathArr = util.setCurrentPath(this, this.$route.name);
       // this.$store.commit("updateMenulist");
@@ -345,8 +336,6 @@ export default {
   created() {
     // 显示打开的页面的列表
     this.$store.commit("setOpenedList");
-    console.log("areaTypes.AREA_DATA:=================");
-    this[areaTypes.AREA_DATA]();
   }
 };
 </script>

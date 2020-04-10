@@ -107,6 +107,8 @@ import show from "./show.vue";
 import Cookies from "js-cookie";
 import "gitalk/dist/gitalk.css";
 import Gitalk from "gitalk";
+import {mapState, mapGetters, mapActions} from 'vuex';
+import areaTypes from "../../store/event-types/common/area_types.js";
 
 export default {
   name: "home",
@@ -130,6 +132,7 @@ export default {
     };
   },
   computed: {
+
     currNav() {
       return this.$store.state.app.currNav;
     },
@@ -138,6 +141,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions('areaModule', [areaTypes.AREA_DATA]),
+
     init() {
       let userInfo = JSON.parse(Cookies.get("userInfo"));
       this.username = userInfo.username;
@@ -146,10 +151,18 @@ export default {
           this.city = res.result;
         }
       });
+
+
+    },
+
+    async initData(){
+      console.log("areaTypes.AREA_DATA:=================");
+      await this[areaTypes.AREA_DATA]("CN");
     }
   },
   mounted() {
     this.init();
+    this.initData();
   }
 };
 </script>
