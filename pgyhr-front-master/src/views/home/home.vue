@@ -109,6 +109,7 @@ import "gitalk/dist/gitalk.css";
 import Gitalk from "gitalk";
 import {mapState, mapGetters, mapActions} from 'vuex';
 import areaTypes from "../../store/event-types/common/area_types.js";
+import countryTypes from "../../store/event-types/common/country_types.js";
 
 export default {
   name: "home",
@@ -142,6 +143,7 @@ export default {
   },
   methods: {
     ...mapActions('areaModule', [areaTypes.AREA_DATA]),
+    ...mapActions('countryModule', [countryTypes.COUNTRY_DATA]),
 
     init() {
       let userInfo = JSON.parse(Cookies.get("userInfo"));
@@ -156,8 +158,8 @@ export default {
     },
 
     async initData(){
-      console.log("areaTypes.AREA_DATA:=================");
       await this[areaTypes.AREA_DATA]("CN");
+      await this[countryTypes.COUNTRY_DATA]("");
     }
   },
   mounted() {

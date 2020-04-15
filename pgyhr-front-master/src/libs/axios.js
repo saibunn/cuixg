@@ -87,6 +87,19 @@ export const postRequest = (url, params) => {
     });
 };
 
+export const postCollectionRequest = (url, params) => {
+    let accessToken = getStore("accessToken");
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            'Content-Type': 'application/json',
+            'accessToken': accessToken
+        }
+    });
+};
+
 export const putRequest = (url, params) => {
     let accessToken = getStore("accessToken");
     return axios({
@@ -134,8 +147,8 @@ export const uploadFileRequest = (url, params) => {
 
 /**
  * 无需token验证的请求 避免旧token过期导致请求失败
- * @param {*} url 
- * @param {*} params 
+ * @param {*} url
+ * @param {*} params
  */
 export const getRequestWithNoToken = (url, params) => {
     return axios({
