@@ -12,7 +12,7 @@
       </div>
 
       <Row class="operation">
-        <Button type="info"  @click="exportData()"><Icon type="ios-download-outline"></Icon> 雇员新增</Button>
+        <Button type="info"  @click="addEmployee()"><Icon type="ios-download-outline"></Icon> 雇员新增</Button>
         <Button type="info"  @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出</Button>
       </Row>
 
@@ -196,6 +196,12 @@
           document.body.removeChild(iframe)
         }
         document.body.appendChild(iframe)
+      },
+
+      addEmployee(){
+        this.$router.push({
+          name: "add_employee_info"
+        });
       },
 
       reload: function() {

@@ -84,6 +84,17 @@ export const otherRouter = {
     ]
 };
 
+// 雇员管理
+export const employeeRouter = {
+    path: '/',
+    name: 'employeeRouter',
+    redirect: '/pgyhr-task',
+    component: Main,
+    children: [
+        { path: 'add-employee-info', title: '新增雇员', name: 'add_employee_info', component: () => import('@/views/pgyhr-task/task-components/add-employee-info.vue') },
+    ]
+};
+
 export const appRouter = [];
 
 // 所有上面定义的路由都要写在下面的routers里
@@ -93,6 +104,7 @@ export const routers = [
     registResult,
     authorizeRouter,
     otherRouter,
+    employeeRouter,
     locking,
     ...appRouter,
     page500,
