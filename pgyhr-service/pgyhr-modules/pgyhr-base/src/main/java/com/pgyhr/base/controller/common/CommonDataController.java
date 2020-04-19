@@ -2,6 +2,7 @@ package com.pgyhr.base.controller.common;
 
 import com.pgyhr.base.entity.dto.AreaDataDTO;
 import com.pgyhr.base.entity.dto.CountryDataDTO;
+import com.pgyhr.base.entity.po.AreaPO;
 import com.pgyhr.base.entity.po.WorldMapPO;
 import com.pgyhr.base.service.AreaService;
 import com.pgyhr.base.service.WorldMapService;
@@ -43,10 +44,17 @@ public class CommonDataController {
 
 
     @RequestMapping(value = "/getAreaData", method = RequestMethod.GET)
-    @ApiOperation(value = "地区信息")
+    @ApiOperation(value = "级联地区信息")
     public Result<List<AreaDataDTO>> getAreaData() {
         List<AreaDataDTO> areaDataDTOList = areaService.getAreaData();
         return new ResultUtil<List<AreaDataDTO>>().setData(areaDataDTOList);
+    }
+
+    @RequestMapping(value = "/getAllAreaData", method = RequestMethod.GET)
+    @ApiOperation(value = "地区信息")
+    public Result<List<AreaPO>> getAllAreaData() {
+        List<AreaPO> areaDataPOList = areaService.getAllAreaData();
+        return new ResultUtil<List<AreaPO>>().setData(areaDataPOList);
     }
 
     @RequestMapping(value = "/getCountryData", method = RequestMethod.GET)

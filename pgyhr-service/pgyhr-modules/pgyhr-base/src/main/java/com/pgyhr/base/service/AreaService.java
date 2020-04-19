@@ -17,4 +17,6 @@ import java.util.List;
 public interface AreaService extends IService<AreaPO> {
 
     List<AreaDataDTO> getAreaData();
+
+    List<AreaPO> getAllAreaData();
 }

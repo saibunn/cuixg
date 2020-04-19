@@ -79,7 +79,7 @@ public class CodeGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         //strategy.setInclude(new String[]{"agt_service_product","agt_service_organization","agt_service_organization_agreement","agt_service_organization_operator_info","agt_service_organization_rule"}); // 需要生成的表
-        strategy.setInclude(new String[]{"p_company","t_user"}); // 需要生成的表
+        strategy.setInclude(new String[]{"world_map","t_user"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         mpg.setStrategy(strategy);
 
