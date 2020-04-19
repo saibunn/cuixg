@@ -42,9 +42,9 @@
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="国籍：" prop="countryCode">
-<!--                  <Select v-model="empInfo.countryCode" :disabled="isCountryCode" filterable>-->
-<!--                    <Option v-for="(value,key) in this.country" :disabled="value.disabled" :value="key" :key="key">{{ value.countryName}}</Option>-->
-<!--                  </Select>-->
+                  <Select v-model="empInfo.countryCode" :disabled="isCountryCode" filterable>
+                    <Option v-for="item in countryData" :value="item.code" :key="item.code">{{ item.name }}</Option>
+                  </Select>
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
@@ -191,7 +191,7 @@
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="工作地点：">
                   <Select v-model="empCompanyInfo.workCityCode" filterable>
-                    <Option v-for="(value, key) in this.baseDic.city" :value="key" :key="key">{{value.cityName}}</Option>
+                      <Option v-for="item in areaAllData" :value="item.areaCode" :key="item.areaCode">{{ item.areaName }}</Option>
                   </Select>
                 </Form-item>
                 </Col>
@@ -363,7 +363,7 @@
         isTax: '',
         rateTax: '',
         // 国籍是否必填
-        isCountryCode: true,
+        isCountryCode: false,
         country: this.baseDic.country,
 
         // 是否需要银行卡信息
@@ -684,6 +684,17 @@
         peRulesModal: false,
         peRulesFlag: true
       }
+    },
+
+    computed: {
+      ...mapState('areaModule', {
+          areaAllData: state => state.areaAllData
+      }),
+
+        ...mapState('countryModule', {
+            countryData: state => state.countryData
+        }),
+
     },
     methods: {
       errModalClick () {

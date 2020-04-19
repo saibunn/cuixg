@@ -25,17 +25,17 @@ const mutations = {
     console.log("result COUNTRY_DATA==="+JSON.stringify(data));
 
 
-    state.countryData = [];
-    const list = data;
-    list.forEach(i => {
-      state.countryData.push({
-        value: i.code,
-        label: i.name,
-      });
-
-
-
-    });
+    state.countryData = data;
+    // const list = data;
+    // list.forEach(i => {
+    //   state.countryData.push({
+    //     value: i.code,
+    //     label: i.name,
+    //   });
+    //
+    //
+    //
+    // });
 
     console.log("COUNTRY_DATA==="+JSON.stringify(state.countryData));
   },
