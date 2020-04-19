@@ -8,6 +8,7 @@ import dict from './modules/dict';
 import companyModule from './modules/pgyhr-company/company-module';
 import areaModule from './modules/common/area_module';
 import countryModule from './modules/common/country_module';
+import employeeTaskModule from './modules/pgyhr-task/employee-task-module';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
         companyModule: companyModule,
         areaModule: areaModule,
         countryModule: countryModule,
+        employeeTaskModule: employeeTaskModule,
         app,
         user,
         dict

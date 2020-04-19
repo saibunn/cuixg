@@ -7,7 +7,7 @@ const namespaced = true;
 // UI组件所有状态数据
 const state = {
   areaData: [],
-  // areaAllData: [],
+  areaAllData: [],
   // areaUserData: [],
 };
 
@@ -20,11 +20,11 @@ const actions = {
     })
   },
   //
-  // [areaTypes.area_ALL_DATA]({commit}, params){
-  //   return commonApi.getAllareaList(params).then(response => {
-  //     commit(areaTypes.MUTATE_area_ALL_DATA, response.data)
-  //   })
-  // },
+  [areaTypes.ALL_AREA_DATA]({commit}, params){
+    return areaApi.getAllAreaData(params).then(response => {
+      commit(areaTypes.MUTATE_ALL_AREA_DATA, response.result)
+    })
+  },
   //
   // [areaTypes.area_USER_DATA]({commit}, params){
   //   return commonApi.getUserareaList(params).then(response => {
@@ -55,19 +55,14 @@ const mutations = {
         label: i.areaName,
         children: areaArr
       });
-
-
-
     });
-
-    console.log("area_DATA1123543==="+JSON.stringify(state.areaData));
   },
 
-  // [areaTypes.MUTATE_area_ALL_DATA](state, data){
-  //   if (data.code === 0) {
-  //     state.areaAllData = data.object;
-  //   }
-  // },
+  [areaTypes.MUTATE_ALL_AREA_DATA](state, data){
+
+    state.areaAllData = data;
+    console.log("result MUTATE_ALL_AREA_DATA==="+JSON.stringify(state.areaAllData));
+  },
   // [areaTypes.MUTATE_area_USER_DATA](state, data){
   //   if (data.code === 0) {
   //     state.areaUserData = data.object;

@@ -3,12 +3,272 @@ import { getMenuList } from '@/api/index';
 import lazyLoading from './lazyLoading.js';
 import router from '@/router/index';
 import Cookies from "js-cookie";
+import moment from 'moment'
+import {localStorage, sessionStorage} from '../libs/storage'
 
 let util = {
     // 默认分页大小 5
     DEFAULT_PAGE_SIZE: 5,
     DEBUG: true
+};
+
+let math = {
+    _thisMath: require('mathjs'),
+    eval (value) {
+        return this._thisMath.eval(value)
+    },
+    multiply (arg1, arg2) {
+        return this._thisMath.format(this._thisMath.multiply(arg1, arg2), {precision: 14})
+    }
 }
+
+let storage = {
+    setItem (key, value) {
+        try {
+            sessionStorage.setItem(key, value)
+        } catch (err) {}
+    },
+    getItem (key) {
+        let returnObj = sessionStorage.getItem(key)
+        if (returnObj) {
+            return returnObj
+        } else {
+            return ''
+        }
+    }
+}
+
+let commons = {
+
+    /**
+     * [去除JSON数据中需要去除前后空格的字段]
+     *
+     * @param jsonObj json对象
+     * @param paramArr 存储去除空格的字段数组
+     */
+    filterSpaceForJSON (jsonObj, paramArr) {
+        paramArr.forEach((item) => {
+            if (jsonObj[item] !== undefined) {
+                jsonObj[item] = String(jsonObj[item]).trim()
+            }
+        })
+    },
+    /**
+     * 判断一个对象是否为空
+     * @param v
+     * @returns {boolean}
+     */
+    isEmpty (v) {
+        return v === undefined || v === null || v === ''
+    }
+
+}
+
+let dateUtils = {
+    /**
+     * [getFirstDay 获取当前月的第一天]
+     *
+     * @method getFirstDay
+     * @param  {[Date]}    date
+     * @return {[Date]}
+     */
+    getFirstDay (date) {
+        let momentDate = moment(date)
+        if (momentDate.isValid()) {
+            momentDate.startOf('month').startOf('day')
+            return momentDate.toDate()
+        }
+        return new Date(date.getFullYear(), date.getMonth(), 1)
+    },
+    /**
+     * [getLastDay 获取当前月的最后一天]
+     *
+     * @method getLastDay
+     * @param  {[Date]}   date
+     * @return {[Date]}
+     */
+    getLastDay (date) {
+        let momentDate = moment(date)
+        if (momentDate.isValid()) {
+            momentDate.endOf('month').startOf('day')
+            return momentDate.toDate()
+        }
+    },
+    /**
+     * [addMonth 添加月份]
+     *
+     * @method addMonth
+     * @param  {[Date]} date
+     * @param  {[Integer]} step
+     */
+    addMonth (date, step) {
+        let momentDate = moment(date)
+        if (momentDate.isValid()) {
+            if (step > 0) {
+                momentDate.add(step, 'M')
+            } else {
+                momentDate.subtract(step, 'M')
+            }
+            return momentDate.toDate()
+        }
+    },
+    /**
+     * [check NextMonth]
+     *
+     * @method checkNextMonth
+     * @param  {[Date]}       date
+     * @param  {[String]}       nextDay [start or end]
+     * @return {[Date]}
+     */
+    checkNextMonth (date, nextDay) {
+        let momentDate = moment(date)
+        if (momentDate.isValid()) {
+            if (momentDate.date() > 15) {
+                momentDate.add(1, 'M')
+            }
+            if (nextDay) {
+                if (nextDay === 'start') {
+                    momentDate.startOf('month').startOf('day')
+                } else if (nextDay === 'end') {
+                    momentDate.endOf('month').startOf('day')
+                }
+            }
+            return momentDate.toDate()
+        }
+    },
+
+    /**
+     * 15号之前上月, 15号之后当月
+     * @param date
+     * @returns {Date}
+     */
+    checkCurrentMonth (date) {
+        let momentDate = moment(date)
+        if (momentDate.isValid()) {
+            if (momentDate.date() <= 15) {
+                momentDate.add(-1, 'M')
+            }
+            momentDate.endOf('month').startOf('day')
+            return momentDate.toDate()
+        }
+        return ''
+    },
+
+    /**
+     * [stdFormatDate 日期格式化]
+     *
+     * @method stdFormatDate
+     * @param  {[Date]} date
+     */
+    stdFormatDate (date) {
+        if (date !== '' && date !== undefined) {
+            return moment(date).format('YYYY-MM-DD')
+        }
+        return ''
+    },
+
+    format (date, formatStr) {
+        if (date !== '' && date !== undefined) {
+            return new Date(date).format(formatStr)
+        }
+        return ''
+    },
+
+    /**
+     * [stdFormatDate 日期格式化]
+     *
+     * @method stdFormatDate
+     * @param  {[Date]} date
+     */
+    stdFormatMonth (date) {
+        if (date !== '' && date !== undefined) {
+            return moment(date).format('YYYYMM')
+        }
+        return ''
+    },
+    /**
+     * 比较两个日期是否相等
+     * @param Date1
+     * @param Date2
+     * @param dateFormat
+     * @returns {boolean}
+     */
+    isDateEquals (Date1, Date2, dateFormat) {
+        let isChange = false
+        if (commons.isEmpty(Date1) && commons.isEmpty(Date2)) {
+            isChange = true
+        } else if ((commons.isEmpty(Date1) && !commons.isEmpty(Date2)) || (!commons.isEmpty(Date1) && commons.isEmpty(Date2))) {
+            isChange = false
+        } else {
+            if (!dateFormat) {
+                dateFormat = 'YYYY-MM-DD'
+            }
+            if (moment(Date1).format(dateFormat) === moment(Date2).format(dateFormat)) {
+                isChange = true
+            }
+        }
+        return isChange
+    },
+
+    /**
+     * 根据出生日期计算年龄
+     * @param getAge
+     * @returns {number}
+     */
+    getAge (birthdayDate) {
+        let aDate = new Date()
+        let thisYear = aDate.getFullYear()
+        let bDate = new Date(birthdayDate)
+        let brith = bDate.getFullYear()
+        let age = (thisYear - brith)
+        return age
+    }
+
+}
+
+let local = {
+    // edits: false, //新建or编辑
+    // typeName: [],
+    save(key, value) {
+        localStorage.setItem(key, value)
+        //
+    },
+    fetch(key) {
+        return localStorage.getItem(key) || {}
+    },
+    back(vm, step) {
+        window.history.go(-1)
+        //  window.history.back();
+    },
+    fuzzyQuery(query, source, type) {
+        if (query !== '') {
+            const list = source.map(item => {
+                return {
+                    value: item[type],
+                    label: item[type]
+                }
+            })
+            return list.filter(item => item.label.toLowerCase().indexOf(query.toLowerCase()) > -1)
+        } else {
+            return []
+        }
+    },
+    titleCase(str) {
+        // 将字符串分解为数组并将其小写化
+        let convertToArray = str.toLowerCase().split(' ')
+        for (let i = 0; i < convertToArray.length; i++) {
+            let char = convertToArray[i].charAt(0)
+            // 使用 replace()方法将数组中的每个首字母大写化
+            convertToArray[i] = convertToArray[i].replace(char, function replace(char) {
+                return char.toUpperCase()
+            })
+        }
+        return convertToArray.join(' ')
+    },
+    addClasses(obj, cls) {
+        if (!this.hasClass(obj, cls)) obj.className += ' ' + cls
+    }
+};
 
 
 util.title = function (title) {

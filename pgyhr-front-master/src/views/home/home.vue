@@ -142,7 +142,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('areaModule', [areaTypes.AREA_DATA]),
+    ...mapActions('areaModule', [areaTypes.AREA_DATA,areaTypes.ALL_AREA_DATA]),
     ...mapActions('countryModule', [countryTypes.COUNTRY_DATA]),
 
     init() {
@@ -159,6 +159,7 @@ export default {
 
     async initData(){
       await this[areaTypes.AREA_DATA]("CN");
+      await this[areaTypes.ALL_AREA_DATA]("CN");
       await this[countryTypes.COUNTRY_DATA]("");
     }
   },

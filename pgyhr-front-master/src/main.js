@@ -24,6 +24,7 @@ import VueLazyload from 'vue-lazyload'
 import VueClipboard from 'vue-clipboard2'
 import VueApexCharts from 'vue-apexcharts'
 import '@babel/polyfill'
+import commonDictionary from './api/common-dictionary'
 
 Vue.config.productionTip = false
 Vue.use(VueLazyload, {
@@ -40,6 +41,7 @@ Vue.use(hasPermission);
 Vue.use(hasRole);
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
+Vue.use(commonDictionary)
 // 挂载全局使用的方法
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.postRequest = postRequest;

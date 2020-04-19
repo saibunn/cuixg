@@ -39,7 +39,7 @@ const actions = {
 const mutations = {
     [companyTypes.COMPANY_PAGE](state, result){
         console.log("COMPANY_PAGE======result============"+JSON.stringify(result));
-        var list = result.records;
+        var list = result;
         state.rows = list;
         console.log("COMPANY_PAGE=========state.rows========="+JSON.stringify(state.rows));
         state.companyPage.total = result.total;
