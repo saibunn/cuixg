@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -47,7 +48,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 雇员出生日期
      */
-    private LocalDateTime birthday;
+    private Date birthday;
 
     /**
      * 户口性质:1: 非农业户口, 2: 农业户口
@@ -67,7 +68,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 结婚日期
      */
-    private LocalDateTime marriageDate;
+    private Date marriageDate;
 
     /**
      * 子女情况:0:无子女 1:独生子女 2:有子女但非独生子女
@@ -172,7 +173,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 创建时间
      */
-    private LocalDateTime createdTime;
+    private Date createdTime;
 
     /**
      * 修改人
@@ -182,7 +183,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 最后修改时间
      */
-    private LocalDateTime modifiedTime;
+    private Date modifiedTime;
 
 
     public String getEmployeeId() {
@@ -225,11 +226,11 @@ public class EmployeeInfoRequsetDTO implements Serializable{
         this.idNum = idNum;
     }
 
-    public LocalDateTime getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -257,11 +258,11 @@ public class EmployeeInfoRequsetDTO implements Serializable{
         this.marriageStatus = marriageStatus;
     }
 
-    public LocalDateTime getMarriageDate() {
+    public Date getMarriageDate() {
         return marriageDate;
     }
 
-    public void setMarriageDate(LocalDateTime marriageDate) {
+    public void setMarriageDate(Date marriageDate) {
         this.marriageDate = marriageDate;
     }
 
@@ -425,11 +426,11 @@ public class EmployeeInfoRequsetDTO implements Serializable{
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreatedTime() {
+    public Date getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
+    public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
 
@@ -441,11 +442,11 @@ public class EmployeeInfoRequsetDTO implements Serializable{
         this.modifiedBy = modifiedBy;
     }
 
-    public LocalDateTime getModifiedTime() {
+    public Date getModifiedTime() {
         return modifiedTime;
     }
 
-    public void setModifiedTime(LocalDateTime modifiedTime) {
+    public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
 
