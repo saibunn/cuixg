@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.task.dao.mapper.EmpCompanyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpCompanyPO">
+        <id column="emp_company_id" property="empCompanyId" />
+        <result column="company_id" property="companyId" />
+        <result column="employee_id" property="employeeId" />
+        <result column="management_id" property="managementId" />
+        <result column="old_employee_id" property="oldEmployeeId" />
+        <result column="channel_id" property="channelId" />
+        <result column="template_type" property="templateType" />
+        <result column="in_date" property="inDate" />
+        <result column="is_trans_act_bank_card" property="isTransActBankCard" />
+        <result column="is_need_bank_card" property="isNeedBankCard" />
+        <result column="bank_type" property="bankType" />
+        <result column="bank_code" property="bankCode" />
+        <result column="salary" property="salary" />
+        <result column="salary_pay_type" property="salaryPayType" />
+        <result column="labor_start_date" property="laborStartDate" />
+        <result column="labor_end_date" property="laborEndDate" />
+        <result column="labor_side" property="laborSide" />
+        <result column="dept_name" property="deptName" />
+        <result column="emp_code" property="empCode" />
+        <result column="position" property="position" />
+        <result column="emp_post" property="empPost" />
+        <result column="emp_profession" property="empProfession" />
+        <result column="try_salary" property="trySalary" />
+        <result column="try_start_date" property="tryStartDate" />
+        <result column="try_end_date" property="tryEndDate" />
+        <result column="work_type" property="workType" />
+        <result column="post_type" property="postType" />
+        <result column="employ_style" property="employStyle" />
+        <result column="social_unit" property="socialUnit" />
+        <result column="fund_unit" property="fundUnit" />
+        <result column="hire_unit" property="hireUnit" />
+        <result column="work_city_code" property="workCityCode" />
+        <result column="social_city_code" property="socialCityCode" />
+        <result column="fund_city_code" property="fundCityCode" />
+        <result column="out_date" property="outDate" />
+        <result column="out_reason" property="outReason" />
+        <result column="social_stop_type" property="socialStopType" />
+        <result column="fund_stop_type" property="fundStopType" />
+        <result column="material_position" property="materialPosition" />
+        <result column="emp_in_type" property="empInType" />
+        <result column="status" property="status" />
+        <result column="sos" property="sos" />
+        <result column="sos_phone" property="sosPhone" />
+        <result column="remark" property="remark" />
+        <result column="remark_out" property="remarkOut" />
+        <result column="is_upload_wechat_data" property="isUploadWechatData" />
+        <result column="wechat_code" property="wechatCode" />
+        <result column="is_active" property="isActive" />
+        <result column="leadership_id" property="leadershipId" />
+        <result column="leadership_name" property="leadershipName" />
+        <result column="labor_contract_code" property="laborContractCode" />
+        <result column="job_content" property="jobContent" />
+        <result column="dispatching_term" property="dispatchingTerm" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>
