@@ -15,7 +15,7 @@
         <module>pgyhr-base</module>
         <module>pgyhr-company</module>
         <module>pgyhr-generator</module>
-
+        <module>pgyhr-task</module>
     </modules>
 
 

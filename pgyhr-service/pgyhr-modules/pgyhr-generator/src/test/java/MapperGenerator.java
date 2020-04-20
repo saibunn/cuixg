@@ -21,7 +21,7 @@ public class MapperGenerator {
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(false);// XML columList
         gc.setOpen(false);
-        gc.setAuthor("xiaoguang cui");
+        gc.setAuthor("xiaoguang.cui");
 
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
 //        gc.setServiceName("%sCommandService");
@@ -29,10 +29,11 @@ public class MapperGenerator {
 //        gc.setMapperName("%sCommandMapper");
 //        gc.setXmlName("%sCommandMapper");
 
-        gc.setServiceName("%sQueryService");
-        gc.setServiceImplName("%sQueryServiceImpl");
-        gc.setMapperName("%sQueryMapper");
-        gc.setXmlName("%sQueryMapper");
+        gc.setServiceName("%sService");
+        gc.setServiceImplName("%sServiceImpl");
+        gc.setMapperName("%sMapper");
+        gc.setXmlName("%sMapper");
+        gc.setEntityName("%sPO");
 
         mpg.setGlobalConfig(gc);
 
@@ -61,30 +62,29 @@ public class MapperGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
-        strategy.setTablePrefix(new String[]{"t_"});// 此处可以修改为您的表前缀
+        strategy.setTablePrefix(new String[]{"p_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         //strategy.setInclude(new String[]{"agt_service_product","agt_service_organization","agt_service_organization_agreement","agt_service_organization_operator_info","agt_service_organization_rule"}); // 需要生成的表
-        strategy.setInclude(new String[]{"p_company","t_user"}); // 需要生成的表
+        strategy.setInclude(new String[]{"p_company","p_employee_info"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         mpg.setStrategy(strategy);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.ciicsh.gto.agentcenter");
+        pc.setParent("com.pgyhr.task");
         //pc.setModuleName("agent.dictionary.command");
         //pc.setModuleName("agent.dictionary.query");
 
         //pc.setModuleName("entrust.query");
         //pc.setModuleName("entrust.command");
 
-        pc.setModuleName("site.service.dictionary");
+        //pc.setModuleName("site.service.dictionary");
         //pc.setModuleName("api.service");
-
-        pc.setService("business");
-        pc.setServiceImpl("business.impl");
-        pc.setEntity("po");
-        pc.setMapper("dao");
-        pc.setXml("mapper.mapping");
+        pc.setService("service");
+        pc.setServiceImpl("service.impl");
+        pc.setEntity("entity.po");
+        pc.setMapper("dao.mapper");
+        pc.setXml("mapper");
         mpg.setPackageInfo(pc);
 
         TemplateConfig tc = new TemplateConfig();
