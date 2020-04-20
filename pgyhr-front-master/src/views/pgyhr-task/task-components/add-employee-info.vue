@@ -48,18 +48,18 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="手机号：" prop="mobile">
-                  <Input type="text" v-model="empInfo.mobile" placeholder="请输入"/>
+                <Form-item label="手机号：" prop="employeeMobile">
+                  <Input type="text" v-model="empInfo.employeeMobile" placeholder="请输入"/>
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="邮箱：" prop="email">
-                  <Input type="text" v-model="empInfo.email" placeholder="请输入"/>
+                <Form-item label="邮箱：" prop="employeeEmail">
+                  <Input type="text" v-model="empInfo.employeeEmail" placeholder="请输入"/>
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="联系地址：">
-                  <Input type="text" v-model="empInfo.address" placeholder="请输入"/>
+                  <Input type="text" v-model="empInfo.employeeAddress" placeholder="请输入"/>
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
@@ -103,6 +103,64 @@
        <Card >
           <Row>
             <Form ref="empCompanyInfo" :model="empCompanyInfo" :rules="empCompanyInfoRuleValidate" :label-width=150>
+
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="客户：" class="mb5" prop="companyId">
+                        <Select v-model="empCompanyInfo.companyId" filterable @on-change="companySelected">
+                            <Option v-for="item in myCompanyList" :value="item.companyId" :key="item.companyId">{{ item.title }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="雇员类型：" prop="templateType">
+                        <Select v-model="empCompanyInfo.templateType" @on-change="templateTypeChange">
+                            <Option v-for="item in templateTypeList" :value="item.key" :key="item.key">{{ item.value }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                    <Form-item label="社保规则模板：" class="mb5" prop="socialRuleId">-->
+<!--                        <Select v-model="empAgreementInfo.socialRuleId" filterable @on-change="socialRuleSelected">-->
+<!--                            <OptionGroup v-for="groupItem in socialRuleTemplateGroup" :label="groupItem.cityName" :key="groupItem.cityCode">-->
+<!--                                <Option v-for="item in groupItem.dataList"-->
+<!--                                        :value="item.id"-->
+<!--                                        :key="item.id">{{ item.name }}</Option>-->
+<!--                            </OptionGroup>-->
+<!--                        </Select>-->
+<!--                    </Form-item>-->
+<!--                </Col>-->
+<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                    <Form-item label="公积金规则模板：" class="mb5" prop="fundSocialRuleId">-->
+<!--                        <Select v-model="empAgreementInfo.fundSocialRuleId" filterable @on-change="fundRuleSelected">-->
+<!--                            <OptionGroup v-for="groupItem in fundRuleTemplateGroup" :label="groupItem.cityName" :key="groupItem.cityCode">-->
+<!--                                <Option v-for="item in groupItem.dataList"-->
+<!--                                        :value="item.id"-->
+<!--                                        :key="item.id">{{ item.name }}</Option>-->
+<!--                            </OptionGroup>-->
+<!--                        </Select>-->
+<!--                    </Form-item>-->
+<!--                </Col>-->
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="社保缴纳地：">
+                        <span> {{ socialCityName }}</span>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="公积金缴纳地：">
+                        <span> {{ fundCityName }}</span>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="社保办理方：">
+                        {{ this.baseDic.unitMap[empCompanyInfo.socialUnit] }}
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="公积金办理方：">
+                        {{ this.baseDic.unitMap[empCompanyInfo.fundUnit] }}
+                    </Form-item>
+                </Col>
+
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="入职日期：" prop="inDate">
                   <DatePicker transfer v-model="empCompanyInfo.inDate" type="date" placement="bottom" @on-change="changeInDate" placeholder="选择日期" style="width: 100%;"></DatePicker>
@@ -380,8 +438,8 @@
         companyDefPayWay:'',
         // personalDefPayWay:'',
         cityList: [],
-        socialCityName: '',
-        fundCityName: '',
+        socialCityName: '常州',
+        fundCityName: '常州',
         isEndDate: '0',
         laborEndDateDisabled: false,
         // 终身雇员
@@ -395,9 +453,9 @@
           countryCode: 'CN',
           marriageStatus: '',
           residentType: '',
-          email: '',
-          mobile: '',
-          address: ''
+          employeeEmail: '',
+          employeeMobile: '',
+          employeeAddress: ''
         },
         // 雇员公司关系
         empCompanyInfo: {
@@ -423,8 +481,8 @@
           hireUnit: '',
           socialUnit: '',
           fundUnit: '',
-          socialCityCode: '',
-          fundCityCode: '',
+          socialCityCode: '320400',
+          fundCityCode: '320400',
           remark: '',
           jobContent: '',
           dispatchingTerm: null
@@ -441,40 +499,37 @@
           socialRuleId: '',
           empBase: ''
         },
-
-        empAgreementInfoRuleValidate: {
-          companyId: [
-            {
-              required: true,
-              message: '请选择所属客户',
-              trigger: 'change'
-            }
-          ],
-          templateType: [
-            {
-              required: true,
-              message: '请选择雇员类型',
-              trigger: 'change'
-            }
-          ],
-          socialRuleId: [
-            {
-              type: 'integer',
-              required: true,
-              message: '请选择社保规则模板',
-              trigger: 'change'
-            }
-          ],
-          fundSocialRuleId: [
-            {
-              type: 'integer',
-              required: true,
-              message: '请选择公积金规则模板',
-              trigger: 'change'
-            }
-          ]
-        },
         empInfoRuleValidate: {
+            companyId: [
+                {
+                    required: true,
+                    message: '请选择所属客户',
+                    trigger: 'change'
+                }
+            ],
+            templateType: [
+                {
+                    required: true,
+                    message: '请选择雇员类型',
+                    trigger: 'change'
+                }
+            ],
+            socialRuleId: [
+                {
+                    type: 'integer',
+                    required: true,
+                    message: '请选择社保规则模板',
+                    trigger: 'change'
+                }
+            ],
+            fundSocialRuleId: [
+                {
+                    type: 'integer',
+                    required: true,
+                    message: '请选择公积金规则模板',
+                    trigger: 'change'
+                }
+            ],
           employeeName: [
             {
               required: true,
@@ -509,7 +564,7 @@
               trigger: 'blur'
             }
           ],
-          mobile: [
+          employeeMobile: [
             {
               type: 'string',
               required: true,
@@ -522,7 +577,7 @@
               trigger: 'blur'
             }
           ],
-          email: [
+          employeeEmail: [
             {
               type: 'email',
               message: '输入的邮箱地址不符合标准',
