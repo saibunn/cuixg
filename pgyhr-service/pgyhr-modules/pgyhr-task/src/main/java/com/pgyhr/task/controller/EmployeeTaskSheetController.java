@@ -14,22 +14,21 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
-import java.util.List;
 
 
 /**
  * @author cuixg
- * @title: EmployeeController
+ * @title: EmployeeTaskSheetController
  * @projectName pgyhr-module
  * @description: TODO
- * @date 2020/4/20 17:50
+ * @date 2020/4/20 19:50
  */
 @Slf4j
 @RestController
-@Api(description = "雇员信息")
-@RequestMapping("/pgyhr/employee")
+@Api(description = "雇员任务单")
+@RequestMapping("/pgyhr/task")
 @Transactional
-public class EmployeeController <E, ID extends Serializable>{
+public class EmployeeTaskSheetController<E, ID extends Serializable>{
 
     @Autowired
     private EmployeeInfoService employeeInfoService;
