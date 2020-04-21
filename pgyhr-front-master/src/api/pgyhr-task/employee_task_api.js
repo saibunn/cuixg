@@ -6,7 +6,7 @@ import { getRequest, postRequest,postCollectionRequest, putRequest, deleteReques
 const getEmployeeTaskSheetListPage = params => getRequest('/employee/taskSheet/employeeTaskSheetQuery', params);
 
 // 保存雇员基本信息
-const saveEmployeeInfo = params => getRequest('/employee/taskSheet/saveEmployeeInfo', params);
+const saveEmployeeInfo = params => postCollectionRequest('/employee/saveEmployeeInfo', params);
 
 export default {
   getEmployeeTaskSheetListPage,

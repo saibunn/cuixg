@@ -16,7 +16,7 @@
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="证件类型：" prop="idCardType">
-                  <Select v-model="empInfo.idCardType" @on-change="resetEmpStatus">
+                  <Select v-model="empInfo.idCardType">
                     <Option v-for="(value,key) in this.baseDic.idCardType" :value="key" :key="key">{{ value }}</Option>
                   </Select>
                 </Form-item>
@@ -27,7 +27,6 @@
                   </Input>
                 </Form-item>
                 </Col>
-                <span v-if="drop">
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="性别：" prop="gender">
                   <RadioGroup v-model="empInfo.gender">
@@ -83,11 +82,10 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="紧急联系人电话：">
+                <Form-item label="紧急联系人电话：" prop="emergencyMobile">
                   <Input type="text" v-model="empInfo.emergencyMobile" placeholder="请输入"/>
                 </Form-item>
                 </Col>
-                </span>
 
 <!--                <Form-item style="margin-left:-35px;" class="br">-->
 <!--                    <a class="drop-down" @click="dropDown">-->
@@ -211,12 +209,6 @@
           ],
             emergencyMobile: [
                 {
-                    type: 'string',
-                    required: true,
-                    message: '请输入紧急联系人手机号',
-                    trigger: 'blur'
-                },
-                {
                     pattern: '^\\d{11}$',
                     message: '请输入正确紧急联系人手机号',
                     trigger: 'blur'
@@ -253,7 +245,8 @@
                   var type = '新增';
                   var title = "雇员信息" + type;
                   this[employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO](params).then((response) => {
-                      if (response.data.code == 0) {
+                      console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+                      if (response.code == 200) {
                           this.$Notice.success({
                               title: title,
                               desc: title + '成功',
@@ -261,6 +254,8 @@
                           this.$router.push({
                               name: "employee-task-sheet"
                           });
+
+                      }else{
                           this.$Notice.error({
                               title: title,
                               content: title + "错误"
