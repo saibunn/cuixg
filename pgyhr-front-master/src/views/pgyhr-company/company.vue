@@ -215,6 +215,7 @@
         companyTypes.COMPANY_PAGE,
       ]),
 
+
       
       reload: function () {
         this.showDetail = false;

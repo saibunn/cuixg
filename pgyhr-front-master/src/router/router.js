@@ -92,6 +92,7 @@ export const employeeRouter = {
     component: Main,
     children: [
         { path: 'add-employee-info', title: '新增雇员', name: 'add_employee_info', component: () => import('@/views/pgyhr-task/task-components/add-employee-info.vue') },
+        { path: 'employee-task-sheet', title: '雇员任务单', name: 'employee-task-sheet', component: () => import('@/views/pgyhr-task/task-components/employee-task-sheet.vue') },
     ]
 };
 
