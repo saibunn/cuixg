@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
  * @since 2020-04-20
  */
 @TableName("p_employee_info")
-public class EmployeeInfoPO extends Model<EmployeeInfoPO> {
+public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
 
     private static final long serialVersionUID=1L;
 
@@ -166,26 +167,6 @@ public class EmployeeInfoPO extends Model<EmployeeInfoPO> {
      * 版本号
      */
     private Long version;
-
-    /**
-     * 创建人
-     */
-    private String createdBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createdTime;
-
-    /**
-     * 修改人
-     */
-    private String modifiedBy;
-
-    /**
-     * 最后修改时间
-     */
-    private LocalDateTime modifiedTime;
 
 
     public String getEmployeeId() {
@@ -420,42 +401,6 @@ public class EmployeeInfoPO extends Model<EmployeeInfoPO> {
         this.version = version;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public LocalDateTime getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return this.employeeId;
-    }
 
     @Override
     public String toString() {
@@ -489,10 +434,6 @@ public class EmployeeInfoPO extends Model<EmployeeInfoPO> {
         ", fileAddress=" + fileAddress +
         ", isActive=" + isActive +
         ", version=" + version +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", modifiedBy=" + modifiedBy +
-        ", modifiedTime=" + modifiedTime +
         "}";
     }
 }

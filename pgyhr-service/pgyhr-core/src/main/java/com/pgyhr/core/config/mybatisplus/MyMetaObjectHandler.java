@@ -27,8 +27,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if(!"anonymousUser".equals(principal)){
             UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             this.setFieldValByName("createBy", user.getUsername(), metaObject);
+            this.setFieldValByName("createdBy", user.getUsername(), metaObject);
         }
         this.setFieldValByName("createTime", new Date(), metaObject);
+        this.setFieldValByName("createdTime", new Date(), metaObject);
     }
 
     @Override
@@ -38,8 +40,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if(!"anonymousUser".equals(principal)){
             UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             this.setFieldValByName("updateBy", user.getUsername(), metaObject);
+            this.setFieldValByName("modifiedBy", user.getUsername(), metaObject);
         }
         this.setFieldValByName("updateTime", new Date(), metaObject);
+        this.setFieldValByName("modifiedTime", new Date(), metaObject);
     }
 }
 
