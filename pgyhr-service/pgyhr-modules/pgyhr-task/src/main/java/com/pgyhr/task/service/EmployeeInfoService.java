@@ -1,7 +1,10 @@
 package com.pgyhr.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmployeeInfoRequsetDTO;
 import com.pgyhr.task.entity.po.EmployeeInfoPO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.pgyhr.task.entity.po.EmployeeInfoPO;
  */
 public interface EmployeeInfoService extends IService<EmployeeInfoPO> {
 
+    List<EmployeeInfoPO> selectEmployeeInfoByParam(EmployeeInfoRequsetDTO employeeInfoRequsetDTO);
 }

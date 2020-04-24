@@ -13,9 +13,11 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -47,11 +49,16 @@ public class EmployeeController <E, ID extends Serializable>{
     @PostMapping(value = "/saveEmployeeInfo")
     public Result<E> addEmployeeInfoById(@RequestBody EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
         EmployeeInfoPO employeeInfoPO = CommonTransform.convertToDTO(employeeInfoRequsetDTO,EmployeeInfoPO.class);
-        employeeInfoPO.setEmployeeId(CommonUtil.buildId(CodePrefixUtil.EMP_CODE_PREFIX));
-        if(employeeInfoService.save(employeeInfoPO)){
-            return new ResultUtil<E>().setSuccessMsg("新增雇员成功！");
+        List<EmployeeInfoPO> employeeInfoPOList  = employeeInfoService.selectEmployeeInfoByParam(employeeInfoRequsetDTO);
+        if(CollectionUtils.isEmpty(employeeInfoPOList)){
+            employeeInfoPO.setEmployeeId(CommonUtil.buildId(CodePrefixUtil.EMP_CODE_PREFIX));
+            if(employeeInfoService.save(employeeInfoPO)){
+                return new ResultUtil<E>().setSuccessMsg("新增雇员成功！");
+            }else{
+                return new ResultUtil<E>().setErrorMsg("新增雇员失败！");
+            }
         }else{
-            return new ResultUtil<E>().setErrorMsg("新增雇员失败！");
+            return new ResultUtil<E>().setErrorMsg("新增雇员已存在");
         }
     }
 }

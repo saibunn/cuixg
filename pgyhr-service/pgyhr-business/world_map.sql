@@ -250,6 +250,3 @@ INSERT INTO `world_map` (`id`, `name`, `code`, `pid`, `layer`) VALUES (239, '乍
 INSERT INTO `world_map` (`id`, `name`, `code`, `pid`, `layer`) VALUES (240, '直布罗陀', 'GIB', 302, 2);
 INSERT INTO `world_map` (`id`, `name`, `code`, `pid`, `layer`) VALUES (241, '智利', 'CHL', 305, 2);
 INSERT INTO `world_map` (`id`, `name`, `code`, `pid`, `layer`) VALUES (242, '中非共和国', 'CAF', 303, 2);
-————————————————
-版权声明：本文为CSDN博主「初级码奴」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/xiahuale/java/article/details/83090651
