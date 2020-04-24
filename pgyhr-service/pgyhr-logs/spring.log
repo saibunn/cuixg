@@ -292,3 +292,4 @@ Caused by: java.sql.SQLSyntaxErrorException: Table 'pgyhr_business.world_map' do
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:426) ~[mybatis-spring-2.0.3.jar:2.0.3]
 	... 132 common frames omitted
 
+2020-04-24 10:36:04.690  INFO 11140 --- [http-nio-8288-exec-20] c.p.c.c.s.validate.ImageValidateFilter   : 验证码错误：code:175n，redisCode:l7EN

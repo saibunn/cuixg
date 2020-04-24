@@ -3,6 +3,7 @@ package com.pgyhr.core.base;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.pgyhr.core.common.constant.CommonConstant;
@@ -33,7 +34,7 @@ import java.util.Date;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value={"hibernateLazyInitializer","handler","fieldHandler"})
-public abstract class PgyhrBaseEntityNoId implements Serializable{
+public abstract class PgyhrBaseEntityNoId<T extends Model<?>> extends Model<T>{
 
 
     private static final long serialVersionUID = 1871720531749918154L;

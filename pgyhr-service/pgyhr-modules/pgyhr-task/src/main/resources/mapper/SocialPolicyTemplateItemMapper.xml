@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.task.dao.mapper.SocialPolicyTemplateItemMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.SocialPolicyTemplateItemPO">
+        <id column="social_policy_item_code" property="socialPolicyItemCode" />
+        <result column="social_policy_code" property="socialPolicyCode" />
+        <result column="policy_type" property="policyType" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="city_code" property="cityCode" />
+        <result column="city_name" property="cityName" />
+        <result column="effective_month" property="effectiveMonth" />
+        <result column="policy_year" property="policyYear" />
+        <result column="city_avg_salary" property="cityAvgSalary" />
+        <result column="province_avg_salary" property="provinceAvgSalary" />
+        <result column="min_salary" property="minSalary" />
+        <result column="pay_month" property="payMonth" />
+        <result column="payer" property="payer" />
+        <result column="base_max" property="baseMax" />
+        <result column="base_min" property="baseMin" />
+        <result column="check_tail_flag" property="checkTailFlag" />
+        <result column="pay_max" property="payMax" />
+        <result column="sort" property="sort" />
+        <result column="calculate_method" property="calculateMethod" />
+        <result column="rate_type" property="rateType" />
+        <result column="fixed_rate" property="fixedRate" />
+        <result column="step" property="step" />
+        <result column="rate_min" property="rateMin" />
+        <result column="rate_max" property="rateMax" />
+        <result column="multi_rate" property="multiRate" />
+        <result column="fixed_value" property="fixedValue" />
+        <result column="round_type" property="roundType" />
+        <result column="remark" property="remark" />
+        <result column="is_active" property="isActive" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>
