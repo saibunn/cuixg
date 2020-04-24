@@ -238,37 +238,40 @@
       },
 
       addEmployeeInfo() {
+          this.$router.push({
+              name: "employee-task-sheet"
+          });
 
-          this.$refs['empInfo'].validate((valid) => {
-              if (valid) {
-                  var params = this.empInfo;
-                  var type = '新增';
-                  var title = "雇员信息" + type;
-                  this[employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO](params).then((response) => {
-                      console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
-                      if (response.code == 200) {
-                          this.$Notice.success({
-                              title: title,
-                              desc: title + '成功',
-                          });
-                          this.$router.push({
-                              name: "employee-task-sheet"
-                          });
-
-                      }else{
-                          this.$Notice.error({
-                              title: title,
-                              content: title + "错误"
-                          });
-                      }
-                  }).catch((error) => {
-                      this.$Notice.error({
-                          title: title,
-                          content: title + "错误"
-                      });
-                  });
-              }
-          })
+          // this.$refs['empInfo'].validate((valid) => {
+          //     if (valid) {
+          //         var params = this.empInfo;
+          //         var type = '新增';
+          //         var title = "雇员信息" + type;
+          //         this[employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO](params).then((response) => {
+          //             console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+          //             if (response.code == 200) {
+          //                 this.$Notice.success({
+          //                     title: title,
+          //                     desc: title + '成功',
+          //                 });
+          //                 this.$router.push({
+          //                     name: "employee-task-sheet"
+          //                 });
+          //
+          //             }else{
+          //                 this.$Notice.error({
+          //                     title: title,
+          //                     content: response.message
+          //                 });
+          //             }
+          //         }).catch((error) => {
+          //             this.$Notice.error({
+          //                 title: title,
+          //                 content: title + "错误"
+          //             });
+          //         });
+          //     }
+          // })
       },
 
     // dropDown() {

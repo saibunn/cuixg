@@ -20,8 +20,9 @@
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="雇员类型：" prop="templateType">
                         <Select v-model="empCompanyInfo.templateType" @on-change="templateTypeChange">
-                            <Option v-for="item in templateTypeList" :value="item.key" :key="item.key">{{ item.value }}</Option>
+                            <Option v-for="(value, key) in this.baseDic.templateTypes" :value="key" :key="key">{{ value}}</Option>
                         </Select>
+
                     </Form-item>
                 </Col>
 <!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
@@ -104,21 +105,21 @@
                   </Checkbox>
                 </Form-item>
                 </Col>
-                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="试用期工资：" prop="trySalary">
-                  <Input type="text" v-model="empCompanyInfo.trySalary" placeholder="请输入"/>
-                </Form-item>
-                </Col>
-                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="试用期开始时间：" prop="tryStartDate">
-                  <DatePicker transfer v-model="empCompanyInfo.tryStartDate" type="date" placement="bottom" disabled placeholder="选择日期" style="width: 100%;"></DatePicker>
-                </Form-item>
-                </Col>
-                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="试用期结束时间：" prop="tryEndDate">
-                  <DatePicker transfer v-model="empCompanyInfo.tryEndDate" type="date" placement="bottom" placeholder="选择日期" style="width: 100%;"></DatePicker>
-                </Form-item>
-                </Col>
+<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                <Form-item label="试用期工资：" prop="trySalary">-->
+<!--                  <Input type="text" v-model="empCompanyInfo.trySalary" placeholder="请输入"/>-->
+<!--                </Form-item>-->
+<!--                </Col>-->
+<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                <Form-item label="试用期开始时间：" prop="tryStartDate">-->
+<!--                  <DatePicker transfer v-model="empCompanyInfo.tryStartDate" type="date" placement="bottom" disabled placeholder="选择日期" style="width: 100%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--                </Col>-->
+<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                <Form-item label="试用期结束时间：" prop="tryEndDate">-->
+<!--                  <DatePicker transfer v-model="empCompanyInfo.tryEndDate" type="date" placement="bottom" placeholder="选择日期" style="width: 100%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--                </Col>-->
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="工资支付方式：" prop="salaryPayType">
                   <Select v-model="empCompanyInfo.salaryPayType">
@@ -214,16 +215,34 @@
                 </Col>
             </Form>
           </Row>
+           <Row>
+               <emp-product-group-list class="mt10" ref="empProductList" :configs="{
+                                productHideColums: ['fristAmount', 'lastAmount'],
+                                showContent: 'product',
+                                tabValue: tabValue,
+                                edit:'edit',
+                                readonly: false,
+                                companyId: empAgreementInfo.companyId,
+                                'totalSocialData':totalSocialData,
+                                'salary' : empCompanyInfo.salary,
+                                'allEqualsBase':allEqualsBase,
+                                'socialStartDate' : empCompanyInfo.inDate,
+                                'socialUnit':empCompanyInfo.socialUnit,
+                                'fundUnit' : empCompanyInfo.fundUnit,
+                                'socialConfigs' : socialConfigs,
+                                'socialRuleId':empAgreementInfo.socialRuleId,
+                                'fundRuleId' : empAgreementInfo.fundSocialRuleId
+                      }">
+               </emp-product-group-list>
+           </Row>
+
         </Card>
 
 
-    <div v-if="addConfNext===2">
-      <div class="tc mt10">
-        <Button type="warning" @click="addConfNext=1">上一步</Button>
-        <Button type="success" @click="commitForm">提交</Button>
-        <Button type="warning" @click="returnList">取消</Button>
-      </div>
-    </div>
+      <Row class="operation">
+          <Button type="success" @click="commitForm">提交</Button>
+          <Button type="warning" @click="returnList">取消</Button>
+      </Row>
 
 
     <Modal v-model="errModal" style="z-index: 999;">
@@ -260,10 +279,12 @@
   import IDValidator from 'id-validator'
   import {mapState, mapGetters, mapActions} from 'vuex';
   import Checkbox from '../../../../node_modules/iview/src/components/checkbox/checkbox.vue'
+  import empProductGroupList from './emp-product-group-list'
 
   export default {
     components: {
-      Checkbox,
+        empProductGroupList,
+        Checkbox,
     },
     data: function () {
       return {
@@ -658,23 +679,170 @@
 
     },
     methods: {
-      errModalClick () {
+        errModalClick () {
+        },
+
+        async commitForm () {
+
+        },
+
+        returnList () {
+            //this.$router.go(-1)
+        },
+
+        async companySelected (selectValue) {
+            this.empCompanyInfo.companyId = selectValue;
+            this.empAgreementInfo.companyId = selectValue;
+            this.empSocialFundConfigs.companyId = selectValue;
+            this.socialConfigs.companyId = selectValue;
+        },
+
+
+        // 雇员类型下拉变化时,更新雇员组的数据
+        async templateTypeChange (selectValue) {
+            this.empCompanyInfo.templateType = selectValue;
+        },
+
+        //雇员入职时间改变
+        changeInDate (selectDate) {
+            if (selectDate) {
+                this.empCompanyInfo.laborStartDate = selectDate;
+                this.empCompanyInfo.tryStartDate = selectDate;
+                let checkStartDate = this.$dateUtils.checkNextMonth(new Date(selectDate), 'start')
+                this.empAgreementInfo.startDate = checkStartDate
+                this.getSocialItemData(0, this.empAgreementInfo.socialRuleId, this.empAgreementInfo.fundSocialRuleId)
+            }
+        },
+
+        async getSocialItemData (type, socialRuleId, fundSocialRuleId) {
+            let paramJSON = {
+                type: type,
+                socialRuleId: socialRuleId,
+                fundRuleId: fundSocialRuleId,
+                empSocial: this.buildSocialParamData(type)
+            }
+            let matchSocialData = await this.$refs.empProductComponent.getSocialItemData(paramJSON)
+            let self = this
+            let tempSocialData = []
+            self.totalSocialData.forEach(function (item) {
+                if (type === 1 && item.policyType === 2) {
+                    tempSocialData.push(item)
+                } else if (type === 2 && item.policyType === 1) {
+                    tempSocialData.push(item)
+                }
+            })
+
+            if (matchSocialData) {
+                let startDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start')
+                self.allEqualsBase = matchSocialData.combined
+                matchSocialData.list.forEach(function (item) {
+                    item['empCompanyBase'] = item.empCompanyBase
+                    item['companyBase'] = item.companyBase
+                    item['personalBase'] = item.personalBase
+                    item['startDate'] = startDate
+                })
+                self.totalSocialData = []
+                self.totalSocialData = matchSocialData.list.concat(tempSocialData)
+            } else {
+                self.totalSocialData = Object.assign(tempSocialData, [])
+            }
+            self.totalSocialData = productApi.sortSocialData(self.totalSocialData)
+        },
+
+
+        //雇员薪资变更
+        salaryChange () {
+            const regex = /^(([1-9]\d*)|0)(\.\d{1,2})?$/i;
+            if (this.empCompanyInfo.salary && this.empCompanyInfo.salary.match(regex)) {
+                //this.$refs.addProductModalRef.setDefaultAmount_salary(this.empCompanyInfo.salary)
+            }
+        },
+
+        isEndDateChange(val){
+            // 否
+            if(val){
+                this.laborEndDateDisabled = true
+                this.empCompanyInfo.laborEndDate = '2099-12-31T00:00:00.000+0800'
+            }else{
+                this.laborEndDateDisabled = false
+                this.empCompanyInfo.laborEndDate = ''
+            }
+        },
+
+        closePeRulesModal() {
+            this.peRulesModal = false
+        },
+
+        dropDown() {
+            if (this.drop) {
+                this.dropDownContent = "展开";
+                this.dropDownIcon = "ios-arrow-down";
+            } else {
+                this.dropDownContent = "收起";
+                this.dropDownIcon = "ios-arrow-up";
+            }
+            this.drop = !this.drop;
+        },
+    },
+
+      watch: {
+          'empCompanyInfo.isNeedBankCard': function (val) {
+              if (val === '0') {
+                  this.isBank = true
+                  this.isSelectBank = true
+                  this.empCompanyInfo.bankCode = ''
+              } else if (val === '1') {
+                  this.isBank = false
+                  this.isSelectBank = false
+              }
+          },
+          'empCompanyInfo.bankCode': function (val) {
+              if (val === '1' || val === '3') {
+                  this.isBank = false
+              } else if (val != '') {
+                  this.isBank = true
+              }
+          },
+          'empInfo.birthday': function (value) {
+              let aDate = new Date()
+              let thisYear = aDate.getFullYear()
+              let bDate = new Date(value)
+              let brith = bDate.getFullYear()
+              let age = (thisYear - brith)
+              this.$refs.addProductModalRef.setDefaultAmount_age(age)
+          },
+          'empInfo.idCardType': function (val) {
+              // '1': '身份证', '2': '护照', '3': '军(警)官证', '4': '士兵证', '5': '台胞证', '6': '回乡证', '7': '其他'
+              // 证件类型为 身份证/军(警)官证/士兵证 时国籍只能为中国
+              if (val === '1' || val === '3' || val === '4') {
+                  this.isCountryCode = true
+                  this.empInfo.countryCode = 'CN'
+              } else if (val === '5') {
+                  this.isCountryCode = true
+                  this.empInfo.countryCode = 'TW'
+              } else if (val === '6') {
+                  this.isCountryCode = false
+                  this.empInfo.countryCode = ''
+
+                  for (let key in this.country) {
+                      this.country[key].disabled = true
+                  }
+                  this.country['HK'].disabled = false
+                  this.country['MO'].disabled = false
+              } else {
+                  this.isCountryCode = false
+                  this.empInfo.countryCode = ''
+
+                  for (let key in this.country) {
+                      this.country[key].disabled = false
+                  }
+                  // this.country['CN'].disabled = true
+                  // this.country['HK'].disabled = true
+                  // this.country['MO'].disabled = true
+                  // this.country['TW'].disabled = true
+              }
+          }
       },
-
-    dropDown() {
-        if (this.drop) {
-            this.dropDownContent = "展开";
-            this.dropDownIcon = "ios-arrow-down";
-        } else {
-            this.dropDownContent = "收起";
-            this.dropDownIcon = "ios-arrow-up";
-        }
-        this.drop = !this.drop;
-    },
-    },
-    watch: {
-
-    },
     created () {
 
     },

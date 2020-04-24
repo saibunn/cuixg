@@ -88,7 +88,7 @@ export const otherRouter = {
 export const employeeRouter = {
     path: '/',
     name: 'employeeRouter',
-    redirect: '/pgyhr-task',
+    redirect: '/home',
     component: Main,
     children: [
         { path: 'add-employee-info', title: '新增雇员', name: 'add_employee_info', component: () => import('@/views/pgyhr-task/task-components/add-employee-info.vue') },

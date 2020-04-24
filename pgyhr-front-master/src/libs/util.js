@@ -381,6 +381,7 @@ util.setCurrentPath = function (vm, name) {
                 return false;
             }
         })[0];
+        console.log("currentPathObj======result============"+currentPathObj.title);
         if (currentPathObj.children.length <= 1 && currentPathObj.name == 'home') {
             currentPathArr = [
                 {
