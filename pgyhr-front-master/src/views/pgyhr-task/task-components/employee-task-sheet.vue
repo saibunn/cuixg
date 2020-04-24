@@ -260,18 +260,6 @@
       </div>
     </Modal>
 
-    <Modal title="系统提示" v-model="peRulesModal" :closable="false" width="416">
-      <p slot="header" style="color:#f60;text-align:center">
-        <Icon type="information-circled"></Icon>
-        <span>系统警告</span>
-      </p>
-      <div>
-        <p style="color: red">由于该客户选择了体检产品，而尚未配置体检发放规则，故无法雇员新增，请预先配置雇员体检规则!</p>
-      </div>
-      <div slot="footer">
-        <Button @click="closePeRulesModal">关闭</Button>
-      </div>
-    </Modal>
   </div>
 </template>
 
@@ -663,7 +651,6 @@
         laborContractId: '',
         empLaborContract: [],
         dispatchingTermFlag: true,
-        peRulesModal: false,
         peRulesFlag: true
       }
     },
@@ -767,10 +754,6 @@
                 this.laborEndDateDisabled = false
                 this.empCompanyInfo.laborEndDate = ''
             }
-        },
-
-        closePeRulesModal() {
-            this.peRulesModal = false
         },
 
         dropDown() {
