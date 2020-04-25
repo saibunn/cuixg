@@ -1,9 +1,5 @@
 <template>
   <div id="empProductGroupList" class="smList demo-spin-article">
-    <Tabs :value="groupSelectValue" v-if="configs.showContent === 'both' && configs.edit != 'edit' "
-          @on-click="tabsClick">
-      <TabPane v-for="(value, key) in groupBySocial" :label="value.groupName" :name="returnTabName(key)"></TabPane>
-    </Tabs>
     <emp-social-fund-amount-total v-if="configs.showContent === 'both' && configs.edit != 'edit'"
                                   ref="empSocialFundAmountTotal"
                                   v-bind:amountTotal="socialFundAmountTotal"></emp-social-fund-amount-total>
@@ -24,56 +20,8 @@
           ></emp-social-list>
         </Card>
       </TabPane>
-
-      <TabPane v-if="configs.showContent === 'both' || configs.showContent === 'social'" label="社保公积金" name="name0">
-        <Card>
-          <Table border stripe :row-class-name="rowClassName" :columns="socialInfoColumns" :data="importSocialData"
-                 ref="social" v-if="isShowImportSocialData"></Table>
-        </Card>
-      </TabPane>
     </Tabs>
 
-    <Modal v-model="updateDateModal" width="500" @on-cancel="updateDateModalClose">
-      <p slot="header" align="center">
-        <span>修改时间</span>
-      </p>
-      <Card dis-hover>
-        <Form ref="updateDateForm" :model="updateDateForm" :label-width="150" :rules="updateDateFormRule">
-          <Row class="mt20" justify="start">
-            <Col :sm="{span: 24}">
-            <Form-item label="产品开始日期：" prop="productFrom">
-              <DatePicker v-model="updateDateForm.productFrom" type="date" @on-change="productFromChange"
-                          :options="productStartOptions" placement="bottom" placeholder="选择日期"
-                          style="width: 100%;"></DatePicker>
-            </Form-item>
-            </Col>
-            <Col :sm="{span: 24}">
-            <Form-item label="收费开始月：" prop="startDate">
-              <DatePicker v-model="updateDateForm.startDate" format="yyyy-MM" type="month" placement="bottom"
-                          placeholder="选择日期" style="width: 100%;"></DatePicker>
-            </Form-item>
-            </Col>
-            <Col :sm="{span: 24}">
-            <Form-item label="产品结束日期：" prop="productTo">
-              <DatePicker v-model="updateDateForm.productTo" type="date" @on-change="productToChange"
-                          :disabled="isEndDateDisabled" placement="bottom" placeholder="选择日期"
-                          style="width: 100%;"></DatePicker>
-            </Form-item>
-            </Col>
-            <Col :sm="{span: 24}">
-            <Form-item label="收费结束月：" prop="endDate">
-              <DatePicker v-model="updateDateForm.endDate" format="yyyy-MM" type="month" :disabled="isEndDateDisabled"
-                          placement="bottom" placeholder="选择日期" style="width: 100%;"></DatePicker>
-            </Form-item>
-            </Col>
-          </Row>
-        </Form>
-      </Card>
-      <div slot="footer">
-        <Button type="warning" size="large" @click="updateDateModalClose">取消</Button>
-        <Button type="success" size="large" @click="updateDateOk">确定</Button>
-      </div>
-    </Modal>
     <Spin size="large" fix v-if="spinShow"></Spin>
   </div>
 </template>
@@ -115,7 +63,6 @@
         isShowImportSocialData: false,
         spinShow: false,
         groupBySocial: [],
-        updateDateModal: false,
         groupSelectValue: '',
         updateDateForm: {
           updateProductData: Object,
@@ -152,386 +99,6 @@
           healthManagementData: [],
           elasticWelfareData: []
         },
-        // 社保信息表格列
-        socialInfoColumns: [
-          {
-            title: '名称',
-            key: 'policyName',
-            minWidth: 100,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                let isRed = this.rowClassName(params.row)
-                isRed = `cellChapter ${isRed}`
-                return h('div', {
-                    class: 'policyBox'
-                  },
-                  [
-                    h('div', {
-                      class: 'policyName',
-                      style: {
-                        width: '35%'
-                      }
-                    }, params.row.policyName),
-
-                    h('div', {
-                      class: 'policyName',
-                      style: {
-                        width: '35%'
-                      }
-                    }, this.baseDic.city[params.row.cityCode].cityName),
-                    h('div', {
-                      class: 'policyName',
-                      style: {
-                        width: '30%'
-                      }
-                    }, [
-                      h('p', {class: 'cellChapter'}, '申请'),
-                      h('p', {class: isRed}, '执行')
-                    ])
-                  ]
-                )
-              } else {
-                return h('div', [
-                  h('span', params.row.policyName)
-                ])
-              }
-            }
-          },
-//          {
-//            title: '',
-//            key: '',
-//            minWidth: 50,
-//            maxWidth: 100,
-//            align: 'center',
-//            render: (h, params) => {
-//              return h('div', {
-//                class: 'policyName'
-//              }, [
-//                h('p', '申请'),
-//                h('p', {style: {color: 'blue'}}, '执行')
-//              ])
-//            }
-//          },
-//          {
-//            title: '雇员基数',
-//            key: 'empCompanyBase',
-//            minWidth: 95,
-//            align: 'center',
-//            render: (h, params) => {
-//              return h('div',
-//                [
-//                  h('p', params.row.empCompanyBase)
-//                ]
-//              )
-//            }
-//          },
-          {
-            title: '企业基数',
-            key: 'companyBase',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.companyBase),
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.companyConfirmAmount !== null ? params.row.companyConfirmBase : '')
-                  ]
-                )
-              } else {
-                return h('div', [
-                  h('span', params.row.companyBase)
-                ])
-              }
-            }
-          },
-          {
-            title: '企业比例',
-            key: 'companyRatio',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('span', this.$math.multiply(params.row.companyRatio, 100) + '%')
-              ])
-            }
-          },
-          {
-            title: '企业金额',
-            key: 'companyAmount',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.companyAmount),
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.companyConfirmAmount)
-                  ]
-                )
-              } else {
-                return h('div', [
-                  h('span', params.row.companyAmount)
-                ])
-              }
-            }
-          },
-          {
-            title: '个人基数',
-            key: 'personalBase',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.personalBase),
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.personalConfirmAmount !== null ? params.row.personalConfirmBase : '')
-                  ]
-                )
-              } else {
-                return h('div', [
-                  h('span', params.row.personalBase)
-                ])
-              }
-            }
-          },
-          {
-            title: '个人比例',
-            key: 'personalRatio',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('span', this.$math.multiply(params.row.personalRatio, 100) + '%')
-              ])
-            }
-          },
-          {
-            title: '个人金额',
-            key: 'personalAmount',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.personalAmount),
-                    h('div', {
-                      class: 'cellContent'
-                    }, params.row.personalConfirmAmount)
-                  ]
-                )
-              } else {
-                return h('div', [
-                  h('span', params.row.personalAmount)
-                ])
-              }
-            }
-          },
-          {
-            title: '开始月',
-            key: 'startDate',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, productApi.newSetDateFormatMonth(params.row.startDate)),
-                    h('div', {
-                      class: 'cellContent'
-                    }, productApi.newSetDateFormatMonth(params.row.startConfirmDate))
-                  ]
-                )
-              } else {
-                return productApi.setDateFormatMonth(h, params.row.startDate)
-              }
-            }
-          },
-          {
-            title: '结束月',
-            key: 'endDate',
-            minWidth: 60,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              if (this.configs.isDetail && this.configs.isDetail) {
-                return h('div',
-                  [
-                    h('div', {
-                      class: 'cellContent'
-                    }, productApi.newSetDateFormatMonth(params.row.endDate)),
-                    h('div', {
-                      class: 'cellContent'
-                    }, productApi.newSetDateFormatMonth(params.row.endConfirmDate))
-                  ]
-                )
-              } else {
-                return productApi.setDateFormatMonth(h, params.row.endDate)
-              }
-            }
-          },
-          {
-            title: '企业收费',
-            key: 'companyPayWay',
-            minWidth: 40,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('span', this.baseDic.payWay[params.row.companyPayWay])
-              ])
-            }
-          },
-          {
-            title: '个人收费',
-            key: 'personalPayWay',
-            minWidth: 40,
-            maxWidth: 160,
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('span', this.baseDic.payWay[params.row.personalPayWay])
-              ])
-            }
-          },
-          {
-            title: '合计',
-            minWidth: 60,
-            align: 'center',
-            render: (h, params) => {
-              const total = h('div', {class: 'cellContent'}, params.row.total)
-              const ssTotal = h('div', {class: 'cellContent'}, params.row.ssTotal)
-              const companyAmount = h('div', {class: 'cellContent'}, params.row.companyAmount)
-              const personalAmount = h('div', {class: 'cellContent'}, params.row.personalAmount)
-              const empty = h('div', {class: 'cellContent'}, '')
-              const zero = h('div', {class: 'cellContent'}, '0')
-              const isNull = params.row.personalConfirmAmount === null && params.row.companyConfirmAmount === null
-              if (this.configs.isDetail) {
-                  if (this.empAgreementInfo.isAvailable == '2') {
-                    /*
-                     1. 企业收费方式 && 个人收费方式 均为 "管理费"
-                     a. 如果有回写值
-                     1) 申请 = 接口获取值
-                     2) 执行 = 对象total字段
-                     b. 如没有回写值
-                     1) 申请 = 对象total字段
-                     2) 执行 = 空
-                     */
-                    if (params.row.companyPayWay === '1' && params.row.personalPayWay === '1') {
-                      if (isNull) {
-                        return h('div', [total, empty])
-                      } else {
-                        return h('div', [ssTotal, total])
-                      }
-                    } else if (params.row.companyPayWay !== '1' && params.row.personalPayWay === '1') {
-                      /*
-                       2. 个人收费方式 为 "管理费"
-                       a. 如果有回写值
-                       1) 申请 = 接口获取值
-                       2) 执行 = 对象personalConfirmAmount字段
-                       b. 如没有回写值
-                       1) 申请 = 对象personalAmount字段
-                       2) 执行 = 空
-                       */
-                      if (isNull) {
-                        return h('div', [personalAmount, empty])
-                      } else {
-                        return h('div', [ssTotal, params.row.personalConfirmAmount])
-                      }
-                    } else if (params.row.companyPayWay === '1' && params.row.personalPayWay !== '1') {
-                      /*
-                       3. 企业收费方式 为 "管理费"
-                       a. 如果有回写值
-                       1) 申请 = 接口获取值
-                       2) 执行 = 对象companyConfirmAmount字段
-                       b. 如没有回写值
-                       1) 申请 = 对象companyAmount字段
-                       2) 执行 = 空
-                       */
-                      if (isNull) {
-                        return h('div', [companyAmount, empty])
-                      } else {
-                        return h('div', [ssTotal, params.row.companyConfirmAmount])
-                      }
-                    } else {
-                      /*
-                       4. 均不为管理
-                       a. 如果有回写值
-                       1) 申请 = 0
-                       2) 执行 = 0
-                       b. 如没有回写值
-                       1) 申请 = 0
-                       2) 执行 = 空
-                       */
-                      if (isNull) {
-                        return h('div', [zero, empty])
-                      } else {
-                        return h('div', [zero, zero])
-                      }
-                    }
-//                if (params.row.companyPayWay === '1' && params.row.personalPayWay === '1') { // “企业收费”、“个人收费”都是“管理费”
-//                  return h('div', isNull ? [ssTotal, total] : [total, empty])
-//                } else if (params.row.companyPayWay !== '1' && params.row.personalPayWay === '1') { // “个人收费”是“管理费”
-//                  return h('div', isNull ? [personalAmount, empty] : [personalAmount, ssTotal])
-//                } else if (params.row.companyPayWay === '1' && params.row.personalPayWay !== '1') { // “企业收费”是“管理费”
-//                  return h('div', isNull ? [companyAmount, empty] : [companyAmount, ssTotal])
-//                } else { // 都不是“管理费”
-//                  return h('div', isNull ? [zero, empty] : [zero, ssTotal])
-//                }
-                  } else {
-                    return h('div', [zero, zero])
-                  }
-              } else {
-                return total
-              }
-            }
-          }
-//          {
-//            title: '实缴开始月',
-//            key: 'startConfirmDate',
-//            minWidth: 100,
-//            align: 'center',
-//            render: (h, params) => {
-//              return productApi.setDateFormatMonth(h, params.row.startConfirmDate)
-//            }
-//          },
-//          {
-//            title: '实际停止月',
-//            key: 'endConfirmDate',
-//            minWidth: 100,
-//            align: 'center',
-//            render: (h, params) => {
-//              return productApi.setDateFormatMonth(h, params.row.endConfirmDate)
-//            }
-//          },
-        ],
         batchUpdateDayModal: false,
         batchUpdateMonthModal: false
       }
@@ -691,7 +258,6 @@
             },
             on: {
               click: () => {
-                this.updateDateModal = true
                 this.updateDateForm.updateProductData = dataObject[params.index]
 
                 if (dataObject[params.index].productFrom) {
@@ -817,10 +383,6 @@
         }
         return h('div', btnArr)
       },
-      updateDateModalClose() {
-        this.$refs['updateDateForm'].resetFields()
-        this.updateDateModal = false
-      },
       updateDateOk() {
         let self = this
         this.$refs['updateDateForm'].validate((valid) => {
@@ -829,7 +391,6 @@
             self.updateDateForm.updateProductData.productTo = this.updateDateForm.productTo
             self.updateDateForm.updateProductData.startDate = this.$dateUtils.getFirstDay(this.updateDateForm.startDate)
             self.updateDateForm.updateProductData.endDate = this.$dateUtils.getLastDay(this.updateDateForm.endDate)
-            self.updateDateModal = false
 
             // 存在首月金额时, 弹出确认对话框
             if (self.updateDateForm.updateProductData.isExistFirstAmount) {

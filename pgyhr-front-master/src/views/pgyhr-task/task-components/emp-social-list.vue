@@ -88,6 +88,7 @@
           },
           {
             title: '雇员基数',
+            title: '雇员基数',
             key: 'empCompanyBase',
             minWidth: 55,
             align: 'center',

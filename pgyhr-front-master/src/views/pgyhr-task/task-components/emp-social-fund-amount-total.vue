@@ -13,36 +13,36 @@
                {{fundTotal}}
             </FormItem>
           </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="人事外包合计:" class="formItemMB">
-              {{productTotal}}
-            </FormItem>
-          </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="健康管理合计:" class="formItemMB">
-              {{healthTotal}}
-            </FormItem>
-          </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="弹性福利合计:" class="formItemMB">
-              {{welfareTotal}}
-            </FormItem>
-          </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="套餐合计:" class="formItemMB">
-              {{packageTotal}}
-            </FormItem>
-          </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="增值税: " class="formItemMB">
-              {{productTaxRate}}
-            </FormItem>
-          </Col>
-          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
-            <FormItem label="附加费:" class="formItemMB">
-              {{productExtraRate}}
-            </FormItem>
-          </Col>
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="人事外包合计:" class="formItemMB">-->
+<!--              {{productTotal}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="健康管理合计:" class="formItemMB">-->
+<!--              {{healthTotal}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="弹性福利合计:" class="formItemMB">-->
+<!--              {{welfareTotal}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="套餐合计:" class="formItemMB">-->
+<!--              {{packageTotal}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="增值税: " class="formItemMB">-->
+<!--              {{productTaxRate}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
+<!--          <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">-->
+<!--            <FormItem label="附加费:" class="formItemMB">-->
+<!--              {{productExtraRate}}-->
+<!--            </FormItem>-->
+<!--          </Col>-->
           <Col :sm="{span: 20}" :md="{span: 12}" :lg="{span: 4}">
             <FormItem label="合计:" class="formItemMB">
               {{allTotal}}

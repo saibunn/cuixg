@@ -58,13 +58,17 @@
                     </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                    <Form-item label="社保办理方：">
-                        {{ this.baseDic.unitMap[empCompanyInfo.socialUnit] }}
+                    <Form-item label="社保办理方：" prop="socialUnit">
+                        <Select v-model="empCompanyInfo.socialUnit" filterable>
+                            <Option v-for="(value, key) in this.baseDic.unitMap" :value="key" :key="key">{{value}}</Option>
+                        </Select>
                     </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                    <Form-item label="公积金办理方：">
-                        {{ this.baseDic.unitMap[empCompanyInfo.fundUnit] }}
+                    <Form-item label="公积金办理方：" prop="fundUnit">
+                        <Select v-model="empCompanyInfo.fundUnit" filterable>
+                            <Option v-for="(value, key) in this.baseDic.unitMap" :value="key" :key="key">{{value}}</Option>
+                        </Select>
                     </Form-item>
                 </Col>
 
@@ -268,6 +272,8 @@
   import {mapState, mapGetters, mapActions} from 'vuex';
   import Checkbox from '../../../../node_modules/iview/src/components/checkbox/checkbox.vue'
   import empProductGroupList from './emp-product-group-list'
+  import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_task_sheet_types";
+  import socialPolicyTypes from "../../../store/event-types/pgyhr-task/social_policy_types";
 
   export default {
     components: {
@@ -312,18 +318,6 @@
           operationType: 2,
           companyId: '',
           readonly: false
-        },
-        selectProductConfigs: {
-          productHideColums: ['fristAmount', 'lastAmount'],
-          showContent: 'product',
-          readonly: false
-        },
-        priviewConfigs: {
-          socialHideColums: ['startConfirmDate', 'endConfirmDate'],
-          productHideColums: ['fristAmount', 'lastAmount', 'action_'],
-          showContent: 'both',
-          readonly: false,
-          queryDetailParams: {}
         },
         sheetModal: false,
         sheetSelection: Object,
@@ -664,8 +658,20 @@
             countryData: state => state.countryData
         }),
 
+        ...mapState('socialPolicyModule', {
+            socialPolicyList: state => state.socialPolicyList
+        }),
+
     },
     methods: {
+        ...mapActions('socialPolicyModule', {
+            getSocialPolicyByCity: socialPolicyTypes.SEARCH_SOCIAL_POLICY_BY_PARAM
+        }),
+
+        initData(){
+            this.getSocialPolicyByCity("320400");
+        },
+
         errModalClick () {
         },
 
@@ -695,45 +701,82 @@
             if (selectDate) {
                 this.empCompanyInfo.laborStartDate = selectDate;
                 this.empCompanyInfo.tryStartDate = selectDate;
-                let checkStartDate = this.$dateUtils.checkNextMonth(new Date(selectDate), 'start')
+                let checkStartDate = this.$dateUtils.checkNextMonth(new Date(selectDate), 'start');
                 this.empAgreementInfo.startDate = checkStartDate
                 this.getSocialItemData(0, this.empAgreementInfo.socialRuleId, this.empAgreementInfo.fundSocialRuleId)
             }
         },
 
         async getSocialItemData (type, socialRuleId, fundSocialRuleId) {
+            console.log("getSocialItemData type====="+type,socialRuleId+fundSocialRuleId);
             let paramJSON = {
                 type: type,
                 socialRuleId: socialRuleId,
                 fundRuleId: fundSocialRuleId,
                 empSocial: this.buildSocialParamData(type)
             }
-            let matchSocialData = await this.$refs.empProductComponent.getSocialItemData(paramJSON)
+            console.log("getSocialItemData type====="+JSON.stringify(paramJSON));
+            let matchSocialData = this.socialPolicyList;
             let self = this
-            let tempSocialData = []
-            self.totalSocialData.forEach(function (item) {
-                if (type === 1 && item.policyType === 2) {
-                    tempSocialData.push(item)
-                } else if (type === 2 && item.policyType === 1) {
-                    tempSocialData.push(item)
-                }
-            })
-
+            let tempSocialData = [];
+            //社保模板选择时
+            // self.totalSocialData.forEach(function (item) {
+            //     if (type === 1 && item.policyType === 2) {
+            //         tempSocialData.push(item)
+            //     } else if (type === 2 && item.policyType === 1) {
+            //         tempSocialData.push(item)
+            //     }
+            // })
+            console.log("matchSocialData====="+JSON.stringify(matchSocialData));
             if (matchSocialData) {
-                let startDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start')
-                self.allEqualsBase = matchSocialData.combined
-                matchSocialData.list.forEach(function (item) {
-                    item['empCompanyBase'] = item.empCompanyBase
-                    item['companyBase'] = item.companyBase
-                    item['personalBase'] = item.personalBase
-                    item['startDate'] = startDate
+                let startDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start');
+                self.allEqualsBase = matchSocialData.combined;
+                matchSocialData.forEach(function (item) {
+                    item['empCompanyBase'] = item.empCompanyBase;
+                    item['companyBase'] = item.companyBase;
+                    item['personalBase'] = item.personalBase;
+                    item['startDate'] = startDate;
                 })
-                self.totalSocialData = []
+                self.totalSocialData = [];
                 self.totalSocialData = matchSocialData.list.concat(tempSocialData)
             } else {
                 self.totalSocialData = Object.assign(tempSocialData, [])
             }
             self.totalSocialData = productApi.sortSocialData(self.totalSocialData)
+        },
+
+        buildSocialParamData() {
+            let enpBaseValue = this.empCompanyInfo.salary
+            let checkStartDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start')
+            if (this.$commons.isEmpty(this.empCompanyInfo.salary)) {
+                enpBaseValue = 0
+            }
+            let returnData = []
+
+            let itemCodes1 = ['DIT00042', 'DIT00043', 'DIT00044', 'DIT00045', 'DIT00046']
+            itemCodes1.forEach(item => {
+                returnData.push({
+                    itemCode: item,
+                    empCompanyBase: enpBaseValue,
+                    companyBase: enpBaseValue,
+                    personalBase: enpBaseValue,
+                    startDate: checkStartDate,
+                    policyType: 1
+                })
+            })
+
+            let itemCodes2 = ['DIT00057', 'DIT00058']
+            itemCodes2.forEach(item => {
+                returnData.push({
+                    itemCode: item,
+                    empCompanyBase: enpBaseValue,
+                    companyBase: enpBaseValue,
+                    personalBase: enpBaseValue,
+                    startDate: checkStartDate,
+                    policyType: 2
+                })
+            })
+            return returnData
         },
 
 
@@ -827,7 +870,7 @@
           }
       },
     created () {
-
+        this.initData();
     },
     mounted () {
 
