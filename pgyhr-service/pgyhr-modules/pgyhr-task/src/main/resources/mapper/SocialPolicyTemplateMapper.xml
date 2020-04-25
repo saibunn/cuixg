@@ -135,7 +135,7 @@
         spti.round_type,
         spti.remark,
         spti.is_active,
-        spti.version,
+        spti.version
         FROM dict_social_policy_template_item spti
         WHERE 1=1
         AND spti.social_policy_code =  #{social_policy_code}
