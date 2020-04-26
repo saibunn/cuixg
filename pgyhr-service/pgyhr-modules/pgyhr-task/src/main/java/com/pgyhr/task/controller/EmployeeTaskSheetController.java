@@ -4,8 +4,11 @@ import com.pgyhr.core.common.utils.CommonTransform;
 import com.pgyhr.core.common.utils.ResultUtil;
 import com.pgyhr.core.common.vo.Result;
 import com.pgyhr.task.entity.dto.EmployeeInfoRequsetDTO;
+import com.pgyhr.task.entity.dto.SocialPolicyTemplateDTO;
+import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO;
 import com.pgyhr.task.entity.po.EmployeeInfoPO;
 import com.pgyhr.task.service.EmployeeInfoService;
+import com.pgyhr.task.service.SocialPolicyTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -33,6 +37,9 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
     @Autowired
     private EmployeeInfoService employeeInfoService;
 
+    @Autowired
+    private SocialPolicyTemplateService socialPolicyTemplateService;
+
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
     @ApiOperation(value = "根据雇员ID取雇员信息")
     public Result<EmployeeInfoPO> getEmployeeInfoById(EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
@@ -49,5 +56,12 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
         }else{
             return new ResultUtil<E>().setErrorMsg("新增雇员失败！");
         }
+    }
+
+
+    @ApiOperation(value = "根据条件取社保政策")
+    @RequestMapping(value = "/getEmpFrontTaskSheetSocialFeeSegmentByParam",method = RequestMethod.GET)
+    public Result<List<SocialPolicyTemplateResponeDTO>> getEmpFrontTaskSheetSocialFeeSegmentByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO){
+        return null;
     }
 }

@@ -17,5 +17,7 @@ import java.util.List;
  */
 public interface SocialPolicyTemplateService extends IService<SocialPolicyTemplatePO> {
 
-    List<SocialPolicyTemplateResponeDTO> getSocialPolicyByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
+    List<SocialPolicyTemplatePO> getSocialPolicyByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
+
+    List<SocialPolicyTemplateResponeDTO> getSocialPolicyItemByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.task.dao.mapper.EmpFrontTaskSheetSocialFeeSegmentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO">
+        <id column="emp_front_task_sheet_social_fee_segment_id" property="empFrontTaskSheetSocialFeeSegmentId" />
+        <result column="emp_front_task_sheet_id" property="empFrontTaskSheetId" />
+        <result column="employee_id" property="employeeId" />
+        <result column="employee_name" property="employeeName" />
+        <result column="emp_agreement_id" property="empAgreementId" />
+        <result column="policy_id" property="policyId" />
+        <result column="policy_type" property="policyType" />
+        <result column="item_code" property="itemCode" />
+        <result column="item_name" property="itemName" />
+        <result column="city_code" property="cityCode" />
+        <result column="city_name" property="cityName" />
+        <result column="social_name" property="socialName" />
+        <result column="social_status" property="socialStatus" />
+        <result column="social_status_date" property="socialStatusDate" />
+        <result column="apply_date" property="applyDate" />
+        <result column="handle_date" property="handleDate" />
+        <result column="execute_date" property="executeDate" />
+        <result column="start_date" property="startDate" />
+        <result column="end_date" property="endDate" />
+        <result column="start_confirm_date" property="startConfirmDate" />
+        <result column="end_confirm_date" property="endConfirmDate" />
+        <result column="company_pay_method" property="companyPayMethod" />
+        <result column="employee_pay_method" property="employeePayMethod" />
+        <result column="company_base" property="companyBase" />
+        <result column="company_confirm_base" property="companyConfirmBase" />
+        <result column="company_ratio" property="companyRatio" />
+        <result column="company_amount" property="companyAmount" />
+        <result column="company_fix_amount" property="companyFixAmount" />
+        <result column="personal_base" property="personalBase" />
+        <result column="personal_confirm_base" property="personalConfirmBase" />
+        <result column="personal_ratio" property="personalRatio" />
+        <result column="personal_amount" property="personalAmount" />
+        <result column="personal_fix_amount" property="personalFixAmount" />
+        <result column="total_amount" property="totalAmount" />
+        <result column="remark" property="remark" />
+        <result column="is_active" property="isActive" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>

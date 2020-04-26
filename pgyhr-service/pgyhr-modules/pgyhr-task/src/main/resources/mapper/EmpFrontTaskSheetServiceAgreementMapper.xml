@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.task.dao.mapper.EmpFrontTaskSheetServiceAgreementMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO">
+        <id column="emp_front_task_sheet_service_agreement_id" property="empFrontTaskSheetServiceAgreementId" />
+        <result column="emp_front_task_sheet_service_agreement_name" property="empFrontTaskSheetServiceAgreementName" />
+        <result column="emp_front_task_sheet_id" property="empFrontTaskSheetId" />
+        <result column="customer_company_info_id" property="customerCompanyInfoId" />
+        <result column="company_id" property="companyId" />
+        <result column="company_name" property="companyName" />
+        <result column="city_code" property="cityCode" />
+        <result column="city_name" property="cityName" />
+        <result column="social_type" property="socialType" />
+        <result column="fund_type" property="fundType" />
+        <result column="company_service_type" property="companyServiceType" />
+        <result column="contract_labour_sign_type" property="contractLabourSignType" />
+        <result column="handle_work_type" property="handleWorkType" />
+        <result column="file_keeping_type" property="fileKeepingType" />
+        <result column="remark" property="remark" />
+        <result column="is_active" property="isActive" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>
