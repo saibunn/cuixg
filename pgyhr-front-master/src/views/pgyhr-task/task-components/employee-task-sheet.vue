@@ -25,38 +25,34 @@
 
                     </Form-item>
                 </Col>
-<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
-<!--                    <Form-item label="社保规则模板：" class="mb5" prop="socialRuleId">-->
-<!--                        <Select v-model="empAgreementInfo.socialRuleId" filterable @on-change="socialRuleSelected">-->
-<!--                            <OptionGroup v-for="groupItem in socialRuleTemplateGroup" :label="groupItem.cityName" :key="groupItem.cityCode">-->
-<!--                                <Option v-for="item in groupItem.dataList"-->
-<!--                                        :value="item.id"-->
-<!--                                        :key="item.id">{{ item.name }}</Option>-->
-<!--                            </OptionGroup>-->
-<!--                        </Select>-->
-<!--                    </Form-item>-->
-<!--                </Col>-->
-<!--                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">-->
-<!--                    <Form-item label="公积金规则模板：" class="mb5" prop="fundSocialRuleId">-->
-<!--                        <Select v-model="empAgreementInfo.fundSocialRuleId" filterable @on-change="fundRuleSelected">-->
-<!--                            <OptionGroup v-for="groupItem in fundRuleTemplateGroup" :label="groupItem.cityName" :key="groupItem.cityCode">-->
-<!--                                <Option v-for="item in groupItem.dataList"-->
-<!--                                        :value="item.id"-->
-<!--                                        :key="item.id">{{ item.name }}</Option>-->
-<!--                            </OptionGroup>-->
-<!--                        </Select>-->
-<!--                    </Form-item>-->
-<!--                </Col>-->
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                    <Form-item label="社保缴纳地：">
+                    <Form-item label="社保缴纳地：" @on-change="socialCityChange">
                         <span> {{ socialCityName }}</span>
                     </Form-item>
                 </Col>
+
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="公积金缴纳地：">
                         <span> {{ fundCityName }}</span>
                     </Form-item>
                 </Col>
+
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="社保规则：" class="mb5" prop="socialRuleId">
+                        <Select v-model="empAgreementInfo.socialRuleId"   filterable style="width:260px">
+                            <Option v-for="item in socialPolicyList" :value="item.socialPolicyCode" :key="item.socialPolicyCode">{{ item.socialPolicyName }}</Option>
+                        </Select>
+
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="公积金规则：" class="mb5" prop="fundSocialRuleId">
+                        <Select v-model="empAgreementInfo.fundSocialRuleId"   filterable style="width:260px">
+                            <Option v-for="item in fundPolicyList" :value="item.socialPolicyCode" :key="item.socialPolicyCode">{{ item.socialPolicyName }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="社保办理方：" prop="socialUnit">
                         <Select v-model="empCompanyInfo.socialUnit" filterable>
@@ -273,6 +269,7 @@
   import Checkbox from '../../../../node_modules/iview/src/components/checkbox/checkbox.vue'
   import empProductGroupList from './emp-product-group-list'
   import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_task_sheet_types";
+  import empFrontTaskSheetSocialFeeSegmentTypes from "../../../store/event-types/pgyhr-task/emp_front_task_sheet_social_fee_segment_types";
   import socialPolicyTypes from "../../../store/event-types/pgyhr-task/social_policy_types";
 
   export default {
@@ -659,17 +656,26 @@
         }),
 
         ...mapState('socialPolicyModule', {
-            socialPolicyList: state => state.socialPolicyList
+            socialPolicyList: state => state.socialPolicyList,
+            fundPolicyList:state => state.fundPolicyList,
         }),
 
     },
     methods: {
+        ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
+            getEmpFrontTaskSheetSocialFeeSegmentByCity: empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT
+        }),
+
         ...mapActions('socialPolicyModule', {
             getSocialPolicyByCity: socialPolicyTypes.SEARCH_SOCIAL_POLICY_BY_PARAM
         }),
 
         initData(){
             this.getSocialPolicyByCity("320400");
+        },
+
+        async socialCityChange(){
+
         },
 
         errModalClick () {

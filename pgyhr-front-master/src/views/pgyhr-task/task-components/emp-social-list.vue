@@ -520,7 +520,7 @@
     methods: {
       setHideColumns: function () {
         if (this.configs !== undefined && this.configs.hideColums !== undefined) {
-          let self = this
+          let self = this;
           this.configs.hideColums.forEach(function (hideItem) {
             self.socialInfoColumns.forEach(function (columnItem, index) {
               if (columnItem.key === hideItem) {

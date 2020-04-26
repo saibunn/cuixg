@@ -8,7 +8,12 @@ const getEmployeeTaskSheetListPage = params => getRequest('/employee/taskSheet/e
 // 保存雇员基本信息
 const saveEmployeeInfo = params => postCollectionRequest('/employee/saveEmployeeInfo', params);
 
+// 根据条件获取社保字典
+const getEmpFrontTaskSheetSocialFeeSegmentByParam = params => getRequest('/employee/getEmpFrontTaskSheetSocialFeeSegmentByParam', params);
+
 export default {
   getEmployeeTaskSheetListPage,
   saveEmployeeInfo,
+  getEmpFrontTaskSheetSocialFeeSegmentByParam,
 }
+

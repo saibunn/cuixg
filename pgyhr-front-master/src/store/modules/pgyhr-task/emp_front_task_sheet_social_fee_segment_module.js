@@ -1,19 +1,18 @@
-import socialPolicyApi from "../../../api/pgyhr-task/social_policy_api";
+import employeeTaskApi from "../../../api/pgyhr-task/employee_task_api";
 import Util from "../../../libs/util";
-import socialPolicytypes from "../../event-types/pgyhr-task/social_policy_types";
+import empFrontTaskSheetSocialFeeSegmentTypes from "../../event-types/pgyhr-task/emp_front_task_sheet_social_fee_segment_types";
 
 const namespaced = true;
 // UI组件所有状态数据
 const state = {
     rows: [], // alias list
-    socialPolicyList:[],
-    fundPolicyList:[],
-    socialPolicyParam:{
+    empFrontTaskSheetSocialFeeSegmentList:[],
+    EmpFrontTaskSheetSocialFeeSegmentParam:{
         cityCode:''
     },
     searchForm:{},
 
-    title: "社保字典",
+    title: "雇员前道任务单社保明细",
 };
 
 // 收集UI组件的所有事件，可以同步也可以异步提交
@@ -25,14 +24,14 @@ const actions = {
     //     })
     // },
 
-    [socialPolicytypes.SEARCH_SOCIAL_POLICY_BY_PARAM]({commit, state}, payload){
-        console.log("SEARCH_SOCIAL_POLICY_BY_PARAM======result============"+payload);
-        state.socialPolicyParam.cityCode = payload;
-        socialPolicyApi.getSocialPolicyByParam(state.socialPolicyParam)
+    [empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT]({commit, state}, payload){
+        console.log("SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT======result============"+payload);
+        state.EmpFrontTaskSheetSocialFeeSegmentParam.cityCode = payload;
+        employeeTaskApi.getEmpFrontTaskSheetSocialFeeSegmentByParam(state.EmpFrontTaskSheetSocialFeeSegmentParam)
             .then(response => {
                 //console.log("SEARCH_SOCIAL_POLICY_BY_PARAM======result============"+JSON.stringify(response.result));
                 if (response.code == 200) {
-                    commit(socialPolicytypes.MUTATE_SEARCH_SOCIAL_POLICY_BY_PARAM, response.result)
+                    commit(empFrontTaskSheetSocialFeeSegmentTypes.MUTATE_SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT, response.result)
                 } else {
                     throw(response.message);
                 }
@@ -45,14 +44,11 @@ const actions = {
 
 // 更改组件状态
 const mutations = {
-    [socialPolicytypes.MUTATE_SEARCH_SOCIAL_POLICY_BY_PARAM](state, result){
-        state.socialPolicyList = result.socialPolicyTemplatePOList;
-        state.fundPolicyList = result.fundPolicyTemplatePOList;
+    [empFrontTaskSheetSocialFeeSegmentTypes.MUTATE_SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT](state, result){
+
+        state.empFrontTaskSheetSocialFeeSegmentList = result;
     },
 
-    // [socialPolicytypes.MUTATE_SOCIAL_POLICY_PARAM_CHANGE](state, data){
-    //     state.socialPolicyParam = data;
-    // },
 };
 
 // UI 组件数据
