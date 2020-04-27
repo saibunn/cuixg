@@ -39,15 +39,15 @@
 
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="社保规则：" class="mb5" prop="socialRuleId">
-                        <Select v-model="empAgreementInfo.socialRuleId"   filterable style="width:260px">
+                        <Select v-model="empAgreementInfo.socialPolicyCode"   filterable style="width:260px">
                             <Option v-for="item in socialPolicyList" :value="item.socialPolicyCode" :key="item.socialPolicyCode">{{ item.socialPolicyName }}</Option>
                         </Select>
 
                     </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                    <Form-item label="公积金规则：" class="mb5" prop="fundSocialRuleId">
-                        <Select v-model="empAgreementInfo.fundSocialRuleId"   filterable style="width:260px">
+                    <Form-item label="公积金规则：" class="mb5" prop="fundlPolicyCode">
+                        <Select v-model="empAgreementInfo.fundlPolicyCode"   filterable style="width:260px">
                             <Option v-for="item in fundPolicyList" :value="item.socialPolicyCode" :key="item.socialPolicyCode">{{ item.socialPolicyName }}</Option>
                         </Select>
                     </Form-item>
@@ -70,7 +70,7 @@
 
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="入职日期：" prop="inDate">
-                  <DatePicker transfer v-model="empCompanyInfo.inDate" type="date" placement="bottom" @on-change="changeInDate" placeholder="选择日期" style="width: 100%;"></DatePicker>
+                    <DatePicker transfer v-model="empCompanyInfo.inDate" type="date" placement="bottom" @on-change="changeInDate" placeholder="选择日期" style="width: 100%;"></DatePicker>
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
@@ -230,8 +230,8 @@
                                 'socialUnit':empCompanyInfo.socialUnit,
                                 'fundUnit' : empCompanyInfo.fundUnit,
                                 'socialConfigs' : socialConfigs,
-                                'socialRuleId':empAgreementInfo.socialRuleId,
-                                'fundRuleId' : empAgreementInfo.fundSocialRuleId
+                                'socialPolicyCode':empAgreementInfo.socialPolicyCode,
+                                'fundlPolicyCode' : empAgreementInfo.fundlPolicyCode
                       }">
                </emp-product-group-list>
            </Row>
@@ -271,6 +271,7 @@
   import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_task_sheet_types";
   import empFrontTaskSheetSocialFeeSegmentTypes from "../../../store/event-types/pgyhr-task/emp_front_task_sheet_social_fee_segment_types";
   import socialPolicyTypes from "../../../store/event-types/pgyhr-task/social_policy_types";
+  import util from "../../../libs/util";
 
   export default {
     components: {
@@ -401,8 +402,8 @@
           companyId: '',
           empCompanyId: '',
           startDate: '',
-          fundSocialRuleId: '',
-          socialRuleId: '',
+          fundlPolicyCode: '',
+          socialPolicyCode: '',
           empBase: ''
         },
         empInfoRuleValidate: {
@@ -420,7 +421,7 @@
                     trigger: 'change'
                 }
             ],
-            socialRuleId: [
+            socialPolicyCode: [
                 {
                     type: 'integer',
                     required: true,
@@ -428,7 +429,7 @@
                     trigger: 'change'
                 }
             ],
-            fundSocialRuleId: [
+            fundlPolicyCode: [
                 {
                     type: 'integer',
                     required: true,
@@ -642,8 +643,18 @@
         laborContractId: '',
         empLaborContract: [],
         dispatchingTermFlag: true,
-        peRulesFlag: true
+        peRulesFlag: true,
+
+          // 雇员
+          empFrontTaskSheetSocialFeeSegmentParam: {
+              socialPolicyCode: '',
+              fundlPolicyCode: '',
+              requestType: '',
+              cityCode: '',
+              starDate: ''
+          },
       }
+
     },
 
     computed: {
@@ -663,7 +674,7 @@
     },
     methods: {
         ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
-            getEmpFrontTaskSheetSocialFeeSegmentByCity: empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT
+            getEmpFrontTaskSheetSocialFeeSegmentByInput: empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT
         }),
 
         ...mapActions('socialPolicyModule', {
@@ -708,47 +719,55 @@
                 this.empCompanyInfo.laborStartDate = selectDate;
                 this.empCompanyInfo.tryStartDate = selectDate;
                 let checkStartDate = this.$dateUtils.checkNextMonth(new Date(selectDate), 'start');
-                this.empAgreementInfo.startDate = checkStartDate
-                this.getSocialItemData(0, this.empAgreementInfo.socialRuleId, this.empAgreementInfo.fundSocialRuleId)
+                this.empAgreementInfo.startDate = checkStartDate;
+                this.getSocialItemData(0, this.empAgreementInfo.socialPolicyCode, this.empAgreementInfo.fundlPolicyCode)
             }
         },
 
-        async getSocialItemData (type, socialRuleId, fundSocialRuleId) {
-            console.log("getSocialItemData type====="+type,socialRuleId+fundSocialRuleId);
-            let paramJSON = {
-                type: type,
-                socialRuleId: socialRuleId,
-                fundRuleId: fundSocialRuleId,
-                empSocial: this.buildSocialParamData(type)
-            }
-            console.log("getSocialItemData type====="+JSON.stringify(paramJSON));
-            let matchSocialData = this.socialPolicyList;
-            let self = this
-            let tempSocialData = [];
-            //社保模板选择时
-            // self.totalSocialData.forEach(function (item) {
-            //     if (type === 1 && item.policyType === 2) {
-            //         tempSocialData.push(item)
-            //     } else if (type === 2 && item.policyType === 1) {
-            //         tempSocialData.push(item)
-            //     }
-            // })
-            console.log("matchSocialData====="+JSON.stringify(matchSocialData));
-            if (matchSocialData) {
-                let startDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start');
-                self.allEqualsBase = matchSocialData.combined;
-                matchSocialData.forEach(function (item) {
-                    item['empCompanyBase'] = item.empCompanyBase;
-                    item['companyBase'] = item.companyBase;
-                    item['personalBase'] = item.personalBase;
-                    item['startDate'] = startDate;
-                })
-                self.totalSocialData = [];
-                self.totalSocialData = matchSocialData.list.concat(tempSocialData)
-            } else {
-                self.totalSocialData = Object.assign(tempSocialData, [])
-            }
-            self.totalSocialData = productApi.sortSocialData(self.totalSocialData)
+        async getSocialItemData (requestType, socialPolicyCode, fundlPolicyCode) {
+
+            this.empFrontTaskSheetSocialFeeSegmentParam.socialPolicyCode = socialPolicyCode;
+            this.empFrontTaskSheetSocialFeeSegmentParam.fundlPolicyCode = fundlPolicyCode;
+            this.empFrontTaskSheetSocialFeeSegmentParam.requestType = requestType;
+            this.empFrontTaskSheetSocialFeeSegmentParam.cityCode = '320400';
+            this.empFrontTaskSheetSocialFeeSegmentParam.starDate = this.$dateUtils.stdFormatDateByFormat(this.empAgreementInfo.startDate,'YYYY/MM/DD');
+            this.getEmpFrontTaskSheetSocialFeeSegmentByInput(this.empFrontTaskSheetSocialFeeSegmentParam);
+            console.log("getSocialItemData type====="+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentParam));
+
+            // let paramJSON = {
+            //     type: type,
+            //     socialPolicyCode: socialPolicyCode,
+            //     fundRuleId: fundlPolicyCode,
+            //     empSocial: this.buildSocialParamData(type)
+            // }
+            // console.log("getSocialItemData type====="+JSON.stringify(paramJSON));
+            // let matchSocialData = this.socialPolicyList;
+            // let self = this
+            // let tempSocialData = [];
+            // //社保模板选择时
+            // // self.totalSocialData.forEach(function (item) {
+            // //     if (type === 1 && item.policyType === 2) {
+            // //         tempSocialData.push(item)
+            // //     } else if (type === 2 && item.policyType === 1) {
+            // //         tempSocialData.push(item)
+            // //     }
+            // // })
+            // console.log("matchSocialData====="+JSON.stringify(matchSocialData));
+            // if (matchSocialData) {
+            //     let startDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start');
+            //     self.allEqualsBase = matchSocialData.combined;
+            //     matchSocialData.forEach(function (item) {
+            //         item['empCompanyBase'] = item.empCompanyBase;
+            //         item['companyBase'] = item.companyBase;
+            //         item['personalBase'] = item.personalBase;
+            //         item['startDate'] = startDate;
+            //     })
+            //     self.totalSocialData = [];
+            //     self.totalSocialData = matchSocialData.list.concat(tempSocialData)
+            // } else {
+            //     self.totalSocialData = Object.assign(tempSocialData, [])
+            // }
+            // self.totalSocialData = productApi.sortSocialData(self.totalSocialData)
         },
 
         buildSocialParamData() {

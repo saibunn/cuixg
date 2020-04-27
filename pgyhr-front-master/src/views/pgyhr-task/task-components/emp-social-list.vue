@@ -61,10 +61,10 @@
       socialUnit: [String, Number],
       fundUnit: [String, Number],
       minSocialMonth: Array,
-      socialRuleId: [String, Number],
-      oldSocialRuleId: [String, Number],
-      fundRuleId: [String, Number],
-      oldFundRuleId: [String, Number],
+      socialPolicyCode: [String, Number],
+      oldSocialPolicyCode: [String, Number],
+      fundlPolicyCode: [String, Number],
+      oldFundlPolicyCode: [String, Number],
       companyDefPayWay: String,
       agreementChangeType: String,
       inDate: Date,
@@ -548,8 +548,8 @@
           // let self = this
           // return new Promise(resolve => {
           //   this.axios.post(this.$store.SITE_PORT + '/afCompanyCenter/afEmployee/checkSocial', {
-          //     socialRuleId: this.socialRuleId,
-          //     fundSocialRuleId: this.fundRuleId,
+          //     socialPolicyCode: this.socialPolicyCode,
+          //     fundSocialRuleId: this.fundlPolicyCode,
           //     socialItems: self.importSocialData
           //   })
           //     .then(function (response) {
@@ -689,8 +689,8 @@
       async startDateChange(itemCode) {
         let paramJSON = {
           type: 0,
-          socialRuleId: this.socialRuleId,
-          fundRuleId: this.fundRuleId,
+          socialPolicyCode: this.socialPolicyCode,
+          fundlPolicyCode: this.fundlPolicyCode,
           startDate: this.socialStartDate,
           empSocial: this.importSocialData
         }

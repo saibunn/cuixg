@@ -15,8 +15,8 @@
                            v-bind:fundUnit="configs.fundUnit"
                            v-bind:companyDefPayWay="configs.companyDefPayWay"
                            :configs="configs.socialConfigs"
-                           :socialRuleId="configs.socialRuleId"
-                           :fundRuleId="configs.fundRuleId"
+                           :socialPolicyCode="configs.socialPolicyCode"
+                           :fundlPolicyCode="configs.fundlPolicyCode"
           ></emp-social-list>
         </Card>
       </TabPane>

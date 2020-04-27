@@ -507,6 +507,7 @@ let dateUtils = {
           momentDate.endOf('month').startOf('day')
         }
       }
+
       return momentDate.toDate()
     }
   },
@@ -541,12 +542,37 @@ let dateUtils = {
     return ''
   },
 
+  /**
+   * [stdFormatDate 日期格式化]
+   *
+   * @method stdFormatDate
+   * @param  {[Date]} date
+   */
+  stdFormatDateByFormat (date,formatStr) {
+    if (date !== '' && date !== undefined) {
+      return moment(date).format(formatStr)
+    }
+    return ''
+  },
+
   format (date, formatStr) {
     if (date !== '' && date !== undefined) {
       return new Date(date).format(formatStr)
     }
     return ''
   },
+
+  /**
+   * 解析日期
+   * @param dateString 日期字符串
+   * @param fmt 日期格式
+   * @returns Date
+   */
+  parseDate(dateString, fmt) {
+    // utc 解决时区问题
+    return moment.utc(dateString, fmt);
+  },
+
 
   /**
    * [stdFormatDate 日期格式化]

@@ -175,6 +175,17 @@ let dateUtils = {
     },
 
     /**
+     * 解析日期
+     * @param dateString 日期字符串
+     * @param fmt 日期格式
+     * @returns Date
+     */
+    parseDate(dateString, fmt) {
+        // utc 解决时区问题
+        return moment.utc(dateString, fmt);
+    },
+
+    /**
      * [stdFormatDate 日期格式化]
      *
      * @method stdFormatDate
