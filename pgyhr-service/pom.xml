@@ -35,6 +35,7 @@
         <jasypt.version>3.0.2</jasypt.version>
         <beetl.version>2.9.10</beetl.version>
         <qiniu.version>7.2.27</qiniu.version>
+        <joda.version>2.9.9</joda.version>
     </properties>
 
     <dependencyManagement>
@@ -102,6 +103,13 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${swagger.ui.version}</version>
+            </dependency>
+
+            <!-- joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda.version}</version>
             </dependency>
             <!-- Gson -->
             <dependency>

@@ -89,6 +89,7 @@ spring:
       max-request-size: 5MB
   jackson:
     time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
     serialization:
       fail-on-empty-beans: false
   boot:

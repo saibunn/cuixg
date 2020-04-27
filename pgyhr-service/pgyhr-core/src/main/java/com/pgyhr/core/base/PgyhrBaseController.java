@@ -6,10 +6,14 @@ import com.pgyhr.core.common.vo.PageVo;
 import com.pgyhr.core.common.vo.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,4 +87,12 @@ public abstract class PgyhrBaseController<E, ID extends Serializable> {
         }
         return ResultUtil.success("批量通过id删除数据成功");
     }
+
+
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        dateFormat.setLenient(false);
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//    }
 }

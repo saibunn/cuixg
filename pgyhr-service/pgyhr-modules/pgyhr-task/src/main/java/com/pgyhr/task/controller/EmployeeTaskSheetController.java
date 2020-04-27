@@ -3,6 +3,7 @@ package com.pgyhr.task.controller;
 import com.pgyhr.core.common.utils.CommonTransform;
 import com.pgyhr.core.common.utils.ResultUtil;
 import com.pgyhr.core.common.vo.Result;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSocialFeeSegmentRequestDTO;
 import com.pgyhr.task.entity.dto.EmployeeInfoRequsetDTO;
 import com.pgyhr.task.entity.dto.SocialPolicyTemplateDTO;
 import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO;
@@ -61,7 +62,7 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
 
     @ApiOperation(value = "根据条件取社保政策")
     @RequestMapping(value = "/getEmpFrontTaskSheetSocialFeeSegmentByParam",method = RequestMethod.GET)
-    public Result<List<SocialPolicyTemplateResponeDTO>> getEmpFrontTaskSheetSocialFeeSegmentByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO){
+    public Result<List<SocialPolicyTemplateResponeDTO>> getEmpFrontTaskSheetSocialFeeSegmentByParam(EmpFrontTaskSheetSocialFeeSegmentRequestDTO empFrontTaskSheetSocialFeeSegmentRequestDTO){
         return null;
     }
 }

@@ -1,14 +1,10 @@
 package com.pgyhr.task.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -88,42 +84,42 @@ public class EmpFrontTaskSheetSocialFeeSegmentDTO implements Serializable {
     /**
      * 反馈日期
      */
-    private LocalDateTime socialStatusDate;
+    private Date socialStatusDate;
 
     /**
      * 申请日期
      */
-    private LocalDateTime applyDate;
+    private Date applyDate;
 
     /**
      * 办理日期
      */
-    private LocalDateTime handleDate;
+    private Date handleDate;
 
     /**
      * 执行日期
      */
-    private LocalDateTime executeDate;
+    private Date executeDate;
 
     /**
      * 缴纳开始月(yyyy-MM格式)
      */
-    private LocalDateTime startDate;
+    private Date startDate;
 
     /**
      * 缴纳结束月(yyyy-MM格式)
      */
-    private LocalDateTime endDate;
+    private Date endDate;
 
     /**
      * 缴纳开始月确认月(yyyy-MM格式)
      */
-    private LocalDateTime startConfirmDate;
+    private Date startConfirmDate;
 
     /**
      * 缴纳结束月确认月(yyyy-MM格式)
      */
-    private LocalDateTime endConfirmDate;
+    private Date endConfirmDate;
 
     /**
      * 公司付款方式:1-公司自付，2-管理费

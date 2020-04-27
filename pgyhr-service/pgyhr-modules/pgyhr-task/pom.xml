@@ -12,7 +12,11 @@
     <artifactId>pgyhr-task</artifactId>
 
     <dependencies>
-
+        <!-- joda-time -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
 
 
     </dependencies>
