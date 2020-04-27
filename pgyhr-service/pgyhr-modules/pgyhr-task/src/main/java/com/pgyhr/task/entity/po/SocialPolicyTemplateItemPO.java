@@ -8,7 +8,7 @@ import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -62,7 +62,7 @@ public class SocialPolicyTemplateItemPO extends PgyhrBaseEntityNoId<SocialPolicy
     /**
      * 生效月份,当IsCombined=1时有效
      */
-    private LocalDateTime effectiveMonth;
+    private Date effectiveMonth;
 
     /**
      * 所属社保年份
@@ -237,11 +237,11 @@ public class SocialPolicyTemplateItemPO extends PgyhrBaseEntityNoId<SocialPolicy
         this.cityName = cityName;
     }
 
-    public LocalDateTime getEffectiveMonth() {
+    public Date getEffectiveMonth() {
         return effectiveMonth;
     }
 
-    public void setEffectiveMonth(LocalDateTime effectiveMonth) {
+    public void setEffectiveMonth(Date effectiveMonth) {
         this.effectiveMonth = effectiveMonth;
     }
 

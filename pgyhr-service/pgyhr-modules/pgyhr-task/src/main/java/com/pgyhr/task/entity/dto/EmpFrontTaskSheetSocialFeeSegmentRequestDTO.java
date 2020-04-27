@@ -22,6 +22,11 @@ public class EmpFrontTaskSheetSocialFeeSegmentRequestDTO implements Serializable
     private static final long serialVersionUID = 5251848424917465544L;
 
     /**
+     * 雇员前道任务单Code
+     */
+    private String empFrontTaskSheetCode;
+
+    /**
      * 社保政策CODE
      */
     private String socialPolicyCode;

@@ -35,7 +35,7 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
     /**
      * 任务单ID
      */
-    private String empFrontTaskSheetId;
+    private String empFrontTaskSheetCode;
 
     /**
      * 公司序号
@@ -125,12 +125,12 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
         this.empFrontTaskSheetServiceAgreementName = empFrontTaskSheetServiceAgreementName;
     }
 
-    public String getEmpFrontTaskSheetId() {
-        return empFrontTaskSheetId;
+    public String getEmpFrontTaskSheetCode() {
+        return empFrontTaskSheetCode;
     }
 
-    public void setEmpFrontTaskSheetId(String empFrontTaskSheetId) {
-        this.empFrontTaskSheetId = empFrontTaskSheetId;
+    public void setEmpFrontTaskSheetCode(String empFrontTaskSheetCode) {
+        this.empFrontTaskSheetCode = empFrontTaskSheetCode;
     }
 
     public Long getCustomerCompanyInfoId() {
@@ -255,7 +255,7 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
         return "EmpFrontTaskSheetServiceAgreementPO{" +
         "empFrontTaskSheetServiceAgreementId=" + empFrontTaskSheetServiceAgreementId +
         ", empFrontTaskSheetServiceAgreementName=" + empFrontTaskSheetServiceAgreementName +
-        ", empFrontTaskSheetId=" + empFrontTaskSheetId +
+        ", empFrontTaskSheetCode=" + empFrontTaskSheetCode +
         ", customerCompanyInfoId=" + customerCompanyInfoId +
         ", companyId=" + companyId +
         ", companyName=" + companyName +

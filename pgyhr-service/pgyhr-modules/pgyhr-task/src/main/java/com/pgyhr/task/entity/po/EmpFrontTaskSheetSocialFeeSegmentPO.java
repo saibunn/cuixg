@@ -32,7 +32,7 @@ public class EmpFrontTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<Emp
     /**
      * 任务单ID
      */
-    private String empFrontTaskSheetId;
+    private String empFrontTaskSheetCode;
 
     /**
      * 雇员编号
@@ -218,12 +218,12 @@ public class EmpFrontTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<Emp
         this.empFrontTaskSheetSocialFeeSegmentId = empFrontTaskSheetSocialFeeSegmentId;
     }
 
-    public String getEmpFrontTaskSheetId() {
-        return empFrontTaskSheetId;
+    public String getEmpFrontTaskSheetCode() {
+        return empFrontTaskSheetCode;
     }
 
-    public void setEmpFrontTaskSheetId(String empFrontTaskSheetId) {
-        this.empFrontTaskSheetId = empFrontTaskSheetId;
+    public void setEmpFrontTaskSheetCode(String empFrontTaskSheetCode) {
+        this.empFrontTaskSheetCode = empFrontTaskSheetCode;
     }
 
     public String getEmployeeId() {
@@ -516,7 +516,7 @@ public class EmpFrontTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<Emp
     public String toString() {
         return "EmpFrontTaskSheetSocialFeeSegmentPO{" +
                 "empFrontTaskSheetSocialFeeSegmentId=" + empFrontTaskSheetSocialFeeSegmentId +
-                ", empFrontTaskSheetId=" + empFrontTaskSheetId +
+                ", empFrontTaskSheetCode=" + empFrontTaskSheetCode +
                 ", employeeId=" + employeeId +
                 ", employeeName=" + employeeName +
                 ", empAgreementId=" + empAgreementId +

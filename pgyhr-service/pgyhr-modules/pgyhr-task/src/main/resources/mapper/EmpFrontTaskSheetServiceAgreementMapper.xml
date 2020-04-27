@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO">
         <id column="emp_front_task_sheet_service_agreement_id" property="empFrontTaskSheetServiceAgreementId" />
         <result column="emp_front_task_sheet_service_agreement_name" property="empFrontTaskSheetServiceAgreementName" />
-        <result column="emp_front_task_sheet_id" property="empFrontTaskSheetId" />
+        <result column="emp_front_task_sheet_code" property="empFrontTaskSheetCode" />
         <result column="customer_company_info_id" property="customerCompanyInfoId" />
         <result column="company_id" property="companyId" />
         <result column="company_name" property="companyName" />

@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO">
         <id column="emp_front_task_sheet_social_fee_segment_id" property="empFrontTaskSheetSocialFeeSegmentId" />
-        <result column="emp_front_task_sheet_id" property="empFrontTaskSheetId" />
+        <result column="emp_front_task_sheet_code" property="empFrontTaskSheetCode" />
         <result column="employee_id" property="employeeId" />
         <result column="employee_name" property="employeeName" />
         <result column="emp_agreement_id" property="empAgreementId" />
