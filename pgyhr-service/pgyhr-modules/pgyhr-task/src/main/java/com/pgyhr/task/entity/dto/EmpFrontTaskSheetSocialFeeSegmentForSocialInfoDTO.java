@@ -134,6 +134,11 @@ public class EmpFrontTaskSheetSocialFeeSegmentForSocialInfoDTO implements Serial
     private Integer employeePayMethod;
 
     /**
+     * 雇员基数
+     */
+    private BigDecimal empCompanyBase;
+
+    /**
      * 公司基数
      */
     private BigDecimal companyBase;
@@ -207,7 +212,7 @@ public class EmpFrontTaskSheetSocialFeeSegmentForSocialInfoDTO implements Serial
     /**
      * 公司基数上限，如果无上限则存null
      */
-    private BigDecimal companylBaseMax;
+    private BigDecimal companyBaseMax;
 
     /**
      * 公司基数下限,当IsCombined=1时有效

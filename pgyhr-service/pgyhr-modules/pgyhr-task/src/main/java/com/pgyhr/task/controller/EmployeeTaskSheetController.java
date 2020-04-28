@@ -110,18 +110,26 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
                     } else {
                         frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPolicyType(1);
                     }
+                    //缴纳开始月(yyyy-MM格式)
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setStartDate(empFrontTaskSheetSocialFeeSegmentRequestDTO.getStarDate());
                     //公司基数
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyBase(new BigDecimal(0));
                     //公司比例
-                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyRatio(new BigDecimal(0));
+                    if(comSocialPolicyTemplateItemPO.getRateType() == 1){
+                        frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyRatio(comSocialPolicyTemplateItemPO.getFixedRate());
+                    }
                     //公司金额
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyAmount(new BigDecimal(0));
                     //公司固定金额
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyFixAmount(comSocialPolicyTemplateItemPO.getFixedValue());
+                    //雇员基数
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setEmpCompanyBase(new BigDecimal(0));
                     //个人基数
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPersonalBase(new BigDecimal(0));
                     //个人比例
-                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPersonalRatio(new BigDecimal(0));
+                    if(perSocialPolicyTemplateItemPO.getRateType() == 1){
+                        frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPersonalRatio(perSocialPolicyTemplateItemPO.getFixedRate());
+                    }
                     //个人金额
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPersonalAmount(new BigDecimal(0));
                     //个人固定金额
@@ -136,7 +144,7 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
                     //最低工资
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setMinSalary(comSocialPolicyTemplateItemPO.getMinSalary());
                     //公司基数上限，如果无上限则存null
-                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanylBaseMax(comSocialPolicyTemplateItemPO.getBaseMax());
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyBaseMax(comSocialPolicyTemplateItemPO.getBaseMax());
                     //公司基数下限,当IsCombined=1时有效
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyBaseMin(comSocialPolicyTemplateItemPO.getBaseMin());
                     //个人基数上限，如果无上限则存null
@@ -148,12 +156,12 @@ public class EmployeeTaskSheetController<E, ID extends Serializable>{
                     //个人缴费比例类型 :1-固定比例,2-区间比例(有上下限,3-多值(多个比例值中选一个)
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPersonalRateType(perSocialPolicyTemplateItemPO.getRateType());
                     //公司比例多值,RateType=3时有效
-                    if(frontTaskSheetSocialFeeSegmentForSocialInfoDTO.getCompanyRateType() == 3){
+                    if(perSocialPolicyTemplateItemPO.getRateType() == 3){
                         frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyRatioList(Arrays.asList(comSocialPolicyTemplateItemPO.getMultiRate().split(",")));
                     }
 
                     //个人比例多值,RateType=3时有效
-                    if(frontTaskSheetSocialFeeSegmentForSocialInfoDTO.getPersonalRateType() == 3){
+                    if(perSocialPolicyTemplateItemPO.getRateType() == 3){
                         frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyRatioList(Arrays.asList(perSocialPolicyTemplateItemPO.getMultiRate().split(",")));
                     }
                     //公司小数进位方式:1见分进角，2见角进元，3进位到元，4进位偶数，5舍去角，6舍去分，7舍去厘，8四舍五入到分，9四舍五入到角，10四舍五入到元
