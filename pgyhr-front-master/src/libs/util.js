@@ -12,15 +12,15 @@ let util = {
     DEBUG: true
 };
 
-let math = {
-    _thisMath: require('mathjs'),
-    eval (value) {
-        return this._thisMath.eval(value)
-    },
-    multiply (arg1, arg2) {
-        return this._thisMath.format(this._thisMath.multiply(arg1, arg2), {precision: 14})
-    }
-}
+// let math = {
+//     _thisMath: require('mathjs'),
+//     eval (value) {
+//         return this._thisMath.eval(value)
+//     },
+//     multiply (arg1, arg2) {
+//         return this._thisMath.format(this._thisMath.multiply(arg1, arg2), {precision: 14})
+//     }
+// }
 
 let storage = {
     setItem (key, value) {

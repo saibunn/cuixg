@@ -223,7 +223,7 @@
                                 edit:'edit',
                                 readonly: false,
                                 companyId: empAgreementInfo.companyId,
-                                'totalSocialData':totalSocialData,
+                                'totalSocialData':empFrontTaskSheetSocialFeeSegmentList,
                                 'salary' : empCompanyInfo.salary,
                                 'allEqualsBase':allEqualsBase,
                                 'socialStartDate' : empCompanyInfo.inDate,
@@ -671,6 +671,10 @@
             fundPolicyList:state => state.fundPolicyList,
         }),
 
+        ...mapState('empFrontTaskSheetSocialFeeSegmentModule', {
+            empFrontTaskSheetSocialFeeSegmentList: state => state.empFrontTaskSheetSocialFeeSegmentList,
+        }),
+
     },
     methods: {
         ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
@@ -730,7 +734,7 @@
             this.empFrontTaskSheetSocialFeeSegmentParam.fundlPolicyCode = fundlPolicyCode;
             this.empFrontTaskSheetSocialFeeSegmentParam.requestType = requestType;
             this.empFrontTaskSheetSocialFeeSegmentParam.cityCode = '320400';
-            this.empFrontTaskSheetSocialFeeSegmentParam.starDate = this.$dateUtils.stdFormatDateByFormat(this.empAgreementInfo.startDate,'YYYY/MM/DD');
+            this.empFrontTaskSheetSocialFeeSegmentParam.starDate = this.$dateUtils.stdFormatDateByFormat(this.empAgreementInfo.startDate,'YYYY-MM-DD');
             this.getEmpFrontTaskSheetSocialFeeSegmentByInput(this.empFrontTaskSheetSocialFeeSegmentParam);
             console.log("getSocialItemData type====="+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentParam));
 

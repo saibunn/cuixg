@@ -321,6 +321,14 @@ export default {
         '2': '公司自付',
         '3': '个人工资自付'
       },
+      companyPayWay: {
+        '1': '管理费',
+        '2': '公司自付',
+      },
+      personalpayWay: {
+        '1': '管理费',
+        '3': '个人工资自付'
+      },
       materialStatus: {
         1: '待签收 ',
         2: '已签收',

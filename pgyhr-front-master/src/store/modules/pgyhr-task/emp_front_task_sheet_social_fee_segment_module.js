@@ -7,7 +7,7 @@ const namespaced = true;
 const state = {
     rows: [], // alias list
     empFrontTaskSheetSocialFeeSegmentList:[],
-    EmpFrontTaskSheetSocialFeeSegmentParam:{
+    empFrontTaskSheetSocialFeeSegmentParam:{
         cityCode:''
     },
     searchForm:{},
@@ -25,7 +25,6 @@ const actions = {
     // },
 
     [empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT]({commit, state}, payload){
-        console.log("SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT======result============"+JSON.stringify(payload));
         employeeTaskApi.getEmpFrontTaskSheetSocialFeeSegmentByParam(payload)
             .then(response => {
                 //console.log("SEARCH_SOCIAL_POLICY_BY_PARAM======result============"+JSON.stringify(response.result));
@@ -46,6 +45,7 @@ const mutations = {
     [empFrontTaskSheetSocialFeeSegmentTypes.MUTATE_SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT](state, result){
 
         state.empFrontTaskSheetSocialFeeSegmentList = result;
+        console.log("MUTATE_SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT======result============"+JSON.stringify(state.empFrontTaskSheetSocialFeeSegmentList));
     },
 
 };

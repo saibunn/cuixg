@@ -6,14 +6,14 @@
           <i-col :sm="{span: 7}" class="tr">
             <Form-item label="企业收费方式:">
               <Select @on-change="companyPayWayChange" class="w100p" transfer>
-                <Option v-for="(value,key) in this.baseDic.payWay" :value="key" :key="key">{{value}}</Option>
+                <Option v-for="(value,key) in this.baseDic.companyPayWay" :value="key" :key="key">{{value}}</Option>
               </Select>
             </Form-item>
           </i-col>
           <i-col :sm="{span: 7}" class="tr">
             <Form-item label="个人收费方式:">
               <Select @on-change="personalPayWayChange" class="w100p" transfer>
-                <Option v-for="(value,key) in this.baseDic.payWay" :value="key" :key="key">{{ value }}</Option>
+                <Option v-for="(value,key) in this.baseDic.personalpayWay" :value="key" :key="key">{{ value }}</Option>
               </Select>
             </Form-item>
           </i-col>
@@ -25,6 +25,30 @@
           <Button type="primary" @click="autoCalculate">自动计算</Button>
         </i-col>
       </Row>
+
+      <Row style="margin-top: 10px">
+        <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
+          <Form-item label="企业缴费总计:" prop="companyTotalPay">
+            {{sumItem.companyTotalPay}}
+          </Form-item>
+        </i-col>
+        <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
+          <Form-item label="个人缴费总计:" prop="personalTotalPay">
+            {{sumItem.personalTotalPay}}
+          </Form-item>
+        </i-col>
+        <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
+          <Form-item label="其中社保:" prop="socialSecurityPay">
+            {{sumItem.socialSecurityPay}}
+          </Form-item>
+        </i-col>
+        <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
+          <Form-item label="其中公积金:" prop="fundFundPay">
+            {{sumItem.fundPay}}
+          </Form-item>
+        </i-col>
+      </Row>
+
     </Form>
     <Table border stripe :row-class-name="rowClassName" :columns="socialInfoColumns" :data="importSocialData">
     </Table>
@@ -34,6 +58,7 @@
 <script>
   import math from 'mathjs'
   import empProductComponent from './emp-product-component'
+  let _ = require('lodash');
 
   export default {
     components: {
@@ -78,11 +103,19 @@
         fundBaseChange: 0,
         fundBaseChangeCompamy: 0,
         fundBaseChangePersonal: 0,
+
+        sumItem: {
+          companyTotalPay: '',
+          personalTotalPay: '',
+          socialSecurityPay: '',
+          fundPay: '',
+        },
+
         // 社保信息表格列
         socialInfoColumns: [
           {
             title: '名称',
-            key: 'policyName',
+            key: 'itemName',
             minWidth: 65,
             align: 'center'
           },
@@ -106,24 +139,71 @@
                         if (self.allEqualsBase && params.row.policyType == '1') {
                           self.importSocialData.forEach(function (infoItem) {
                             if (infoItem.policyType === params.row.policyType) {
-                              infoItem.empCompanyBase = val.target.value
-                              infoItem.companyBase = val.target.value
-                              infoItem.personalBase = val.target.value
+                              infoItem.empCompanyBase = val.target.value;
+                              // infoItem.companyBase = val.target.value;
+                              // infoItem.personalBase = val.target.value;
+                              if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.companyBaseMin)){
+                                infoItem.companyBase = infoItem.companyBaseMin;
+                                infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
+                              }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.companyBaseMax)){
+                                infoItem.companyBase = infoItem.companyBaseMax;
+                                infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
+                              }else{
+                                infoItem.companyBase = val.target.value;
+                                infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
+                              }
+
+                              if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.personalBaseMin)){
+                                infoItem.personalBase = infoItem.personalBaseMin;
+                                infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
+                              }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.personalBaseMax)){
+                                infoItem.personalBase = infoItem.personalBaseMax;
+                                infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
+                              }else{
+                                infoItem.personalBase = val.target.value;
+                                infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
+                              }
+                              infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
+
                             }
                           })
                         } else {
-                          self.importSocialData[params.index].empCompanyBase = val.target.value
-                          self.importSocialData[params.index].companyBase = val.target.value
-                          self.importSocialData[params.index].personalBase = val.target.value
+                          self.importSocialData[params.index].empCompanyBase = val.target.value;
+                          self.importSocialData[params.index].companyBase = val.target.value;
+                          self.importSocialData[params.index].personalBase = val.target.value;
+
+
+                          if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].companyBaseMin)){
+                            self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMin;
+                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMin*self.importSocialData[params.index].companyRatio).toFixed(2);
+                          }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].companyBaseMax)){
+                            self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMax;
+                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMax*self.importSocialData[params.index].companyRatio).toFixed(2);
+                          }else{
+                            self.importSocialData[params.index].companyBase = val.target.value;
+                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBase*self.importSocialData[params.index].companyRatio).toFixed(2);
+                          }
+
+                          if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].personalBaseMin)){
+                            self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMin;
+                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMin*self.importSocialData[params.index].personalRatio).toFixed(2);
+                          }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].personalBaseMax)){
+                            self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMax;
+                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMax*self.importSocialData[params.index].personalRatio).toFixed(2);
+                          }else{
+                            self.importSocialData[params.index].personalBase = val.target.value;
+                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBase*self.importSocialData[params.index].personalRatio).toFixed(2);
+                          }
+                          self.importSocialData[params.index].totalAmount = (parseFloat(self.importSocialData[params.index].companyAmount)+parseFloat(self.importSocialData[params.index].personalAmount)).toFixed(2);
                         }
-                        self.syncFundBase(params.row, 'all', val.target.value)
+                        //self.syncFundBase(params.row, 'all', val.target.value)
                       }
                     }
                   })
                 ])
               } else {
                 return h('div', [
-                  h('span', params.row.empCompanyBase)
+                  h('span', params.row.personalBase)
                 ])
               }
             }
@@ -212,13 +292,13 @@
           },
           {
             title: '企业收费方式',
-            key: 'companyPayWay',
+            key: 'companyPayMethod',
             minWidth: 80,
             align: 'center',
             render: (h, params) => {
               if (this.configs && !this.configs.readonly) {
                 return h('div', [
-                  h('span', this.baseDic.payWay[this.importSocialData[params.index].companyPayWay])
+                  h('span', this.baseDic.payWay[this.importSocialData[params.index].companyPayMethod])
                 ])
               } else {
                 // 组装下拉
@@ -236,12 +316,12 @@
                 }
                 return h('Select', {
                   props: {
-                    value: this.importSocialData[params.index].companyPayWay,
+                    value: this.importSocialData[params.index].companyPayMethod,
                     disabled:this.importSocialData[params.index].policyType == 1 && this.companyPayWayRowDisable
                   },
                   on: {
                     'on-change': (val) => {
-                      this.importSocialData[params.index].companyPayWay = val
+                      this.importSocialData[params.index].companyPayMethod = val
                     }
                   }
                 }, optionList)
@@ -339,14 +419,14 @@
           },
           {
             title: '个人收费方式',
-            key: 'personalPayWay',
+            key: 'employeePayMethod',
             minWidth: 80,
             align: 'center',
             render: (h, params) => {
               let self = this
               if (this.configs && !this.configs.readonly) {
                 return h('div', [
-                  h('span', this.baseDic.payWay[this.importSocialData[params.index].personalPayWay])
+                  h('span', this.baseDic.payWay[this.importSocialData[params.index].employeePayMethod])
                 ])
               } else {
                 // 组装下拉
@@ -364,11 +444,11 @@
                 }
                 return h('Select', {
                   props: {
-                    value: this.importSocialData[params.index].personalPayWay
+                    value: this.importSocialData[params.index].employeePayMethod
                   },
                   on: {
                     'on-change': (val) => {
-                      self.importSocialData[params.index].personalPayWay = val
+                      self.importSocialData[params.index].employeePayMethod = val
                     }
                   }
                 }, optionList)
@@ -510,7 +590,7 @@
           },
           {
             title: '合计',
-            key: 'total',
+            key: 'totalAmount',
             minWidth: 45,
             align: 'center'
           }
@@ -534,13 +614,13 @@
       async autoCalculate () {
         if (!this.$commons.isEmpty(this.importSocialData) && this.importSocialData.length > 0) {
           if (this.$commons.isEmpty(this.socialStartDate)) {
-            this.$Message.error('请选择开始时间。')
+            this.$Message.error('请选择开始时间。');
             return false
           }
 
-          let hasSocialFundItem = this.checkSocialData()
+          let hasSocialFundItem = this.checkSocialData();
           if (hasSocialFundItem) {
-            return
+            return;
           }
 
           await this.startDateChange()
@@ -587,14 +667,14 @@
         let hasSocialFundItem = this.importSocialData.some(function (item) {
           let empCompanyBase = item.empCompanyBase
           // 提交数据时判断社保公积金数据是否完整
-          let personalRatio = item.personalRatio
-          let companyRatio = item.companyRatio
-          let companyBase = item.companyBase
-          let personalBase = item.personalBase
-          if (self.$commons.isEmpty(empCompanyBase) || self.$commons.isEmpty(companyBase) || self.$commons.isEmpty(personalBase) ||
+          let personalRatio = item.personalRatio;
+          let companyRatio = item.companyRatio;
+          let companyBase = item.companyBase;
+          let personalBase = item.personalBase;
+          if (self.$commons.isEmpty(empCompanyBase) ||self.$commons.isEmpty(companyBase) || self.$commons.isEmpty(personalBase) ||
             self.$commons.isEmpty(personalRatio) || self.$commons.isEmpty(companyRatio)) {
-            hasSocialFundItemName = item.policyName
-            return true
+            hasSocialFundItemName = item.policyName;
+            return true;
           }
         })
         if (hasSocialFundItem) {
@@ -609,8 +689,8 @@
             infoItem.startDate = new Date(newStartDate)
             if (infoItem.endDate && infoItem.endDate !== null) {
               if (infoItem.startDate > infoItem.endDate) {
-                infoItem.startDate = ''
-                errMonth = true
+                infoItem.startDate = '';
+                errMonth = true;
               }
             }
           }
@@ -678,12 +758,12 @@
       },
       companyPayWayChange (val) {
         this.importSocialData.forEach((v) => {
-          v.companyPayWay = val
+          v.companyPayMethod = val
         })
       },
       personalPayWayChange (val) {
         this.importSocialData.forEach((v) => {
-          v.personalPayWay = val
+          v.employeePayMethod = val
         })
       },
       async startDateChange(itemCode) {
@@ -731,7 +811,7 @@
                 infoItem.personalBase = element.personalBase
                 infoItem.companyAmount = element.companyAmount
                 infoItem.personalAmount = element.personalAmount
-                infoItem.total = element.total
+                infoItem.totalAmount = element.totalAmount
               }
             })
             // }
@@ -741,43 +821,115 @@
           } catch (err) { }
         }
       },
+
+      autoCalculateColumnFunction(){
+
+      },
+
+      autoCalculateAllColumnFunction(newSocialBase){
+        //console.log("importSocialData------------"+ JSON.stringify(this.importSocialData));
+        this.importSocialData.forEach(function (infoItem) {
+          //infoItem.empCompanyBase = newSocialBase
+          infoItem.empCompanyBase = newSocialBase;
+
+          if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.companyBaseMin)){
+            infoItem.companyBase = infoItem.companyBaseMin;
+            infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
+          }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.companyBaseMax)){
+            infoItem.companyBase = infoItem.companyBaseMax;
+            infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
+          }else{
+            infoItem.companyBase = newSocialBase;
+            infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
+          }
+
+          if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.personalBaseMin)){
+            infoItem.personalBase = infoItem.personalBaseMin;
+            infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
+          }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.personalBaseMax)){
+            infoItem.personalBase = infoItem.personalBaseMax;
+            infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
+          }else{
+            infoItem.personalBase = newSocialBase;
+            infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
+          }
+          infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
+
+        });
+
+        // if(this.importSocialData){
+        //   this.sumItem.personalTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+        //     if(i.personalAmount != null){
+        //       return i.personalAmount;
+        //     }else{
+        //       return 0;
+        //     }
+        //   }).toFixed(2));
+        //
+        //
+        //   this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+        //     if(i.companyAmount != null){
+        //       return i.companyAmount;
+        //     }else{
+        //       return 0;
+        //     }
+        //   }).toFixed(2));
+        //
+        //   this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+        //     if(i.companyAmount != null && i.personalAmount != null){
+        //       return i.policyType == 1 ? i.companyAmount + i.personalAmount : 0;
+        //     }else{
+        //       return 0;
+        //     }
+        //   }).toFixed(2));
+        //   this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
+        //     if(i.companyAmount != null && i.personalAmount != null){
+        //       return (i.policyType == 2 || i.policyType == 3) ? i.companyAmount + i.personalAmount : 0;
+        //     }else{
+        //       return 0;
+        //     }
+        //   }).toFixed(2));
+        //
+        // }
+      },
+
       init () {
         if (this.companyDefPayWay) {
           this.companyPayWayDisable = true
           this.companyPayWayRowDisable = true
           this.importSocialData.forEach((v) => {
             if (v.policyType == '1') {
-              v.companyPayWay = this.companyDefPayWay
+              v.companyPayMethod = this.companyPayMethod
             }
             // 设置缺省值
-            if (!v.companyPayWay) {
-              v.companyPayWay = '1'
+            if (!v.companyPayMethod) {
+              v.companyPayMethod = '1'
             }
             // 设置缺省值
-            if (!v.personalPayWay) {
-              v.personalPayWay = '1'
+            if (!v.employeePayMethod) {
+              v.employeePayMethod = '1'
             }
           })
         } else {
           this.importSocialData.forEach((v) => {
             // 设置缺省值
-            if (!v.companyPayWay) {
-              v.companyPayWay = '1'
+            if (!v.companyPayMethod) {
+              v.companyPayMethod = '1'
             }
             // 设置缺省值
-            if (!v.personalPayWay) {
-              v.personalPayWay = '1'
+            if (!v.employeePayMethod) {
+              v.employeePayMethod = '1'
             }
           })
         }
         // 只有管理费才参与合计
-        if (this.importSocialData) {
-          this.importSocialData.forEach((v) => {
-            let companyAmount = v.companyPayWay == '1' ? v.companyAmount : 0
-            let personalAmount = v.personalPayWay == '1' ? v.personalAmount : 0
-            v.total = math.round(companyAmount + personalAmount, 2)
-          })
-        }
+        // if (this.importSocialData) {
+        //   this.importSocialData.forEach((v) => {
+        //     let companyAmount = v.companyPayMethod == '1' ? v.companyAmount : 0
+        //     let personalAmount = v.companyPayMethod == '1' ? v.personalAmount : 0
+        //     v.totalAmount = math.round(companyAmount + personalAmount, 2)
+        //   })
+        // }
       },
       /**
        * 公积金或补充公积金联动变化
@@ -790,7 +942,7 @@
         if (row.policyType === 2) {
           this.importSocialData.forEach(function (infoItem) {
             if (infoItem.policyType === 2 && infoItem.itemCode !== row.itemCode) {
-              if (type === 'all' && infoItem.empCompanyBase != 0 && self.fundBaseChange === 0) {
+              if (type === 'all' && infoItem.companyBase != 0 && self.fundBaseChange === 0) {
                 infoItem.empCompanyBase = changeValue
                 infoItem.companyBase = changeValue
                 infoItem.personalBase = changeValue
@@ -816,16 +968,64 @@
     },
     watch: {
       socialBase: function (newSocialBase) {
+        console.log("newSocialBase");
         const regex = /^(([1-9]\d*)|0)(\.\d{1,2})?$/
         const flag = regex.test(this.socialBase)
         if (flag && this.importSocialData && newSocialBase) {
-          this.importSocialData.forEach(function (infoItem) {
-            infoItem.empCompanyBase = newSocialBase
-            infoItem.companyBase = newSocialBase
-            infoItem.personalBase = newSocialBase
-          })
+          // this.importSocialData.forEach(function (infoItem) {
+          //   //infoItem.empCompanyBase = newSocialBase
+          //   infoItem.companyBase = newSocialBase;
+          //   infoItem.personalBase = newSocialBase;
+          // })
+          this.autoCalculateAllColumnFunction(newSocialBase);
         }
       },
+
+      importSocialData: {
+        handler(curVal, oldVal) {
+          console.log("newImportSocialData");
+        }
+      },
+
+      // importSocialData: function (newImportSocialData){
+      //   console.log("newImportSocialData");
+      //     if(this.importSocialData){
+      //       this.sumItem.personalTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+      //         if(i.personalAmount != null){
+      //           return i.personalAmount;
+      //         }else{
+      //           return 0;
+      //         }
+      //       }).toFixed(2));
+      //
+      //
+      //       this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+      //         if(i.companyAmount != null){
+      //           return i.companyAmount;
+      //         }else{
+      //           return 0;
+      //         }
+      //       }).toFixed(2));
+      //
+      //       this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+      //         if(i.companyAmount != null && i.personalAmount != null){
+      //           return i.policyType == 1 ? i.companyAmount + i.personalAmount : 0;
+      //         }else{
+      //           return 0;
+      //         }
+      //       }).toFixed(2));
+      //       this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
+      //         if(i.companyAmount != null && i.personalAmount != null){
+      //           return (i.policyType == 2 || i.policyType == 3) ? i.companyAmount + i.personalAmount : 0;
+      //         }else{
+      //           return 0;
+      //         }
+      //       }).toFixed(2));
+      //
+      //     }
+      //   deep:true
+      // },
+
       importSocialData: function (val) {
         this.init()
       }

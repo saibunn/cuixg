@@ -9,6 +9,7 @@ import { router } from './router/index'
 import store from './store'
 import i18n from '@/locale'
 import Icon from 'vue-awesome/components/Icon'
+import _ from 'lodash';
 // 按需引入awesome图标
 import 'vue-awesome/icons/brands/qq'
 import 'vue-awesome/icons/brands/weixin'
@@ -51,6 +52,7 @@ Vue.prototype.uploadFileRequest = uploadFileRequest;
 Vue.prototype.setStore = setStore;
 Vue.prototype.getStore = getStore;
 Vue.prototype.removeStore = removeStore;
+Vue.prototype._ = _;
 
 /* eslint-disable no-new */
 new Vue({

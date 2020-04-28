@@ -29,7 +29,7 @@
 <script>
   import empSocialList from './emp-social-list'
   import empSocialFundAmountTotal from './emp-social-fund-amount-total'
-  import productApi from './../../../api/pgyhr-task/productutils'
+  //import productApi from './../../../api/pgyhr-task/productutils'
 
   export default {
     components: {
@@ -458,7 +458,7 @@
         } else {
           this.isShowImportSocialData = true
         }
-        this.importSocialData = productApi.sortSocialData(this.importSocialData)
+        //this.importSocialData = productApi.sortSocialData(this.importSocialData)
 
         this.productData.personalOutsourcingData = this.arrayIsEmpty(this.groupBySocial[index].afEmpProductList)
         this.productData.healthManagementData = this.arrayIsEmpty(this.groupBySocial[index].afEmpInsuranceList)
