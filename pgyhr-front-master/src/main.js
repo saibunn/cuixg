@@ -9,7 +9,7 @@ import { router } from './router/index'
 import store from './store'
 import i18n from '@/locale'
 import Icon from 'vue-awesome/components/Icon'
-import _ from 'lodash';
+//import _ from 'lodash';
 // 按需引入awesome图标
 import 'vue-awesome/icons/brands/qq'
 import 'vue-awesome/icons/brands/weixin'
@@ -26,6 +26,7 @@ import VueClipboard from 'vue-clipboard2'
 import VueApexCharts from 'vue-apexcharts'
 import '@babel/polyfill'
 import commonDictionary from './api/common-dictionary'
+import commons from "./libs/commons";
 
 Vue.config.productionTip = false
 Vue.use(VueLazyload, {
@@ -40,9 +41,10 @@ Vue.use(VueClipboard);
 Vue.component('icon', Icon);
 Vue.use(hasPermission);
 Vue.use(hasRole);
-Vue.use(VueApexCharts)
-Vue.component('apexchart', VueApexCharts)
-Vue.use(commonDictionary)
+Vue.use(VueApexCharts);
+Vue.use(commons);
+Vue.component('apexchart', VueApexCharts);
+Vue.use(commonDictionary);
 // 挂载全局使用的方法
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.postRequest = postRequest;
@@ -52,7 +54,7 @@ Vue.prototype.uploadFileRequest = uploadFileRequest;
 Vue.prototype.setStore = setStore;
 Vue.prototype.getStore = getStore;
 Vue.prototype.removeStore = removeStore;
-Vue.prototype._ = _;
+//Vue.prototype._ = _;
 
 /* eslint-disable no-new */
 new Vue({

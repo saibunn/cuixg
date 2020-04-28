@@ -57,15 +57,12 @@
 </template>
 <script>
   import math from 'mathjs'
+  //import _ from "lodash";
   import empProductComponent from './emp-product-component'
-  let _ = require('lodash');
 
   export default {
     components: {
       'emp-product-component': empProductComponent
-    },
-    computed: {
-
     },
     props: {
       configs: {
@@ -105,10 +102,10 @@
         fundBaseChangePersonal: 0,
 
         sumItem: {
-          companyTotalPay: '',
-          personalTotalPay: '',
-          socialSecurityPay: '',
-          fundPay: '',
+          companyTotalPay: 0,
+          personalTotalPay: 0,
+          socialSecurityPay: 0,
+          fundPay: 0,
         },
 
         // 社保信息表格列
@@ -857,40 +854,9 @@
 
         });
 
-        // if(this.importSocialData){
-        //   this.sumItem.personalTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
-        //     if(i.personalAmount != null){
-        //       return i.personalAmount;
-        //     }else{
-        //       return 0;
-        //     }
-        //   }).toFixed(2));
-        //
-        //
-        //   this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
-        //     if(i.companyAmount != null){
-        //       return i.companyAmount;
-        //     }else{
-        //       return 0;
-        //     }
-        //   }).toFixed(2));
-        //
-        //   this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
-        //     if(i.companyAmount != null && i.personalAmount != null){
-        //       return i.policyType == 1 ? i.companyAmount + i.personalAmount : 0;
-        //     }else{
-        //       return 0;
-        //     }
-        //   }).toFixed(2));
-        //   this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
-        //     if(i.companyAmount != null && i.personalAmount != null){
-        //       return (i.policyType == 2 || i.policyType == 3) ? i.companyAmount + i.personalAmount : 0;
-        //     }else{
-        //       return 0;
-        //     }
-        //   }).toFixed(2));
-        //
-        // }
+
+
+
       },
 
       init () {
@@ -981,11 +947,48 @@
         }
       },
 
-      importSocialData: {
-        handler(curVal, oldVal) {
-          console.log("newImportSocialData");
-        }
+      newImportSocialData:{
+        handler: function (value, oldValue) {
+          if(this.importSocialData){
+            this.sumItem.personalTotalPay = parseFloat(_.sumBy(this.importSocialData, i => {
+              if(i.personalAmount != null){
+                return parseFloat(i.personalAmount);
+              }else{
+                return 0;
+              }
+            })).toFixed(2);
+
+
+
+            this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+              if(i.companyAmount != null){
+                return parseFloat(i.companyAmount);
+              }else{
+                return 0;
+              }
+            })).toFixed(2);
+
+            this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+              if(i.companyAmount != null && i.personalAmount != null){
+                return i.policyType == 1 ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
+              }else{
+                return 0;
+              }
+            })).toFixed(2);
+            this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
+              if(i.companyAmount != null && i.personalAmount != null){
+                return (i.policyType == 2 || i.policyType == 3) ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
+              }else{
+                return 0;
+              }
+            })).toFixed(2);
+
+          }
+        },
+
+        deep: true
       },
+
 
       // importSocialData: function (newImportSocialData){
       //   console.log("newImportSocialData");
@@ -1032,6 +1035,11 @@
     },
     mounted () {
       this.setHideColumns()
+    },
+    computed: {
+      newImportSocialData() {
+        return this.importSocialData;
+      }
     }
   }
 </script>
