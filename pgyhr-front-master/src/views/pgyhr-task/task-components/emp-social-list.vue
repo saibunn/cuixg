@@ -132,68 +132,81 @@
                     },
                     on: {
                       'on-blur': (val) => {
-                        // 如果是险种合一 统一修改社保类基数
+                          // 如果是险种合一 统一修改社保类基数
                         if (self.allEqualsBase && params.row.policyType == '1') {
                           self.importSocialData.forEach(function (infoItem) {
                             if (infoItem.policyType === params.row.policyType) {
                               infoItem.empCompanyBase = val.target.value;
-                              // infoItem.companyBase = val.target.value;
-                              // infoItem.personalBase = val.target.value;
-                              if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.companyBaseMin)){
-                                infoItem.companyBase = infoItem.companyBaseMin;
-                                infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
-                              }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.companyBaseMax)){
-                                infoItem.companyBase = infoItem.companyBaseMax;
-                                infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
-                              }else{
-                                infoItem.companyBase = val.target.value;
-                                infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
-                              }
-
-                              if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.personalBaseMin)){
-                                infoItem.personalBase = infoItem.personalBaseMin;
-                                infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
-                              }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.personalBaseMax)){
-                                infoItem.personalBase = infoItem.personalBaseMax;
-                                infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
-                              }else{
-                                infoItem.personalBase = val.target.value;
-                                infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
-                              }
-                              infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
-
+                              infoItem.companyBase = val.target.value;
+                              infoItem.personalBase = val.target.value;
                             }
                           })
                         } else {
                           self.importSocialData[params.index].empCompanyBase = val.target.value;
                           self.importSocialData[params.index].companyBase = val.target.value;
                           self.importSocialData[params.index].personalBase = val.target.value;
-
-
-                          if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].companyBaseMin)){
-                            self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMin;
-                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMin*self.importSocialData[params.index].companyRatio).toFixed(2);
-                          }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].companyBaseMax)){
-                            self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMax;
-                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMax*self.importSocialData[params.index].companyRatio).toFixed(2);
-                          }else{
-                            self.importSocialData[params.index].companyBase = val.target.value;
-                            self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBase*self.importSocialData[params.index].companyRatio).toFixed(2);
-                          }
-
-                          if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].personalBaseMin)){
-                            self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMin;
-                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMin*self.importSocialData[params.index].personalRatio).toFixed(2);
-                          }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].personalBaseMax)){
-                            self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMax;
-                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMax*self.importSocialData[params.index].personalRatio).toFixed(2);
-                          }else{
-                            self.importSocialData[params.index].personalBase = val.target.value;
-                            self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBase*self.importSocialData[params.index].personalRatio).toFixed(2);
-                          }
-                          self.importSocialData[params.index].totalAmount = (parseFloat(self.importSocialData[params.index].companyAmount)+parseFloat(self.importSocialData[params.index].personalAmount)).toFixed(2);
                         }
-                        //self.syncFundBase(params.row, 'all', val.target.value)
+                      //   if (self.allEqualsBase && params.row.policyType == '1') {
+                      //     self.importSocialData.forEach(function (infoItem) {
+                      //       if (infoItem.policyType === params.row.policyType) {
+                      //         infoItem.empCompanyBase = val.target.value;
+                      //         // infoItem.companyBase = val.target.value;
+                      //         // infoItem.personalBase = val.target.value;
+                      //         if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.companyBaseMin)){
+                      //           infoItem.companyBase = infoItem.companyBaseMin;
+                      //           infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
+                      //         }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.companyBaseMax)){
+                      //           infoItem.companyBase = infoItem.companyBaseMax;
+                      //           infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
+                      //         }else{
+                      //           infoItem.companyBase = val.target.value;
+                      //           infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
+                      //         }
+                      //
+                      //         if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.personalBaseMin)){
+                      //           infoItem.personalBase = infoItem.personalBaseMin;
+                      //           infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
+                      //         }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.personalBaseMax)){
+                      //           infoItem.personalBase = infoItem.personalBaseMax;
+                      //           infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
+                      //         }else{
+                      //           infoItem.personalBase = val.target.value;
+                      //           infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
+                      //         }
+                      //         infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
+                      //
+                      //       }
+                      //     })
+                      //   } else {
+                      //     self.importSocialData[params.index].empCompanyBase = val.target.value;
+                      //     self.importSocialData[params.index].companyBase = val.target.value;
+                      //     self.importSocialData[params.index].personalBase = val.target.value;
+                      //
+                      //
+                      //     if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].companyBaseMin)){
+                      //       self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMin;
+                      //       self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMin*self.importSocialData[params.index].companyRatio).toFixed(2);
+                      //     }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].companyBaseMax)){
+                      //       self.importSocialData[params.index].companyBase = self.importSocialData[params.index].companyBaseMax;
+                      //       self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBaseMax*self.importSocialData[params.index].companyRatio).toFixed(2);
+                      //     }else{
+                      //       self.importSocialData[params.index].companyBase = val.target.value;
+                      //       self.importSocialData[params.index].companyAmount = parseFloat(self.importSocialData[params.index].companyBase*self.importSocialData[params.index].companyRatio).toFixed(2);
+                      //     }
+                      //
+                      //     if(parseFloat(self.importSocialData[params.index].empCompanyBase)<parseFloat(self.importSocialData[params.index].personalBaseMin)){
+                      //       self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMin;
+                      //       self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMin*self.importSocialData[params.index].personalRatio).toFixed(2);
+                      //     }else if(parseFloat(self.importSocialData[params.index].empCompanyBase) > parseFloat(self.importSocialData[params.index].personalBaseMax)){
+                      //       self.importSocialData[params.index].personalBase = self.importSocialData[params.index].personalBaseMax;
+                      //       self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBaseMax*self.importSocialData[params.index].personalRatio).toFixed(2);
+                      //     }else{
+                      //       self.importSocialData[params.index].personalBase = val.target.value;
+                      //       self.importSocialData[params.index].personalAmount = parseFloat(self.importSocialData[params.index].personalBase*self.importSocialData[params.index].personalRatio).toFixed(2);
+                      //     }
+                      //     self.importSocialData[params.index].totalAmount = (parseFloat(self.importSocialData[params.index].companyAmount)+parseFloat(self.importSocialData[params.index].personalAmount)).toFixed(2);
+                      //   }
+                      //   //self.syncFundBase(params.row, 'all', val.target.value)
                       }
                     }
                   })
@@ -236,7 +249,7 @@
                           self.importSocialData[params.index].companyBase = val.target.value
                         }
 
-                        self.syncFundBase(params.row, 'company', val.target.value)
+                        //self.syncFundBase(params.row, 'company', val.target.value)
                       }
                     }
                   })
@@ -295,17 +308,17 @@
             render: (h, params) => {
               if (this.configs && !this.configs.readonly) {
                 return h('div', [
-                  h('span', this.baseDic.payWay[this.importSocialData[params.index].companyPayMethod])
+                  h('span', this.baseDic.companyPayWay[this.importSocialData[params.index].companyPayMethod])
                 ])
               } else {
                 // 组装下拉
                 let optionList = []
-                for (let key in this.baseDic.payWay) {
+                for (let key in this.baseDic.companyPayWay) {
                   optionList.push(
                     h('Option', {
                       props: {
                         value: key,
-                        label: this.baseDic.payWay[key],
+                        label: this.baseDic.companyPayWay[key],
                         transfer: true
                       }
                     })
@@ -423,17 +436,17 @@
               let self = this
               if (this.configs && !this.configs.readonly) {
                 return h('div', [
-                  h('span', this.baseDic.payWay[this.importSocialData[params.index].employeePayMethod])
+                  h('span', this.baseDic.personalpayWay[this.importSocialData[params.index].employeePayMethod])
                 ])
               } else {
                 // 组装下拉
                 let optionList = []
-                for (let key in this.baseDic.payWay) {
+                for (let key in this.baseDic.personalpayWay) {
                   optionList.push(
                     h('Option', {
                       props: {
                         value: key,
-                        label: this.baseDic.payWay[key],
+                        label: this.baseDic.personalpayWay[key],
                         transfer: true
                       }
                     })
@@ -823,40 +836,72 @@
 
       },
 
-      autoCalculateAllColumnFunction(newSocialBase){
-        //console.log("importSocialData------------"+ JSON.stringify(this.importSocialData));
-        this.importSocialData.forEach(function (infoItem) {
-          //infoItem.empCompanyBase = newSocialBase
-          infoItem.empCompanyBase = newSocialBase;
+      autoCalculateAllColumnFunction(changeType){
 
-          if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.companyBaseMin)){
-            infoItem.companyBase = infoItem.companyBaseMin;
-            infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
-          }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.companyBaseMax)){
-            infoItem.companyBase = infoItem.companyBaseMax;
-            infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
-          }else{
-            infoItem.companyBase = newSocialBase;
-            infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
-          }
+        if(this.importSocialData){
 
-          if(parseFloat(infoItem.empCompanyBase)<parseFloat(infoItem.personalBaseMin)){
-            infoItem.personalBase = infoItem.personalBaseMin;
-            infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
-          }else if(parseFloat(infoItem.empCompanyBase) > parseFloat(infoItem.personalBaseMax)){
-            infoItem.personalBase = infoItem.personalBaseMax;
-            infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
-          }else{
-            infoItem.personalBase = newSocialBase;
-            infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
-          }
-          infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
+          this.importSocialData.forEach(function (infoItem) {
 
-        });
+            if(changeType == 0){
+              infoItem.companyBase = infoItem.empCompanyBase;
+              infoItem.personalBase = infoItem.empCompanyBase;
+            }
 
+            if(parseFloat(infoItem.companyBase)<parseFloat(infoItem.companyBaseMin)){
+              infoItem.companyBase = infoItem.companyBaseMin;
+              infoItem.companyAmount = parseFloat(infoItem.companyBaseMin*infoItem.companyRatio).toFixed(2);
+            }else if(parseFloat(infoItem.companyBase) > parseFloat(infoItem.companyBaseMax)){
+              infoItem.companyBase = infoItem.companyBaseMax;
+              infoItem.companyAmount = parseFloat(infoItem.companyBaseMax*infoItem.companyRatio).toFixed(2);
+            }else{
+              infoItem.companyAmount = parseFloat(infoItem.companyBase*infoItem.companyRatio).toFixed(2);
+            }
 
+            if(parseFloat(infoItem.personalBase)<parseFloat(infoItem.personalBaseMin)){
+              infoItem.personalBase = infoItem.personalBaseMin;
+              infoItem.personalAmount = parseFloat(infoItem.personalBaseMin*infoItem.personalRatio).toFixed(2);
+            }else if(parseFloat(infoItem.personalBase) > parseFloat(infoItem.personalBaseMax)){
+              infoItem.personalBase = infoItem.personalBaseMax;
+              infoItem.personalAmount = parseFloat(infoItem.personalBaseMax*infoItem.personalRatio).toFixed(2);
+            }else{
+              infoItem.personalAmount = parseFloat(infoItem.personalBase*infoItem.personalRatio).toFixed(2);
+            }
+            infoItem.totalAmount = (parseFloat(infoItem.companyAmount)+parseFloat(infoItem.personalAmount)).toFixed(2);
 
+          });
 
+          this.sumItem.personalTotalPay = parseFloat(_.sumBy(this.importSocialData, i => {
+            if(i.personalAmount != null){
+              return parseFloat(i.personalAmount);
+            }else{
+              return 0;
+            }
+          })).toFixed(2);
+
+          this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+            if(i.companyAmount != null){
+              return parseFloat(i.companyAmount);
+            }else{
+              return 0;
+            }
+          })).toFixed(2);
+
+          this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
+            if(i.companyAmount != null && i.personalAmount != null){
+              return i.policyType == 1 ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
+            }else{
+              return 0;
+            }
+          })).toFixed(2);
+          this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
+            if(i.companyAmount != null && i.personalAmount != null){
+              return (i.policyType == 2 || i.policyType == 3) ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
+            }else{
+              return 0;
+            }
+          })).toFixed(2);
+
+        }
       },
 
       init () {
@@ -938,55 +983,21 @@
         const regex = /^(([1-9]\d*)|0)(\.\d{1,2})?$/
         const flag = regex.test(this.socialBase)
         if (flag && this.importSocialData && newSocialBase) {
-          // this.importSocialData.forEach(function (infoItem) {
-          //   //infoItem.empCompanyBase = newSocialBase
-          //   infoItem.companyBase = newSocialBase;
-          //   infoItem.personalBase = newSocialBase;
-          // })
-          this.autoCalculateAllColumnFunction(newSocialBase);
+          this.importSocialData.forEach(function (infoItem) {
+            infoItem.empCompanyBase = newSocialBase;
+            // infoItem.companyBase = newSocialBase;
+            // infoItem.personalBase = newSocialBase;
+          })
+          this.autoCalculateAllColumnFunction(0);
         }
       },
 
-      newImportSocialData:{
+      newImportSocialData: {
         handler: function (value, oldValue) {
-          if(this.importSocialData){
-            this.sumItem.personalTotalPay = parseFloat(_.sumBy(this.importSocialData, i => {
-              if(i.personalAmount != null){
-                return parseFloat(i.personalAmount);
-              }else{
-                return 0;
-              }
-            })).toFixed(2);
-
-
-
-            this.sumItem.companyTotalPay = this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
-              if(i.companyAmount != null){
-                return parseFloat(i.companyAmount);
-              }else{
-                return 0;
-              }
-            })).toFixed(2);
-
-            this.sumItem.socialSecurityPay = parseFloat(_.sumBy(this.importSocialData, i => {
-              if(i.companyAmount != null && i.personalAmount != null){
-                return i.policyType == 1 ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
-              }else{
-                return 0;
-              }
-            })).toFixed(2);
-            this.sumItem.fundPay = parseFloat(_.sumBy(this.importSocialData, i => {
-              if(i.companyAmount != null && i.personalAmount != null){
-                return (i.policyType == 2 || i.policyType == 3) ? parseFloat(i.companyAmount) + parseFloat(i.personalAmount) : 0;
-              }else{
-                return 0;
-              }
-            })).toFixed(2);
-
-          }
+          console.log("newImportSocialData");
+          this.autoCalculateAllColumnFunction(1);
         },
-
-        deep: true
+        deep:true
       },
 
 

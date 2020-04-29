@@ -697,7 +697,7 @@
         },
 
         async commitForm () {
-
+            console.log("totalSocialData"+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentList));
         },
 
         returnList () {
