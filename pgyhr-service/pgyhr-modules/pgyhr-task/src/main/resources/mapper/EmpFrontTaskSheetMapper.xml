@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.task.dao.mapper.EmpFrontTaskSheetMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pgyhr.task.entity.po.EmpFrontTaskSheetPO">
+        <id column="emp_front_task_sheet_code" property="empFrontTaskSheetCode" />
+        <result column="task_area" property="taskArea" />
+        <result column="task_status" property="taskStatus" />
+        <result column="task_type" property="taskType" />
+        <result column="social_city_code" property="socialCityCode" />
+        <result column="social_city_name" property="socialCityName" />
+        <result column="fund_city_city_code" property="fundCityCityCode" />
+        <result column="fund_city_city_name" property="fundCityCityName" />
+        <result column="add_fund_city_city_code" property="addFundCityCityCode" />
+        <result column="add_fund_city_city_name" property="addFundCityCityName" />
+        <result column="entrust_organization_id" property="entrustOrganizationId" />
+        <result column="entrust_organization_name" property="entrustOrganizationName" />
+        <result column="emp_company_id" property="empCompanyId" />
+        <result column="employee_id" property="employeeId" />
+        <result column="employee_name" property="employeeName" />
+        <result column="company_id" property="companyId" />
+        <result column="company_name" property="companyName" />
+        <result column="employment_date" property="employmentDate" />
+        <result column="contract_start_date" property="contractStartDate" />
+        <result column="contract_end_date" property="contractEndDate" />
+        <result column="employees_fund_account" property="employeesFundAccount" />
+        <result column="employees_social_account" property="employeesSocialAccount" />
+        <result column="social_unit" property="socialUnit" />
+        <result column="fund_unit" property="fundUnit" />
+        <result column="hire_unit" property="hireUnit" />
+        <result column="service_product_status" property="serviceProductStatus" />
+        <result column="service_product_status_date" property="serviceProductStatusDate" />
+        <result column="service_product_start_date" property="serviceProductStartDate" />
+        <result column="service_product_end_date" property="serviceProductEndDate" />
+        <result column="file_address" property="fileAddress" />
+        <result column="file_keep_fee" property="fileKeepFee" />
+        <result column="file_keep_fee_status" property="fileKeepFeeStatus" />
+        <result column="file_keep_fee_status_date" property="fileKeepFeeStatusDate" />
+        <result column="file_keep_fee_start_date" property="fileKeepFeeStartDate" />
+        <result column="file_keep_fee_end_date" property="fileKeepFeeEndDate" />
+        <result column="other_fee" property="otherFee" />
+        <result column="other_fee_status" property="otherFeeStatus" />
+        <result column="other_fee_status_date" property="otherFeeStatusDate" />
+        <result column="other_fee_start_date" property="otherFeeStartDate" />
+        <result column="other_fee_end_date" property="otherFeeEndDate" />
+        <result column="actual_wage" property="actualWage" />
+        <result column="service_fee" property="serviceFee" />
+        <result column="out_reason" property="outReason" />
+        <result column="out_date" property="outDate" />
+        <result column="retreat_examine_result" property="retreatExamineResult" />
+        <result column="retreat_reason" property="retreatReason" />
+        <result column="retreat_status" property="retreatStatus" />
+        <result column="remark" property="remark" />
+        <result column="service_agreement_id" property="serviceAgreementId" />
+        <result column="is_active" property="isActive" />
+        <result column="version" property="version" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_time" property="createdTime" />
+        <result column="modified_by" property="modifiedBy" />
+        <result column="modified_time" property="modifiedTime" />
+    </resultMap>
+
+</mapper>

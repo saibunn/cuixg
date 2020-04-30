@@ -39,10 +39,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestController
-@Api(description = "雇员任务单")
-@RequestMapping("/pgyhr/task")
+@Api(description = "雇员前道任务单")
+@RequestMapping("/pgyhr/front/task")
 @Transactional
-public class EmployeeTaskSheetController<E, ID extends Serializable>{
+public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 
     @Autowired
     private EmployeeInfoService employeeInfoService;
