@@ -8,7 +8,7 @@ import dict from './modules/dict';
 import companyModule from './modules/pgyhr-company/company_module';
 import areaModule from './modules/common/area_module';
 import countryModule from './modules/common/country_module';
-import employeeTaskModule from './modules/pgyhr-task/employee_task_module';
+import employeeTaskModule from './modules/pgyhr-task/employee_front_task_module';
 import socialPolicyModule from './modules/pgyhr-task/social_policy_module';
 import empFrontTaskSheetSocialFeeSegmentModule from './modules/pgyhr-task/emp_front_task_sheet_social_fee_segment_module';
 Vue.use(Vuex);

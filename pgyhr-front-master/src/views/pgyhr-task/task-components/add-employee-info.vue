@@ -108,7 +108,7 @@
 <script>
   import IDValidator from 'id-validator'
   import {mapState, mapGetters, mapActions} from 'vuex';
-  import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_task_sheet_types";
+  import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_front_task_sheet_types";
 
   export default {
     components: {

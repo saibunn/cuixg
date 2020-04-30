@@ -1,6 +1,6 @@
-import employeeTaskApi from "../../../api/pgyhr-task/employee_task_api";
+import employeeTaskApi from "../../../api/pgyhr-task/employee_front_task_api";
 import Util from "../../../libs/util";
-import employeeTaskSheetTypes from "../../event-types/pgyhr-task/employee_task_sheet_types";
+import employeeTaskSheetTypes from "../../event-types/pgyhr-task/employee_front_task_sheet_types";
 
 const namespaced = true;
 // UI组件所有状态数据
@@ -14,6 +14,13 @@ const state = {
         currentPage: 1,
     },
     searchForm:{},
+
+
+    empFrontTaskForSubmit:{
+        organizationAgreementProductRelationRequestDTOList:[],
+        taskSheetServiceProductFeeSegmentRequestDTOList:[],
+        taskSheetSocialFeeSegmentRequestDTOList:[],
+    },
 
     title: "雇员任务单",
 };

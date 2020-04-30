@@ -44,8 +44,8 @@
    */
   import { createNamespacedHelpers } from 'vuex';
   import employeeTaskSheetCondition from "./task-components/employee-task-sheet-condition.vue";
-  import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_task_sheet_types.js";
-  import employeeTaskApi from "../../api/pgyhr-task/employee_task_api.js";
+  import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_front_task_sheet_types.js";
+  import employeeTaskApi from "../../api/pgyhr-task/employee_front_task_api.js";
   //import {connect, disconnect,send} from '@/lib/agent_socket';
 
   const { mapState, mapActions } = createNamespacedHelpers('employeeTaskModule');

@@ -268,7 +268,7 @@
   import {mapState, mapGetters, mapActions} from 'vuex';
   import Checkbox from '../../../../node_modules/iview/src/components/checkbox/checkbox.vue'
   import empProductGroupList from './emp-product-group-list'
-  import employeeTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_task_sheet_types";
+  import employeeFrontTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_front_task_sheet_types";
   import empFrontTaskSheetSocialFeeSegmentTypes from "../../../store/event-types/pgyhr-task/emp_front_task_sheet_social_fee_segment_types";
   import socialPolicyTypes from "../../../store/event-types/pgyhr-task/social_policy_types";
   import util from "../../../libs/util";
@@ -349,21 +349,6 @@
         fundCityName: '常州',
         isEndDate: '0',
         laborEndDateDisabled: false,
-        // 终身雇员
-        empInfo: {
-          employeeId: '',
-          employeeName: '',
-          gender: '',
-          birthday: '',
-          idCardType: '1',
-          idNum: '',
-          countryCode: 'CN',
-          marriageStatus: '',
-          residentType: '',
-          employeeEmail: '',
-          employeeMobile: '',
-          employeeAddress: ''
-        },
         // 雇员公司关系
         empCompanyInfo: {
           workCityCode: '',
@@ -405,107 +390,6 @@
           fundlPolicyCode: '',
           socialPolicyCode: '',
           empBase: ''
-        },
-        empInfoRuleValidate: {
-            companyId: [
-                {
-                    required: true,
-                    message: '请选择所属客户',
-                    trigger: 'change'
-                }
-            ],
-            templateType: [
-                {
-                    required: true,
-                    message: '请选择雇员类型',
-                    trigger: 'change'
-                }
-            ],
-            socialPolicyCode: [
-                {
-                    type: 'integer',
-                    required: true,
-                    message: '请选择社保规则模板',
-                    trigger: 'change'
-                }
-            ],
-            fundlPolicyCode: [
-                {
-                    type: 'integer',
-                    required: true,
-                    message: '请选择公积金规则模板',
-                    trigger: 'change'
-                }
-            ],
-          employeeName: [
-            {
-              required: true,
-              message: '请输入雇员姓名',
-              trigger: 'blur'
-            }
-          ],
-          gender: [
-            {
-              required: true,
-              message: '请选择性别',
-              trigger: 'change'
-            }
-          ],
-          idCardType: [
-            {
-              required: true,
-              message: '请选择证件类型',
-              trigger: 'change'
-            }
-          ],
-          idNum: [
-            {
-              type: 'string',
-              required: true,
-              message: '请输入证件号',
-              trigger: 'blur'
-            },
-            {
-              pattern: '^[A-Za-z0-9]+$',
-              message: '证件号只允许字母与数字组成',
-              trigger: 'blur'
-            }
-          ],
-          employeeMobile: [
-            {
-              type: 'string',
-              required: true,
-              message: '请输入手机号',
-              trigger: 'blur'
-            },
-            {
-              pattern: '^\\d{11}$',
-              message: '请输入正确的手机号',
-              trigger: 'blur'
-            }
-          ],
-          employeeEmail: [
-            {
-              type: 'email',
-              message: '输入的邮箱地址不符合标准',
-              trigger: 'blur'
-            }
-          ],
-          birthday: [
-            {
-              type: 'date',
-              required: true,
-              message: '请选择出生年月',
-              trigger: 'blur'
-            }
-          ],
-          countryCode: [
-            {
-              required: true,
-              message: '请选择国籍',
-              trigger: 'change'
-            }
-          ]
         },
         empCompanyInfoRuleValidate: {
           trySalary: [
@@ -678,12 +562,16 @@
     },
     methods: {
         ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
-            getEmpFrontTaskSheetSocialFeeSegmentByInput: empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT
+            getEmpFrontTaskSheetSocialFeeSegmentByInput: empFrontTaskSheetSocialFeeSegmentTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
         }),
 
         ...mapActions('socialPolicyModule', {
             getSocialPolicyByCity: socialPolicyTypes.SEARCH_SOCIAL_POLICY_BY_PARAM
         }),
+
+        // ...mapActions('employeeTaskModule', {
+        //     saveEmployeeTaskSheet: employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
+        // }),
 
         initData(){
             this.getSocialPolicyByCity("320400");
@@ -698,6 +586,38 @@
 
         async commitForm () {
             console.log("totalSocialData"+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentList));
+
+            this.$refs['empCompanyInfo'].validate((valid) => {
+                if (valid) {
+                    var params = this.empInfo;
+                    var type = '新增';
+                    var title = "雇员任务单" + type;
+                    this[employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO](params).then((response) => {
+                        console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+                        if (response.code == 200) {
+                            this.$Notice.success({
+                                title: title,
+                                desc: title + '成功',
+                            });
+                            this.$router.push({
+                                name: "employee-task-sheet"
+                            });
+
+                        }else{
+                            this.$Notice.error({
+                                title: title,
+                                content: response.message
+                            });
+                        }
+                    }).catch((error) => {
+                        this.$Notice.error({
+                            title: title,
+                            content: title + "错误"
+                        });
+                    });
+                }
+            })
+
         },
 
         returnList () {
@@ -773,41 +693,6 @@
             // }
             // self.totalSocialData = productApi.sortSocialData(self.totalSocialData)
         },
-
-        buildSocialParamData() {
-            let enpBaseValue = this.empCompanyInfo.salary
-            let checkStartDate = this.$dateUtils.checkNextMonth(new Date(this.empCompanyInfo.inDate), 'start')
-            if (this.$commons.isEmpty(this.empCompanyInfo.salary)) {
-                enpBaseValue = 0
-            }
-            let returnData = []
-
-            let itemCodes1 = ['DIT00042', 'DIT00043', 'DIT00044', 'DIT00045', 'DIT00046']
-            itemCodes1.forEach(item => {
-                returnData.push({
-                    itemCode: item,
-                    empCompanyBase: enpBaseValue,
-                    companyBase: enpBaseValue,
-                    personalBase: enpBaseValue,
-                    startDate: checkStartDate,
-                    policyType: 1
-                })
-            })
-
-            let itemCodes2 = ['DIT00057', 'DIT00058']
-            itemCodes2.forEach(item => {
-                returnData.push({
-                    itemCode: item,
-                    empCompanyBase: enpBaseValue,
-                    companyBase: enpBaseValue,
-                    personalBase: enpBaseValue,
-                    startDate: checkStartDate,
-                    policyType: 2
-                })
-            })
-            return returnData
-        },
-
 
         //雇员薪资变更
         salaryChange () {
