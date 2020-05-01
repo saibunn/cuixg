@@ -14,7 +14,7 @@ const state = {
         currentPage: 1,
     },
     searchForm:{},
-
+    addEmployeeInfo:{},
 
     empFrontTaskForSubmit:{
         organizationAgreementProductRelationRequestDTOList:[],
@@ -62,6 +62,11 @@ const mutations = {
         // state.empTaskList = list;
         // console.log("COMPANY_PAGE=========state.rows========="+JSON.stringify(state.rows));
         // state.empTaskPage.total = result.total;
+    },
+
+
+    [employeeTaskSheetTypes.MUTATE_ADD_EMPLOYEE_INFO](state, data){
+        state.addEmployeeInfo = data;
     },
 };
 

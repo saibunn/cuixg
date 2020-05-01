@@ -563,6 +563,10 @@
             empFrontTaskSheetSocialFeeSegmentList: state => state.empFrontTaskSheetSocialFeeSegmentList,
         }),
 
+        ...mapState('employeeFrontTaskModule', {
+            addEmployeeInfo: state => state.addEmployeeInfo,
+        }),
+
     },
     methods: {
         ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
@@ -595,6 +599,7 @@
                 //if (valid) {
 
                     var params = {
+                        employeeInfoPO: this.addEmployeeInfo,
                         empCompanyPO: this.empCompanyInfo,
                         empFrontTaskSheetSocialFeeSegmentForSocialInfoDTOList: this.empFrontTaskSheetSocialFeeSegmentList
                     };
