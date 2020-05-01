@@ -231,7 +231,7 @@
     },
     methods: {
 
-      ...mapActions('employeeTaskModule', [employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO
+      ...mapActions('employeeFrontTaskModule', [employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO
       ]),
 
       errModalClick () {

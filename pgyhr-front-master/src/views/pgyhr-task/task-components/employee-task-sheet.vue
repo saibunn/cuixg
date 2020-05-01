@@ -351,32 +351,36 @@
         laborEndDateDisabled: false,
         // 雇员公司关系
         empCompanyInfo: {
-          workCityCode: '',
           companyId: '',
+          employeeId:'',
           managementId: '',
           templateType: '',
-          inDate: '',
-          isNeedBankCard: '',
+          inDate: null,
+          isTransActBankCard:0,
+          isNeedBankCard: 0,
           bankCode: '',
-          isNotice: true,
           salary: '',
           salaryPayType: '',
-          tryStartDate: '',
-          tryEndDate: '',
-          trySalary: '',
+          laborStartDate: null,
+          laborEndDate: null,
+          laborSide:'',
+          deptName:'',
+          empCode:'',
           position: '',
-          laborStartDate: '',
-          laborEndDate: '',
+          trySalary: '',
+          tryStartDate: null,
+          tryEndDate: null,
           workType: '',
           postType: '1',
           employStyle: '1',
-          hireUnit: '',
           socialUnit: '',
           fundUnit: '',
+          hireUnit: '',
+          workCityCode: '320400',
           socialCityCode: '320400',
           fundCityCode: '320400',
-          remark: '',
           jobContent: '',
+          remark: '',
           dispatchingTerm: null
         },
 
@@ -562,16 +566,16 @@
     },
     methods: {
         ...mapActions('empFrontTaskSheetSocialFeeSegmentModule', {
-            getEmpFrontTaskSheetSocialFeeSegmentByInput: empFrontTaskSheetSocialFeeSegmentTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
+            getEmpFrontTaskSheetSocialFeeSegmentByInput: empFrontTaskSheetSocialFeeSegmentTypes.SEARCH_EMP_FRONT_TASK_SHEET_SOCIAL_FEE_SEGMENT
         }),
 
         ...mapActions('socialPolicyModule', {
             getSocialPolicyByCity: socialPolicyTypes.SEARCH_SOCIAL_POLICY_BY_PARAM
         }),
 
-        // ...mapActions('employeeTaskModule', {
-        //     saveEmployeeTaskSheet: employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
-        // }),
+        ...mapActions('employeeFrontTaskModule', [employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
+        ]),
+
 
         initData(){
             this.getSocialPolicyByCity("320400");
@@ -585,11 +589,15 @@
         },
 
         async commitForm () {
-            console.log("totalSocialData"+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentList));
+            //console.log("totalSocialData"+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentList));
 
-            this.$refs['empCompanyInfo'].validate((valid) => {
-                if (valid) {
-                    var params = this.empInfo;
+            //this.$refs['empCompanyInfo'].validate((valid) => {
+                //if (valid) {
+
+                    var params = {
+                        empCompanyPO: this.empCompanyInfo,
+                        empFrontTaskSheetSocialFeeSegmentForSocialInfoDTOList: this.empFrontTaskSheetSocialFeeSegmentList
+                    };
                     var type = '新增';
                     var title = "雇员任务单" + type;
                     this[employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO](params).then((response) => {
@@ -615,8 +623,8 @@
                             content: title + "错误"
                         });
                     });
-                }
-            })
+                //}
+            //})
 
         },
 

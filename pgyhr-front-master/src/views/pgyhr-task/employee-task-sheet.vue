@@ -48,7 +48,7 @@
   import employeeTaskApi from "../../api/pgyhr-task/employee_front_task_api.js";
   //import {connect, disconnect,send} from '@/lib/agent_socket';
 
-  const { mapState, mapActions } = createNamespacedHelpers('employeeTaskModule');
+  const { mapState, mapActions } = createNamespacedHelpers('employeeFrontTaskModule');
 
   export default {
     components: {
@@ -225,11 +225,11 @@
         this.empTaskListData.splice(index, 1);
       },
       changePageSize(size) {
-        this.$store.commit("employeeTaskModule/" + employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_PAGE_SIZE, size);
+        this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_PAGE_SIZE, size);
         this.getEmployeeTaskSheetPageData();
       },
       changePage(page) {
-        this.$store.commit("employeeTaskModule/" + employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE, page);
+        this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE, page);
         //this.getEmployeeTaskSheetPageData();
       },
     },

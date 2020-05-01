@@ -47,6 +47,11 @@ const actions = {
         return employeeTaskApi.saveEmployeeInfo(params);
     },
 
+    [employeeTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO]({commit}, params){
+        console.log("this.SAVE_EMPLOYEE_TASK_SHEET_INFO=================="+JSON.stringify(params));
+        return employeeTaskApi.saveNewEmployeeTaskSheetInfo(params);
+    },
+
 };
 
 // 更改组件状态
