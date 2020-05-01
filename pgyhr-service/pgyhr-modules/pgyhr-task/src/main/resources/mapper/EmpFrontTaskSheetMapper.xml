@@ -25,6 +25,7 @@
         <result column="contract_start_date" property="contractStartDate" />
         <result column="contract_end_date" property="contractEndDate" />
         <result column="employees_fund_account" property="employeesFundAccount" />
+        <result column="employees_add_fund_account" property="employeesAddFundAccount" />
         <result column="employees_social_account" property="employeesSocialAccount" />
         <result column="social_unit" property="socialUnit" />
         <result column="fund_unit" property="fundUnit" />

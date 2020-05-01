@@ -7,6 +7,8 @@
         <id column="emp_company_id" property="empCompanyId" />
         <result column="company_id" property="companyId" />
         <result column="employee_id" property="employeeId" />
+        <result column="company_name" property="companyName" />
+        <result column="employee_name" property="employeeName" />
         <result column="management_id" property="managementId" />
         <result column="old_employee_id" property="oldEmployeeId" />
         <result column="channel_id" property="channelId" />
@@ -38,6 +40,9 @@
         <result column="work_city_code" property="workCityCode" />
         <result column="social_city_code" property="socialCityCode" />
         <result column="fund_city_code" property="fundCityCode" />
+        <result column="work_city_name" property="workCityName" />
+        <result column="social_city_name" property="socialCityName" />
+        <result column="fund_city_name" property="fundCityName" />
         <result column="out_date" property="outDate" />
         <result column="out_reason" property="outReason" />
         <result column="social_stop_type" property="socialStopType" />

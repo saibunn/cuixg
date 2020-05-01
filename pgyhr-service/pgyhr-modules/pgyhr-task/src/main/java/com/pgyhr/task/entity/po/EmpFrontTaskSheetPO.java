@@ -1,12 +1,11 @@
 package com.pgyhr.task.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -109,17 +108,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 办理用工日期
      */
-    private LocalDateTime employmentDate;
+    private Date employmentDate;
 
     /**
      * 合同开始日期
      */
-    private LocalDateTime contractStartDate;
+    private Date contractStartDate;
 
     /**
      * 合同结束日期
      */
-    private LocalDateTime contractEndDate;
+    private Date contractEndDate;
 
     /**
      * 雇员公积金账号
@@ -130,6 +129,11 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
      * 雇员社保账号
      */
     private String employeesSocialAccount;
+
+    /**
+     * 雇员补充公积金账号
+     */
+    private String employeesAddFundAccount;
 
     /**
      * 社保福利办理方:1: 独立户, 2: 大库
@@ -154,17 +158,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 服务产品反馈日期
      */
-    private LocalDateTime serviceProductStatusDate;
+    private Date serviceProductStatusDate;
 
     /**
      * 服务产品执行年月
      */
-    private LocalDateTime serviceProductStartDate;
+    private Date serviceProductStartDate;
 
     /**
      * 服务产品结束年月
      */
-    private LocalDateTime serviceProductEndDate;
+    private Date serviceProductEndDate;
 
     /**
      * 档案所在地
@@ -184,17 +188,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 档案保管费反馈日期
      */
-    private LocalDateTime fileKeepFeeStatusDate;
+    private Date fileKeepFeeStatusDate;
 
     /**
      * 档案费执行年月
      */
-    private LocalDateTime fileKeepFeeStartDate;
+    private Date fileKeepFeeStartDate;
 
     /**
      * 档案费结束年月
      */
-    private LocalDateTime fileKeepFeeEndDate;
+    private Date fileKeepFeeEndDate;
 
     /**
      * 额外费用
@@ -209,17 +213,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 额外费用反馈日期
      */
-    private LocalDateTime otherFeeStatusDate;
+    private Date otherFeeStatusDate;
 
     /**
      * 额外费用执行年月
      */
-    private LocalDateTime otherFeeStartDate;
+    private Date otherFeeStartDate;
 
     /**
      * 额外费用结束年月
      */
-    private LocalDateTime otherFeeEndDate;
+    private Date otherFeeEndDate;
 
     /**
      * 实际工资
@@ -239,7 +243,7 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 离职日期
      */
-    private LocalDateTime outDate;
+    private Date outDate;
 
     /**
      * 批退审核结果
@@ -413,27 +417,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.companyName = companyName;
     }
 
-    public LocalDateTime getEmploymentDate() {
+    public Date getEmploymentDate() {
         return employmentDate;
     }
 
-    public void setEmploymentDate(LocalDateTime employmentDate) {
+    public void setEmploymentDate(Date employmentDate) {
         this.employmentDate = employmentDate;
     }
 
-    public LocalDateTime getContractStartDate() {
+    public Date getContractStartDate() {
         return contractStartDate;
     }
 
-    public void setContractStartDate(LocalDateTime contractStartDate) {
+    public void setContractStartDate(Date contractStartDate) {
         this.contractStartDate = contractStartDate;
     }
 
-    public LocalDateTime getContractEndDate() {
+    public Date getContractEndDate() {
         return contractEndDate;
     }
 
-    public void setContractEndDate(LocalDateTime contractEndDate) {
+    public void setContractEndDate(Date contractEndDate) {
         this.contractEndDate = contractEndDate;
     }
 
@@ -485,27 +489,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.serviceProductStatus = serviceProductStatus;
     }
 
-    public LocalDateTime getServiceProductStatusDate() {
+    public Date getServiceProductStatusDate() {
         return serviceProductStatusDate;
     }
 
-    public void setServiceProductStatusDate(LocalDateTime serviceProductStatusDate) {
+    public void setServiceProductStatusDate(Date serviceProductStatusDate) {
         this.serviceProductStatusDate = serviceProductStatusDate;
     }
 
-    public LocalDateTime getServiceProductStartDate() {
+    public Date getServiceProductStartDate() {
         return serviceProductStartDate;
     }
 
-    public void setServiceProductStartDate(LocalDateTime serviceProductStartDate) {
+    public void setServiceProductStartDate(Date serviceProductStartDate) {
         this.serviceProductStartDate = serviceProductStartDate;
     }
 
-    public LocalDateTime getServiceProductEndDate() {
+    public Date getServiceProductEndDate() {
         return serviceProductEndDate;
     }
 
-    public void setServiceProductEndDate(LocalDateTime serviceProductEndDate) {
+    public void setServiceProductEndDate(Date serviceProductEndDate) {
         this.serviceProductEndDate = serviceProductEndDate;
     }
 
@@ -533,27 +537,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.fileKeepFeeStatus = fileKeepFeeStatus;
     }
 
-    public LocalDateTime getFileKeepFeeStatusDate() {
+    public Date getFileKeepFeeStatusDate() {
         return fileKeepFeeStatusDate;
     }
 
-    public void setFileKeepFeeStatusDate(LocalDateTime fileKeepFeeStatusDate) {
+    public void setFileKeepFeeStatusDate(Date fileKeepFeeStatusDate) {
         this.fileKeepFeeStatusDate = fileKeepFeeStatusDate;
     }
 
-    public LocalDateTime getFileKeepFeeStartDate() {
+    public Date getFileKeepFeeStartDate() {
         return fileKeepFeeStartDate;
     }
 
-    public void setFileKeepFeeStartDate(LocalDateTime fileKeepFeeStartDate) {
+    public void setFileKeepFeeStartDate(Date fileKeepFeeStartDate) {
         this.fileKeepFeeStartDate = fileKeepFeeStartDate;
     }
 
-    public LocalDateTime getFileKeepFeeEndDate() {
+    public Date getFileKeepFeeEndDate() {
         return fileKeepFeeEndDate;
     }
 
-    public void setFileKeepFeeEndDate(LocalDateTime fileKeepFeeEndDate) {
+    public void setFileKeepFeeEndDate(Date fileKeepFeeEndDate) {
         this.fileKeepFeeEndDate = fileKeepFeeEndDate;
     }
 
@@ -573,27 +577,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.otherFeeStatus = otherFeeStatus;
     }
 
-    public LocalDateTime getOtherFeeStatusDate() {
+    public Date getOtherFeeStatusDate() {
         return otherFeeStatusDate;
     }
 
-    public void setOtherFeeStatusDate(LocalDateTime otherFeeStatusDate) {
+    public void setOtherFeeStatusDate(Date otherFeeStatusDate) {
         this.otherFeeStatusDate = otherFeeStatusDate;
     }
 
-    public LocalDateTime getOtherFeeStartDate() {
+    public Date getOtherFeeStartDate() {
         return otherFeeStartDate;
     }
 
-    public void setOtherFeeStartDate(LocalDateTime otherFeeStartDate) {
+    public void setOtherFeeStartDate(Date otherFeeStartDate) {
         this.otherFeeStartDate = otherFeeStartDate;
     }
 
-    public LocalDateTime getOtherFeeEndDate() {
+    public Date getOtherFeeEndDate() {
         return otherFeeEndDate;
     }
 
-    public void setOtherFeeEndDate(LocalDateTime otherFeeEndDate) {
+    public void setOtherFeeEndDate(Date otherFeeEndDate) {
         this.otherFeeEndDate = otherFeeEndDate;
     }
 
@@ -621,11 +625,11 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.outReason = outReason;
     }
 
-    public LocalDateTime getOutDate() {
+    public Date getOutDate() {
         return outDate;
     }
 
-    public void setOutDate(LocalDateTime outDate) {
+    public void setOutDate(Date outDate) {
         this.outDate = outDate;
     }
 
@@ -688,6 +692,14 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     @Override
     protected Serializable pkVal() {
         return this.empFrontTaskSheetCode;
+    }
+
+    public String getEmployeesAddFundAccount() {
+        return employeesAddFundAccount;
+    }
+
+    public void setEmployeesAddFundAccount(String employeesAddFundAccount) {
+        this.employeesAddFundAccount = employeesAddFundAccount;
     }
 
     @Override

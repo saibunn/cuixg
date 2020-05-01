@@ -1,9 +1,6 @@
 package com.pgyhr.task.entity.dto;
 
-import com.pgyhr.task.entity.po.EmpCompanyPO;
-import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
-import com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO;
-import com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO;
+import com.pgyhr.task.entity.po.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,6 +17,8 @@ import java.util.List;
 public class EmpFrontTaskSaveRequestDTO implements Serializable {
 
     private static final long serialVersionUID = -3166363412416468427L;
+
+    private EmployeeInfoPO employeeInfoPO;
 
     private EmpCompanyPO empCompanyPO;
 

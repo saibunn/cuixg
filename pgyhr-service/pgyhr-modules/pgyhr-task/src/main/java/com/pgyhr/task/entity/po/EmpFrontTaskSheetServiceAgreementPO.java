@@ -53,15 +53,34 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
     private String companyName;
 
     /**
-     * 执行城市ID
+     * 工作城市CODE
      */
-    private String cityCode;
+    private String workCityCode;
 
     /**
-     * 执行城市名称
+     * 工作城市名称
      */
-    private String cityName;
+    private String workCityName;
 
+    /**
+     * 社保缴纳城市CODE
+     */
+    private String socialCityCode;
+
+    /**
+     * 社保缴纳城市名称
+     */
+    private String socialCityName;
+
+    /**
+     * 公积金缴城市CODE
+     */
+    private String fundCityCode;
+
+    /**
+     * 公积金缴城市名称
+     */
+    private String fundCityName;
     /**
      * 社保情况:1-独立户 2-大库 0-不做
      */
@@ -157,20 +176,52 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
         this.companyName = companyName;
     }
 
-    public String getCityCode() {
-        return cityCode;
+    public String getWorkCityCode() {
+        return workCityCode;
     }
 
-    public void setCityCode(String cityCode) {
-        this.cityCode = cityCode;
+    public void setWorkCityCode(String workCityCode) {
+        this.workCityCode = workCityCode;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getWorkCityName() {
+        return workCityName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setWorkCityName(String workCityName) {
+        this.workCityName = workCityName;
+    }
+
+    public String getSocialCityCode() {
+        return socialCityCode;
+    }
+
+    public void setSocialCityCode(String socialCityCode) {
+        this.socialCityCode = socialCityCode;
+    }
+
+    public String getSocialCityName() {
+        return socialCityName;
+    }
+
+    public void setSocialCityName(String socialCityName) {
+        this.socialCityName = socialCityName;
+    }
+
+    public String getFundCityCode() {
+        return fundCityCode;
+    }
+
+    public void setFundCityCode(String fundCityCode) {
+        this.fundCityCode = fundCityCode;
+    }
+
+    public String getFundCityName() {
+        return fundCityName;
+    }
+
+    public void setFundCityName(String fundCityName) {
+        this.fundCityName = fundCityName;
     }
 
     public Integer getSocialType() {
@@ -253,23 +304,27 @@ public class EmpFrontTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<Emp
     @Override
     public String toString() {
         return "EmpFrontTaskSheetServiceAgreementPO{" +
-        "empFrontTaskSheetServiceAgreementId=" + empFrontTaskSheetServiceAgreementId +
-        ", empFrontTaskSheetServiceAgreementName=" + empFrontTaskSheetServiceAgreementName +
-        ", empFrontTaskSheetCode=" + empFrontTaskSheetCode +
-        ", customerCompanyInfoId=" + customerCompanyInfoId +
-        ", companyId=" + companyId +
-        ", companyName=" + companyName +
-        ", cityCode=" + cityCode +
-        ", cityName=" + cityName +
-        ", socialType=" + socialType +
-        ", fundType=" + fundType +
-        ", companyServiceType=" + companyServiceType +
-        ", contractLabourSignType=" + contractLabourSignType +
-        ", handleWorkType=" + handleWorkType +
-        ", fileKeepingType=" + fileKeepingType +
-        ", remark=" + remark +
-        ", isActive=" + isActive +
-        ", version=" + version +
-        "}";
+                "empFrontTaskSheetServiceAgreementId=" + empFrontTaskSheetServiceAgreementId +
+                ", empFrontTaskSheetServiceAgreementName='" + empFrontTaskSheetServiceAgreementName + '\'' +
+                ", empFrontTaskSheetCode='" + empFrontTaskSheetCode + '\'' +
+                ", customerCompanyInfoId=" + customerCompanyInfoId +
+                ", companyId='" + companyId + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", workCityCode='" + workCityCode + '\'' +
+                ", workCityName='" + workCityName + '\'' +
+                ", socialCityCode='" + socialCityCode + '\'' +
+                ", socialCityName='" + socialCityName + '\'' +
+                ", fundCityCode='" + fundCityCode + '\'' +
+                ", fundCityName='" + fundCityName + '\'' +
+                ", socialType=" + socialType +
+                ", fundType=" + fundType +
+                ", companyServiceType=" + companyServiceType +
+                ", contractLabourSignType=" + contractLabourSignType +
+                ", handleWorkType=" + handleWorkType +
+                ", fileKeepingType=" + fileKeepingType +
+                ", remark='" + remark + '\'' +
+                ", isActive=" + isActive +
+                ", version=" + version +
+                '}';
     }
 }

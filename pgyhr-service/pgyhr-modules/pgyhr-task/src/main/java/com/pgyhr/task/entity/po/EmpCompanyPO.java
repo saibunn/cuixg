@@ -3,10 +3,11 @@ package com.pgyhr.task.entity.po;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
  * @since 2020-04-20
  */
 @TableName("p_emp_company")
-public class EmpCompanyPO extends Model<EmpCompanyPO> {
+public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
 
     private static final long serialVersionUID=1L;
 
@@ -33,9 +34,19 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     private String companyId;
 
     /**
+     * 公司名称
+     */
+    private String companyName;
+
+    /**
      * 雇员ID
      */
     private String employeeId;
+
+    /**
+     * 雇员名称
+     */
+    private String employeeName;
 
     /**
      * 管理方ID
@@ -60,7 +71,7 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     /**
      * 入职日期
      */
-    private LocalDateTime inDate;
+    private Date inDate;
 
     /**
      * 是否代办银行卡0 ：不是，1：是
@@ -95,17 +106,17 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     /**
      * 合同开始时间
      */
-    private LocalDateTime laborStartDate;
+    private Date laborStartDate;
 
     /**
      * 合同结束时间
      */
-    private LocalDateTime laborEndDate;
+    private Date laborEndDate;
 
     /**
      * 合同签订方:1: 蒲公英, 2: 蒲公英外包, 3: 客户代签, 4: 客户自签
      */
-    private String laborSide;
+    private Integer laborSide;
 
     /**
      * 部门
@@ -140,12 +151,12 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     /**
      * 试用期开始时间
      */
-    private LocalDateTime tryStartDate;
+    private Date tryStartDate;
 
     /**
      * 试用期结束时间
      */
-    private LocalDateTime tryEndDate;
+    private Date tryEndDate;
 
     /**
      * 工时种类：0: 标准工时, 1: 不定时工时, 2: 综合工时
@@ -183,9 +194,19 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     private String workCityCode;
 
     /**
+     * 工作城市名称
+     */
+    private String workCityName;
+
+    /**
      * 社保缴纳城市CODE
      */
     private String socialCityCode;
+
+    /**
+     * 社保缴纳城市名称
+     */
+    private String socialCityName;
 
     /**
      * 公积金缴城市CODE
@@ -193,9 +214,14 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
     private String fundCityCode;
 
     /**
+     * 公积金缴城市名称
+     */
+    private String fundCityName;
+
+    /**
      * 离职时间
      */
-    private LocalDateTime outDate;
+    private Date outDate;
 
     /**
      * 离职原因：1: 辞职,2: 协商解除,3: 公司解聘,4: 合同到期,5: 关闭,6: 出国,7: 退休,8: 工伤死亡,// 9: 取消入职,10: 死亡,11: 转科技人才,12: 转用工单位（翻牌）,13: 公司自行管理, 无需退工,14: 公司自行管理, 需办退工,15: 转其他公司管理, 无需退工,16: 转其他公司管理, 需办退工
@@ -292,26 +318,6 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
      */
     private Long version;
 
-    /**
-     * 创建人
-     */
-    private String createdBy;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createdTime;
-
-    /**
-     * 修改人
-     */
-    private String modifiedBy;
-
-    /**
-     * 最后修改时间
-     */
-    private LocalDateTime modifiedTime;
-
 
     public String getEmpCompanyId() {
         return empCompanyId;
@@ -369,11 +375,11 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         this.templateType = templateType;
     }
 
-    public LocalDateTime getInDate() {
+    public Date getInDate() {
         return inDate;
     }
 
-    public void setInDate(LocalDateTime inDate) {
+    public void setInDate(Date inDate) {
         this.inDate = inDate;
     }
 
@@ -425,28 +431,20 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         this.salaryPayType = salaryPayType;
     }
 
-    public LocalDateTime getLaborStartDate() {
+    public Date getLaborStartDate() {
         return laborStartDate;
     }
 
-    public void setLaborStartDate(LocalDateTime laborStartDate) {
+    public void setLaborStartDate(Date laborStartDate) {
         this.laborStartDate = laborStartDate;
     }
 
-    public LocalDateTime getLaborEndDate() {
+    public Date getLaborEndDate() {
         return laborEndDate;
     }
 
-    public void setLaborEndDate(LocalDateTime laborEndDate) {
+    public void setLaborEndDate(Date laborEndDate) {
         this.laborEndDate = laborEndDate;
-    }
-
-    public String getLaborSide() {
-        return laborSide;
-    }
-
-    public void setLaborSide(String laborSide) {
-        this.laborSide = laborSide;
     }
 
     public String getDeptName() {
@@ -497,19 +495,19 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         this.trySalary = trySalary;
     }
 
-    public LocalDateTime getTryStartDate() {
+    public Date getTryStartDate() {
         return tryStartDate;
     }
 
-    public void setTryStartDate(LocalDateTime tryStartDate) {
+    public void setTryStartDate(Date tryStartDate) {
         this.tryStartDate = tryStartDate;
     }
 
-    public LocalDateTime getTryEndDate() {
+    public Date getTryEndDate() {
         return tryEndDate;
     }
 
-    public void setTryEndDate(LocalDateTime tryEndDate) {
+    public void setTryEndDate(Date tryEndDate) {
         this.tryEndDate = tryEndDate;
     }
 
@@ -585,11 +583,11 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         this.fundCityCode = fundCityCode;
     }
 
-    public LocalDateTime getOutDate() {
+    public Date getOutDate() {
         return outDate;
     }
 
-    public void setOutDate(LocalDateTime outDate) {
+    public void setOutDate(Date outDate) {
         this.outDate = outDate;
     }
 
@@ -745,36 +743,52 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         this.version = version;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getWorkCityName() {
+        return workCityName;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setWorkCityName(String workCityName) {
+        this.workCityName = workCityName;
     }
 
-    public LocalDateTime getCreatedTime() {
-        return createdTime;
+    public String getSocialCityName() {
+        return socialCityName;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
+    public void setSocialCityName(String socialCityName) {
+        this.socialCityName = socialCityName;
     }
 
-    public String getModifiedBy() {
-        return modifiedBy;
+    public String getFundCityName() {
+        return fundCityName;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setFundCityName(String fundCityName) {
+        this.fundCityName = fundCityName;
     }
 
-    public LocalDateTime getModifiedTime() {
-        return modifiedTime;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setModifiedTime(LocalDateTime modifiedTime) {
-        this.modifiedTime = modifiedTime;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public Integer getLaborSide() {
+        return laborSide;
+    }
+
+    public void setLaborSide(Integer laborSide) {
+        this.laborSide = laborSide;
     }
 
     @Override
@@ -839,10 +853,6 @@ public class EmpCompanyPO extends Model<EmpCompanyPO> {
         ", jobContent=" + jobContent +
         ", dispatchingTerm=" + dispatchingTerm +
         ", version=" + version +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", modifiedBy=" + modifiedBy +
-        ", modifiedTime=" + modifiedTime +
         "}";
     }
 }
