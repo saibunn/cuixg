@@ -204,7 +204,7 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     public Result<E> saveNewEmployeeTaskSheetInfo(@RequestBody EmpFrontTaskSaveRequestDTO empFrontTaskSaveRequestDTO){
         Boolean saveResult = false;
         EmpCompanyPO addEmpCompanyPO = empFrontTaskSaveRequestDTO.getEmpCompanyPO();
-        addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.EMP_CODE_PREFIX));
+        addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
         //雇员公司信息表保存
         boolean saveEmpCompanyResult = empCompanyService.save(addEmpCompanyPO);
         if(saveEmpCompanyResult){

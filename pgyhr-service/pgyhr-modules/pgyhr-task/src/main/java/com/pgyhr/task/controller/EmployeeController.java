@@ -47,18 +47,21 @@ public class EmployeeController <E, ID extends Serializable>{
 
     @ApiOperation(value = "新增雇员信息")
     @PostMapping(value = "/saveEmployeeInfo")
-    public Result<E> addEmployeeInfoById(@RequestBody EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
+    public Result<EmployeeInfoPO> addEmployeeInfoById(@RequestBody EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
         EmployeeInfoPO employeeInfoPO = CommonTransform.convertToDTO(employeeInfoRequsetDTO,EmployeeInfoPO.class);
         List<EmployeeInfoPO> employeeInfoPOList  = employeeInfoService.selectEmployeeInfoByParam(employeeInfoRequsetDTO);
         if(CollectionUtils.isEmpty(employeeInfoPOList)){
             employeeInfoPO.setEmployeeId(CommonUtil.buildId(CodePrefixUtil.EMP_CODE_PREFIX));
-            if(employeeInfoService.save(employeeInfoPO)){
-                return new ResultUtil<E>().setSuccessMsg("新增雇员成功！");
-            }else{
-                return new ResultUtil<E>().setErrorMsg("新增雇员失败！");
+            if(employeeInfoService.save(employeeInfoPO)) {
+                Result<EmployeeInfoPO> result = new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
+                result.setMessage("新增雇员成功");
+                return result;
+            }else {
+
+                return new ResultUtil<EmployeeInfoPO>().setErrorMsg("新增雇员失败！");
             }
         }else{
-            return new ResultUtil<E>().setErrorMsg("新增雇员已存在");
+            return new ResultUtil<EmployeeInfoPO>().setErrorMsg("新增雇员已存在");
         }
     }
 }
