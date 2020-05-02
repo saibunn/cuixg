@@ -28,6 +28,27 @@ const state = {
 // 收集UI组件的所有事件，可以同步也可以异步提交
 const actions = {
 
+    // [employeeTaskSheetTypes.SEARCH_EMPLOYEE_TASK_SHEET_PAGE]({state, commit}){
+    //     const params = {
+    //         ...state.searchForm,
+    //         size: state.empTaskPage.size,
+    //         currentPage: state.empTaskPage.currentPage
+    //     };
+    //     console.log("...state.searchForm.currentPage"+JSON.stringify(params));
+    //     EntrustSearchApi.getEntrustTaskSheetListPage(params)
+    //         .then(response => {
+    //             console.log(response);
+    //             const responseData = response.data;
+    //             if (responseData.code === 0) {
+    //                 commit(EntrustTaskSheetTypes.MUTATE_TASK_SHEET_PAGE, responseData.object)
+    //             } else {
+    //                 throw(responseData.message);
+    //             }
+    //         }).catch(error => {
+    //         console.log(error)
+    //     })
+    // },
+
     [employeeTaskSheetTypes.SEARCH_EMPLOYEE_TASK_SHEET_PAGE]({commit}, params){
         const pageParams = {
             ...state.searchForm,
@@ -67,6 +88,14 @@ const mutations = {
 
     [employeeTaskSheetTypes.MUTATE_ADD_EMPLOYEE_INFO](state, data){
         state.addEmployeeInfo = data;
+    },
+
+    [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE](state, data){
+        state.searchForm = data;
+    },
+
+    [employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE](state, data){
+        state.empTaskPage.currentPage = data;
     },
 };
 

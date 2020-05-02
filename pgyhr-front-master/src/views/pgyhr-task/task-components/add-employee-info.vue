@@ -46,6 +46,15 @@
                   </Select>
                 </Form-item>
                 </Col>
+
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="民族：" prop="nationality">
+                        <Select v-model="empInfo.nationality" filterable>
+                            <Option v-for="item in this.baseDic.nationData" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="手机号：" prop="employeeMobile">
                   <Input type="text" v-model="empInfo.employeeMobile" placeholder="请输入"/>
@@ -61,6 +70,23 @@
                   <Input type="text" v-model="empInfo.employeeAddress" placeholder="请输入"/>
                 </Form-item>
                 </Col>
+
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="社保账号：" prop="socialAccount">
+                        <Input type="text" v-model="empInfo.socialAccount" placeholder="请输入"/>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="公积金账号：" prop="fundAccount">
+                        <Input type="text" v-model="empInfo.fundAccount" placeholder="请输入"/>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="补充公积金账号：" prop="addFundAccount">
+                        <Input type="text" v-model="empInfo.addFundAccount" placeholder="请输入"/>
+                    </Form-item>
+                </Col>
+
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="户口性质：" prop="residentType">
                   <Select v-model="empInfo.residentType">
@@ -128,6 +154,10 @@
           gender: '',
           birthday: null,
           countryCode: '',
+          nationality:'',
+          socialAccount:'',
+          fundAccount:'',
+          addFundAccount:'',
           employeeMobile: '',
           employeeEmail: '',
           employeeAddress: '',
@@ -207,13 +237,36 @@
               trigger: 'change'
             }
           ],
-            emergencyMobile: [
-                {
-                    pattern: '^\\d{11}$',
-                    message: '请输入正确紧急联系人手机号',
-                    trigger: 'blur'
-                }
-            ],
+          nationality: [
+              {
+                  required: true,
+                  message: '请选择民族',
+                  trigger: 'change'
+              }
+          ],
+
+          socialAccount: [
+              {
+                  required: true,
+                  message: '请输入雇员社保账号',
+                  trigger: 'blur'
+              }
+          ],
+          fundAccount: [
+              {
+                  required: true,
+                  message: '请输入雇员公积金账号',
+                  trigger: 'blur'
+              }
+          ],
+
+            // emergencyMobile: [
+            //     {
+            //         pattern: '^\\d{11}$',
+            //         message: '请输入正确紧急联系人手机号',
+            //         trigger: 'blur'
+            //     }
+            // ],
         },
       }
     },

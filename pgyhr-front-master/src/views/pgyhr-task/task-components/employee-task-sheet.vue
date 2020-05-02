@@ -178,13 +178,6 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="合同签订方：">
-                  <Select v-model="empCompanyInfo.laborSide">
-                    <Option v-for="(value,key) in this.baseDic.laborSide" :value="key" :key="key">{{ value }}</Option>
-                  </Select>
-                </Form-item>
-                </Col>
-                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="需要雇员服务联系：">
                   <Checkbox v-model="empCompanyInfo.isNotice"/>
                 </Form-item>
@@ -379,6 +372,9 @@
           workCityCode: '320400',
           socialCityCode: '320400',
           fundCityCode: '320400',
+          workCityName: '常州市',
+          socialCityName: '常州市',
+          fundCityName: '常州市',
           jobContent: '',
           remark: '',
           dispatchingTerm: null
@@ -422,18 +418,32 @@
           ],
           salaryPayType: [
             {
-              required: false,
+              required: true,
               message: '请选择工资支付方式',
               trigger: 'change'
             }
           ],
           workType: [
             {
-              required: false,
+              required: true,
               message: '请选择工时',
               trigger: 'change'
             }
           ],
+            socialUnit: [
+                {
+                    required: true,
+                    message: '请选择社保办理方',
+                    trigger: 'change'
+                }
+            ],
+            fundUnit: [
+                {
+                    required: true,
+                    message: '请选择公积金办理方',
+                    trigger: 'change'
+                }
+            ],
           dispatchingTerm: [
             {
               required: false,
@@ -485,6 +495,14 @@
               trigger: 'change'
             }
           ],
+
+            templateType: [
+                {
+                    required: true,
+                    message: '请选择雇员类型',
+                    trigger: 'change'
+                }
+            ],
           postType: [
             {
               required: true,
@@ -492,6 +510,15 @@
               trigger: 'change'
             }
           ],
+
+            laborSide: [
+                {
+                    required: true,
+                    message: '请选择合同签定方',
+                    trigger: 'change'
+                }
+            ],
+
           employStyle: [
             {
               required: true,
@@ -595,8 +622,8 @@
         async commitForm () {
             //console.log("totalSocialData"+JSON.stringify(this.empFrontTaskSheetSocialFeeSegmentList));
 
-            //this.$refs['empCompanyInfo'].validate((valid) => {
-                //if (valid) {
+            this.$refs['empCompanyInfo'].validate((valid) => {
+                if (valid) {
 
                     var params = {
                         employeeInfoPO: this.addEmployeeInfo,
@@ -628,8 +655,8 @@
                             content: title + "错误"
                         });
                     });
-                //}
-            //})
+                }
+            })
 
         },
 
@@ -653,10 +680,11 @@
         //雇员入职时间改变
         changeInDate (selectDate) {
             if (selectDate) {
-                this.empCompanyInfo.laborStartDate = selectDate;
-                this.empCompanyInfo.tryStartDate = selectDate;
-                let checkStartDate = this.$dateUtils.checkNextMonth(new Date(selectDate), 'start');
+                this.empCompanyInfo.laborStartDate = this.empCompanyInfo.inDate;
+                this.empCompanyInfo.tryStartDate = this.empCompanyInfo.inDate;
+                let checkStartDate = this.$dateUtils.checkNextMonth(this.empCompanyInfo.inDate, 'start');
                 this.empAgreementInfo.startDate = checkStartDate;
+                //console.log("getSocialItemData type====="+this.empAgreementInfo.startDate);
                 this.getSocialItemData(0, this.empAgreementInfo.socialPolicyCode, this.empAgreementInfo.fundlPolicyCode)
             }
         },

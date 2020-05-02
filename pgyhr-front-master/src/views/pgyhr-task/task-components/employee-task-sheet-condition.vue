@@ -14,13 +14,8 @@
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="客户名称：" prop="title">
-                  <Input v-model="searchCondition.title" placeholder="请输入客户名称"/>
-                </Form-item>
-              </Col>
-              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="雇员姓名：" prop="empName">
-                  <Input v-model="searchCondition.empName" placeholder="请输入雇员姓名"/>
+                <Form-item label="客户名称：" prop="companyName">
+                  <Input v-model="searchCondition.companyName" placeholder="请输入客户名称"/>
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
@@ -29,43 +24,43 @@
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="证件号：" prop="idNum">
-                  <Input v-model="searchCondition.idNum" placeholder="请输入证件号"/>
+                <Form-item label="雇员姓名：" prop="employeeName">
+                  <Input v-model="searchCondition.employeeName" placeholder="请输入雇员姓名"/>
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="雇员类型：" prop="templateType">
-                  <Select v-model="searchCondition.templateType" filterable>
-                    <Option v-for="(value,key) in this.baseDic.templateTypes" :value="key" :key="key">{{ value }}</Option>
+                <Form-item label="任务单状态：" prop="taskStatus">
+                  <Select v-model="searchCondition.taskStatus" filterable>
+                    <Option v-for="item in taskStatusOptions" :value="item.id" :key="item.id">{{ item.name }}</Option>
                   </Select>
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="状态：" prop="status">
-                  <Select v-model="searchCondition.status" filterable>
-                    <Option v-for="item in statusOptions" :value="item.id" :key="item.id">{{ item.name }}</Option>
+                <Form-item label="任务单类型" prop="taskType" >
+                  <Select v-model="searchCondition.taskType" :clearable="true">
+                    <Option v-for="item in taskTypeOptions" :value="item.id" :key="item.id">{{ item.name }}</Option>
                   </Select>
                 </Form-item>
               </Col>
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="入职时间：" prop="inDateStart">
-                  <DatePicker type="date" transfer v-model="searchCondition.inDateStart" placeholder="入职开始时间"
+                <Form-item label="入职时间：" prop="contractStartDate">
+                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateStart" placeholder="入职开始时间"
                               style="width: 44%;"></DatePicker>
                   至
-                  <DatePicker type="date" transfer v-model="searchCondition.inDateEnd" placeholder="入职结束时间"
+                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateEnd" placeholder="入职结束时间"
                               style="width: 44%;"></DatePicker>
                 </Form-item>
               </Col>
 
-              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="离职时间：" prop="outDateStart">
-                  <DatePicker type="date" transfer v-model="searchCondition.outDateStart" placeholder="离职开始时间"
-                              style="width: 44%;"></DatePicker>
-                  至
-                  <DatePicker type="date" transfer v-model="searchCondition.outDateEnd" placeholder="离职结束时间"
-                              style="width: 44%;"></DatePicker>
-                </Form-item>
-              </Col>
+<!--              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                <Form-item label="离职时间：" prop="outDateStart">-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.outDateStart" placeholder="离职开始时间"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                  至-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.outDateEnd" placeholder="离职结束时间"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--              </Col>-->
 
               <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="社保缴纳地：" prop="socialCityCode">
@@ -83,25 +78,25 @@
                 </Form-item>
               </Col>
 
-              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}" v-show="showStyle.createdTime.isShow">
-                <Form-item :label="showStyle.createdTime.title" prop="createdTime">
-                  <DatePicker type="date" transfer v-model="searchCondition.createdTimeStart" :placeholder="showStyle.createdTime.placeholder + '开始时间'"
-                              style="width: 44%;"></DatePicker>
-                  至
-                  <DatePicker type="date" transfer v-model="searchCondition.createdTimeEnd" :placeholder="showStyle.createdTime.placeholder + '结束时间'"
-                              style="width: 44%;"></DatePicker>
-                </Form-item>
-              </Col>
+<!--              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}" v-show="showStyle.createdTime.isShow">-->
+<!--                <Form-item :label="showStyle.createdTime.title" prop="createdTime">-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.createdTimeStart" :placeholder="showStyle.createdTime.placeholder + '开始时间'"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                  至-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.createdTimeEnd" :placeholder="showStyle.createdTime.placeholder + '结束时间'"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--              </Col>-->
 
-              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}" v-show="showStyle.modifiedTime.isShow">
-                <Form-item :label="showStyle.modifiedTime.title" prop="modifiedTime">
-                  <DatePicker type="date" transfer v-model="searchCondition.modifiedTimeStart" :placeholder="showStyle.modifiedTime.placeholder + '开始时间'"
-                              style="width: 44%;"></DatePicker>
-                  至
-                  <DatePicker type="date" transfer v-model="searchCondition.modifiedTimeEnd" :placeholder="showStyle.modifiedTime.placeholder + '结束时间'"
-                              style="width: 44%;"></DatePicker>
-                </Form-item>
-              </Col>
+<!--              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}" v-show="showStyle.modifiedTime.isShow">-->
+<!--                <Form-item :label="showStyle.modifiedTime.title" prop="modifiedTime">-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.modifiedTimeStart" :placeholder="showStyle.modifiedTime.placeholder + '开始时间'"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                  至-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.modifiedTimeEnd" :placeholder="showStyle.modifiedTime.placeholder + '结束时间'"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--              </Col>-->
 
               <Col :sm="{span:22}" :md="{span: 22}" :lg="{span: 22}" align="right" style="margin-left: 100px" class="br">
                 <Button type="primary" icon="ios-search" @click="search()">查询</Button>
@@ -121,6 +116,7 @@
 
 <script>
   import {mapState, mapGetters, mapActions} from 'vuex';
+  import employeeFrontTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_front_task_sheet_types";
   export default {
     components: {},
     name: 'employeeTaskSheetCondition',
@@ -136,31 +132,31 @@
         cityData: [],
         searchCondition: {
           companyId: '',
+          companyName:'',
           socialCityCode: '',
           fundCityCode: '',
-          title: '',
-          empName: '',
+          employeeName: '',
           employeeId: '',
-          idNum: '',
-          templateType: '',
-          status: '',
-          inDateStart: '',
-          inDateEnd: '',
-          outDateStart: '',
-          outDateEnd: '',
-          defStatus: [],
-          createdTimeStart : '',
-          createdTimeEnd : '',
-          modifiedTimeStart : '',
-          modifiedTimeEnd : ''
+          taskStatus: '',
+          taskType:'',
+          employmentDateStart: '',
+          employmentDateEnd: '',
         },
         myCompanyList: [],
         isFristSearch: true,
-        statusOptions: [
-          {id: 0, name: '预录用'},
-          {id: 1, name: '雇员信息确认中'},
-          {id: 2, name: '在职'},
-          {id: 3, name: '离职'}
+        taskStatusOptions: [
+          {id: 0, name: '后道批退'},
+          {id: 1, name: '前道提交'},
+          {id: 2, name: '后道处理'},
+          {id: 3, name: '后道部分完成'},
+          {id: 4, name: '后道完成'}
+        ],
+        taskTypeOptions: [
+          {id: 0, name: '新增'},
+          {id: 1, name: '调整'},
+          {id: 2, name: '年度调整'},
+          {id: 3, name: '终止'},
+          {id: 4, name: '一次性费用'}
         ],
         showStyle : {
           createdTime:{
@@ -185,108 +181,22 @@
     },
 
     methods: {
+      ...mapActions('employeeFrontTaskModule',{
+        getEmployeeFrontTaskSheetPageData: employeeFrontTaskSheetTypes.SEARCH_EMPLOYEE_TASK_SHEET_PAGE,
+      }),
+
       reset (name) {
         let self = this
         self.$refs[name].resetFields();
-        self.searchCondition.inDateEnd = ''
-        self.searchCondition.outDateEnd = ''
-      },
-      getMyCompany (token) {
-        let self = this
-        this.axios.get(this.$store.SITE_PORT + '/afCompanyCenter/company/getAccessCompany/' + encodeURIComponent(token))
-                .then(function (response) {
-                  if (response.data) {
-                    self.myCompanyList = response.data
-                  }
-                })
-                .catch(function (error) {
-                  self.$Notice.error({title: '系统提示', desc: error})
-                })
-      },
-      formatConditionForm () {
-        let self = this
-        if (this.conditionForm) {
-          if (this.conditionForm.status) {
-            let newStatusOptions = []
-            this.conditionForm.status.forEach(function (parentItem) {
-              self.statusOptions.forEach(function (statusItem) {
-                if (statusItem.id === parentItem) {
-                  newStatusOptions.push(statusItem)
-                }
-              })
-            })
-
-            if (self.conditionForm.statusAutoSelected) {
-              self.searchCondition.defStatus = self.conditionForm.status.join(',')
-            }
-            self.statusOptions = newStatusOptions
-          }
-        }
+        self.searchCondition.employmentDateStart = '';
+        self.searchCondition.employmentDateEnd = '';
       },
       search () {
-        this.$storage.setItem('searchCondition_companyId', this.searchCondition.companyId)
-        this.$storage.setItem('searchCondition_empName', this.searchCondition.empName)
-        this.$storage.setItem('searchCondition_employeeId', this.searchCondition.employeeId)
-        this.$storage.setItem('searchCondition_idNum', this.searchCondition.idNum)
-        this.$storage.setItem('searchCondition_title', this.searchCondition.title)
-        this.$emit('getSearchCondition', this.searchCondition)
+        let submitForm = {...this.searchCondition};
+        this.$store.commit("employeeFrontTaskModule/" + employeeFrontTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, submitForm);
+        this.$store.commit("employeeFrontTaskModule/" + employeeFrontTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE, 1);
+        this.getEmployeeFrontTaskSheetPageData();
       },
-      selectCity () {
-        let self = this
-        this.axios.get(this.$store.SITE_PORT + '/afCompanyCenter/commons/getCityList/').then(
-                function (response) {
-                  self.cityData = response.data
-                })
-      },
-      setStyle(){
-        let style = {
-          EmployeeInIndex : {
-            createdTime:{
-              isShow : true,
-              title : '预录用时间：',
-              placeholder:'预录用'
-            }
-          },
-          EmployeeChangeIndex : {
-            createdTime:{
-              isShow : true,
-              title : '录入时间：',
-              placeholder:'录入'
-            }
-          },
-          EmployeeMoveIndex : {
-            modifiedTime:{
-              isShow : true,
-              title : '翻牌操作时间：',
-              placeholder:'翻牌操作'
-            }
-          },
-          EmpInOutList : {
-            createdTime:{
-              isShow : true,
-              title : '录入时间：',
-              placeholder:'录入'
-            },
-            modifiedTime:{
-              isShow : true,
-              title : '离职操作时间：',
-              placeholder:'离职操作'
-            }
-          },
-          EmployeeOutIndex : {
-            createdTime:{
-              isShow : true,
-              title : '录入时间：',
-              placeholder:'录入'
-            }
-          }
-        }
-        let pageName = this.$parent.$options.name
-        let pageStyle = style[pageName]
-        if(pageStyle){
-          Object.assign(this.showStyle,pageStyle)
-        }
-      }
     },
     mounted () {
       // this.formatConditionForm()
@@ -297,7 +207,6 @@
       // this.searchCondition.title = this.$storage.getItem('searchCondition_title')
       // this.getMyCompany()
       // this.selectCity()
-      // this.setStyle()
     }
   }
 </script>
