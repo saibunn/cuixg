@@ -3,7 +3,7 @@ import { getRequest, postRequest,postCollectionRequest, putRequest, deleteReques
 
 
 // 获取雇员任务单列表
-const getEmployeeTaskSheetListPage = params => getRequest('/employee/taskSheet/employeeTaskSheetQuery', params);
+const getEmployeeTaskSheetListPage = params => getRequest('/front/task/getEmployeeFrontTaskSheetPage', params);
 
 // 保存雇员基本信息
 const saveEmployeeInfo = params => postCollectionRequest('/employee/saveEmployeeInfo', params);

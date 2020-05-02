@@ -193,7 +193,7 @@
       },
       search () {
         let submitForm = {...this.searchCondition};
-        this.$store.commit("employeeFrontTaskModule/" + employeeFrontTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, submitForm);
+        this.$store.commit("employeeFrontTaskModule/" + employeeFrontTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM, submitForm);
         this.$store.commit("employeeFrontTaskModule/" + employeeFrontTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE, 1);
         this.getEmployeeFrontTaskSheetPageData();
       },

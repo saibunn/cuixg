@@ -639,9 +639,9 @@
                                 title: title,
                                 desc: title + '成功',
                             });
-                            this.$router.push({
-                                name: "employee-task-sheet"
-                            });
+                            // this.$router.push({
+                            //     name: "employee-task-sheet"
+                            // });
 
                         }else{
                             this.$Notice.error({

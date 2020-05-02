@@ -1,6 +1,6 @@
 <style lang="less">
   @import "../../styles/table-common.less";
-  @import "./employee-task.less";
+  @import "./employee-front-task-sheet.less";
 </style>
 
 <template>
@@ -17,20 +17,21 @@
       </Row>
 
       <Row>
-        <Table border stripe :columns="employeeTaskColumns" :data="empTaskListData"  @on-row-dblclick="show()"   ref="empTaskTable"></Table>
-        <Table :columns="exportColumns" :data="exportData" ref="exportTable" style="display:none"></Table>
+        <Table border :columns="employeeTaskColumns" :data="empTaskListData" width="1300" @on-row-dblclick="show()"   ref="entrustTable"></Table>
       </Row>
-      <Row type="flex" justify="end" class="page">
-        <Page
-                :total="totalRecords"
-                :current="currentPage"
-                :page-size ="pageSize"
-                :page-size-opts="[5, 10]"
-                show-sizer
-                show-total
-                @on-page-size-change="changePageSize"
-                @on-change="changePage"
-                class="pageSize"></Page>
+      <Row>
+        <i-col span="20">
+          <Page
+                  :total="totalRecords"
+                  :current="currentPage"
+                  :page-size ="pageSize"
+                  :page-size-opts="[5, 10]"
+                  show-sizer
+                  show-total
+                  @on-page-size-change="changePageSize"
+                  @on-change="changePage"
+                  class="pageSize"></Page>
+        </i-col>
       </Row>
     </div>
   </div>
@@ -46,6 +47,7 @@
   import employeeTaskSheetCondition from "./task-components/employee-task-sheet-condition.vue";
   import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_front_task_sheet_types.js";
   import employeeTaskApi from "../../api/pgyhr-task/employee_front_task_api.js";
+  import companyTypes from "../../store/event-types/pgyhr-company/company-types";
   //import {connect, disconnect,send} from '@/lib/agent_socket';
 
   const { mapState, mapActions } = createNamespacedHelpers('employeeFrontTaskModule');
@@ -72,23 +74,7 @@
             align: 'center',
             fixed: 'left'
           },
-          {
-            title: '处理状态',
-            key: 'taskStatusLabel',
-            width: 100,
-            sortable: true,
-            fixed: 'left'
-          },
-          {
-            title: '受托机构名称',
-            width: 120,
-            key: 'beEntrustOrganizationName'
-          },
-          {
-            title: '执行城市',
-            width: 100,
-            key: 'executeCityName',
-          },
+
           {
             title: '公司名称',
             width: 150,
@@ -109,70 +95,6 @@
             width: 100,
             key: 'employeeName'
           },
-          {
-            title: '委托类型',
-            width: 100,
-            key: 'taskTypeLabel'
-          },
-          {
-            title: '委托日期',
-            width: 150,
-            key: 'entrustDate',
-            render:(h, params) => {
-              if (params.row.entrustDate === undefined || params.row.entrustDate === null) {
-                return;
-              }
-              const date = params.row.entrustDate;
-              return h('div', this.$moment(date).format('YYYYMMDD'))
-            }
-          },
-          {
-            title: '委托操作员',
-            width: 100,
-            key: 'entrustUser'
-          },
-          {
-            title: '受托批退日期',
-            width: 150,
-            key: 'trustReturnDate',
-            render:(h, params) => {
-              if (params.row.trustReturnDate === undefined || params.row.trustReturnDate === null) {
-                return;
-              }
-              const date = params.row.trustReturnDate;
-              return h('div', this.$moment(date).format('YYYYMMDD'))
-            }
-          },
-          {
-            title: '受托操作员',
-            width: 100,
-            key: 'beEntrustUser'
-          },
-          {
-            title: '操作',
-            key: 'action',
-            width: 80,
-            fixed: 'right',
-            align: 'center',
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'success',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params.row.taskSheetId)
-                    }
-                  }
-                }, '查看')
-              ]);
-            }
-          }
         ],
       }
     },
@@ -187,15 +109,21 @@
         this.$Message.warning('这是一条警告的提示');
       },
 
+      handleCurrentChange(val) {
+        this.empTaskPage.pageNum = val;
+        //this.finds();
+      },
+
+
       exportData() {
-        let iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        console.log(this.searchForm);
-        iframe.src = EntrustApi.downloadEntrustTaskSheetList_URL + JSON.stringify(this.searchForm)+'?token='+encodeURIComponent(window.sessionStorage.getItem('user_token'));
-        iframe.onload = function () {
-          document.body.removeChild(iframe)
-        }
-        document.body.appendChild(iframe)
+        // let iframe = document.createElement('iframe');
+        // iframe.style.display = 'none';
+        // console.log(this.searchForm);
+        // iframe.src = EntrustApi.downloadEntrustTaskSheetList_URL + JSON.stringify(this.searchForm)+'?token='+encodeURIComponent(window.sessionStorage.getItem('user_token'));
+        // iframe.onload = function () {
+        //   document.body.removeChild(iframe)
+        // }
+        // document.body.appendChild(iframe)
       },
 
       addEmployee(){

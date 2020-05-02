@@ -56,7 +56,7 @@ const actions = {
             currentPage: state.empTaskPage.currentPage
         };
 
-        console.log("this.SEARCH_EMPLOYEE_TASK_SHEET_PAGE=================="+JSON.stringify(pageParams));
+        console.log("this.SEARCH_EMPLOYEE_TASK_SHEET_PAGE==rrrrrrr================"+JSON.stringify(pageParams));
         return employeeTaskApi.getEmployeeTaskSheetListPage(params).then(response => {
                 commit(employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, response.result)
             }
@@ -78,11 +78,11 @@ const actions = {
 // 更改组件状态
 const mutations = {
     [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE](state, result){
-        console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE======result============"+JSON.stringify(result));
-        // var list = result;
-        // state.empTaskList = list;
-        // console.log("COMPANY_PAGE=========state.rows========="+JSON.stringify(state.rows));
-        // state.empTaskPage.total = result.total;
+
+        var list = result;
+        state.empTaskList = list.records;
+        state.empTaskPage.total = result.total;
+        console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE======result=====aaaaaqqq======="+JSON.stringify(list));
     },
 
 
@@ -90,7 +90,8 @@ const mutations = {
         state.addEmployeeInfo = data;
     },
 
-    [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE](state, data){
+    [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM](state, data){
+        console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM======result============"+JSON.stringify(data));
         state.searchForm = data;
     },
 
