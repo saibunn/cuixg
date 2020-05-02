@@ -1,6 +1,8 @@
 package com.pgyhr.task.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSearchDTO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 
 /**
@@ -13,4 +15,5 @@ import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
  */
 public interface EmpFrontTaskSheetService extends IService<EmpFrontTaskSheetPO> {
 
+    Page<EmpFrontTaskSheetPO> getEmployeeFrontTaskSheetPageByParam(Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage, EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO);
 }

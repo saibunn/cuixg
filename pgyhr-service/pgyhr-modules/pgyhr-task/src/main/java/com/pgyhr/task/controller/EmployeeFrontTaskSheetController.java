@@ -1,5 +1,6 @@
 package com.pgyhr.task.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pgyhr.core.common.utils.CommonTransform;
 import com.pgyhr.core.common.utils.CommonUtil;
 import com.pgyhr.core.common.utils.DateUtil;
@@ -58,6 +59,16 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 
     @Autowired
     private EmpFrontTaskSheetSocialFeeSegmentService empFrontTaskSheetSocialFeeSegmentService;
+
+    @RequestMapping(value = "/getEmployeeFrontTaskSheetPage",method = RequestMethod.GET)
+    @ApiOperation(value = "多条件分页获取雇员任务单列表")
+    public Result<Page<EmpFrontTaskSheetPO>> getEmployeeFrontTaskSheetPage(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO){
+
+        Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage = new Page<>(empFrontTaskSheetSearchDTO.getCurrentPage(),empFrontTaskSheetSearchDTO.getSize());
+        empFrontTaskSheetPOPage = empFrontTaskSheetService.getEmployeeFrontTaskSheetPageByParam(empFrontTaskSheetPOPage,empFrontTaskSheetSearchDTO);
+        System.out.print("test");
+        return new ResultUtil<Page<EmpFrontTaskSheetPO>>().setData(empFrontTaskSheetPOPage);
+    }
 
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
     @ApiOperation(value = "根据雇员ID取雇员信息")
@@ -213,6 +224,8 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     public Result<E> saveNewEmployeeTaskSheetInfo(@RequestBody EmpFrontTaskSaveRequestDTO empFrontTaskSaveRequestDTO){
         Boolean saveResult = false;
         EmpCompanyPO addEmpCompanyPO = empFrontTaskSaveRequestDTO.getEmpCompanyPO();
+        addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
+        addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
         addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
         //雇员公司信息表保存
         boolean saveEmpCompanyResult = empCompanyService.save(addEmpCompanyPO);

@@ -1,10 +1,14 @@
 package com.pgyhr.task.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pgyhr.task.dao.mapper.EmpFrontTaskSheetMapper;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSearchDTO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 import com.pgyhr.task.service.EmpFrontTaskSheetService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -17,4 +21,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmpFrontTaskSheetServiceImpl extends ServiceImpl<EmpFrontTaskSheetMapper, EmpFrontTaskSheetPO> implements EmpFrontTaskSheetService {
 
+    @Override
+    public Page<EmpFrontTaskSheetPO> getEmployeeFrontTaskSheetPageByParam(Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage, EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO) {
+        QueryWrapper<EmpFrontTaskSheetPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getCompanyName()),"company_name",empFrontTaskSheetSearchDTO.getCompanyName());
+        return baseMapper.selectPage(empFrontTaskSheetPOPage,queryWrapper);
+    }
 }

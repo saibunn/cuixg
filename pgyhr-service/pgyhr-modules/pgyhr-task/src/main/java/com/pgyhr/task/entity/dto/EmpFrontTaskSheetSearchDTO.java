@@ -1,7 +1,5 @@
 package com.pgyhr.task.entity.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,7 +15,7 @@ import java.time.LocalDateTime;
  * @since 2020-04-30
  */
 @Data
-public class EmpFrontTaskSheetSearchDTO implements Serializable {
+public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Serializable {
 
 
     private static final long serialVersionUID = -6268844334179676362L;
