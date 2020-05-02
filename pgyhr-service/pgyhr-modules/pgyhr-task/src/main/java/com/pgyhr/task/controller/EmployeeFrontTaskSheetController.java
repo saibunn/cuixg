@@ -2,6 +2,7 @@ package com.pgyhr.task.controller;
 
 import com.pgyhr.core.common.utils.CommonTransform;
 import com.pgyhr.core.common.utils.CommonUtil;
+import com.pgyhr.core.common.utils.DateUtil;
 import com.pgyhr.core.common.utils.ResultUtil;
 import com.pgyhr.core.common.vo.Result;
 import com.pgyhr.task.entity.CodePrefixUtil;
@@ -107,6 +108,14 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setItemCode(itemCodes[i]);
                     //社保项目名称
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setItemName(socials[i]);
+                    //社保ID
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPolicyId(comSocialPolicyTemplateItemPO.getSocialPolicyCode());
+                    //policy_type
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPolicyType(comSocialPolicyTemplateItemPO.getPolicyType());
+                    //社保城市CODE
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCityCode(comSocialPolicyTemplateItemPO.getCityCode());
+                    //社保城市名称
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCityName(comSocialPolicyTemplateItemPO.getCityName());
                     //社保类型
                     if ("DIT00057".equals(itemCodes[i])) {
                         frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPolicyType(2);
@@ -116,7 +125,7 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
                         frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setPolicyType(1);
                     }
                     //缴纳开始月(yyyy-MM格式)
-                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setStartDate(empFrontTaskSheetSocialFeeSegmentRequestDTO.getStarDate());
+                    frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setStartDate(DateUtil.asLocalDateTime(empFrontTaskSheetSocialFeeSegmentRequestDTO.getStarDate()));
                     //公司基数
                     frontTaskSheetSocialFeeSegmentForSocialInfoDTO.setCompanyBase(new BigDecimal(0));
                     //公司比例
@@ -223,13 +232,13 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
             //社保城市名称
             addEmpFrontTaskSheetPO.setSocialCityName(addEmpCompanyPO.getSocialCityName());
             //公积金城市code
-            addEmpFrontTaskSheetPO.setFundCityCityCode(addEmpCompanyPO.getFundCityCode());
+            addEmpFrontTaskSheetPO.setFundCityCode(addEmpCompanyPO.getFundCityCode());
             //公积金城市名称
-            addEmpFrontTaskSheetPO.setFundCityCityName(addEmpCompanyPO.getFundCityName());
+            addEmpFrontTaskSheetPO.setFundCityName(addEmpCompanyPO.getFundCityName());
             //补充公积金城市code
-            addEmpFrontTaskSheetPO.setAddFundCityCityCode(addEmpCompanyPO.getFundCityCode());
+            addEmpFrontTaskSheetPO.setAddFundCityCode(addEmpCompanyPO.getFundCityCode());
             //补充公积金社保城市名称
-            addEmpFrontTaskSheetPO.setAddFundCityCityName(addEmpCompanyPO.getFundCityName());
+            addEmpFrontTaskSheetPO.setAddFundCityName(addEmpCompanyPO.getFundCityName());
             //委托机构ID
             //addEmpFrontTaskSheetPO.setEntrustOrganizationId();
             //委托机构名称
@@ -312,7 +321,12 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 
                 if(!CollectionUtils.isEmpty(empFrontTaskSheetSocialFeeSegmentPOList)){
 
-                    empFrontTaskSheetSocialFeeSegmentPOList.stream().forEach(item->item.setEmpFrontTaskSheetCode(addEmpFrontTaskSheetPO.getEmpFrontTaskSheetCode()));
+                    empFrontTaskSheetSocialFeeSegmentPOList.stream().forEach(item->{
+                                item.setEmpFrontTaskSheetCode(addEmpFrontTaskSheetPO.getEmpFrontTaskSheetCode());
+                                item.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
+                                item.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
+                            }
+                            );
                     if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){
                         log.error("前道任务单社保费用段表表保存失败:" + addEmpFrontTaskSheetPO.toString());
                     }

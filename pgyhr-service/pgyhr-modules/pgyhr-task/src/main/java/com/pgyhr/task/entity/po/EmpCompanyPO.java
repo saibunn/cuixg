@@ -7,7 +7,7 @@ import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -71,7 +71,7 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
     /**
      * 入职日期
      */
-    private Date inDate;
+    private LocalDateTime inDate;
 
     /**
      * 是否代办银行卡0 ：不是，1：是
@@ -106,12 +106,12 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
     /**
      * 合同开始时间
      */
-    private Date laborStartDate;
+    private LocalDateTime laborStartDate;
 
     /**
      * 合同结束时间
      */
-    private Date laborEndDate;
+    private LocalDateTime laborEndDate;
 
     /**
      * 合同签订方:1: 蒲公英, 2: 蒲公英外包, 3: 客户代签, 4: 客户自签
@@ -151,12 +151,12 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
     /**
      * 试用期开始时间
      */
-    private Date tryStartDate;
+    private LocalDateTime tryStartDate;
 
     /**
      * 试用期结束时间
      */
-    private Date tryEndDate;
+    private LocalDateTime tryEndDate;
 
     /**
      * 工时种类：0: 标准工时, 1: 不定时工时, 2: 综合工时
@@ -221,7 +221,7 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
     /**
      * 离职时间
      */
-    private Date outDate;
+    private LocalDateTime outDate;
 
     /**
      * 离职原因：1: 辞职,2: 协商解除,3: 公司解聘,4: 合同到期,5: 关闭,6: 出国,7: 退休,8: 工伤死亡,// 9: 取消入职,10: 死亡,11: 转科技人才,12: 转用工单位（翻牌）,13: 公司自行管理, 无需退工,14: 公司自行管理, 需办退工,15: 转其他公司管理, 无需退工,16: 转其他公司管理, 需办退工
@@ -375,11 +375,11 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
         this.templateType = templateType;
     }
 
-    public Date getInDate() {
+    public LocalDateTime getInDate() {
         return inDate;
     }
 
-    public void setInDate(Date inDate) {
+    public void setInDate(LocalDateTime inDate) {
         this.inDate = inDate;
     }
 
@@ -431,19 +431,19 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
         this.salaryPayType = salaryPayType;
     }
 
-    public Date getLaborStartDate() {
+    public LocalDateTime getLaborStartDate() {
         return laborStartDate;
     }
 
-    public void setLaborStartDate(Date laborStartDate) {
+    public void setLaborStartDate(LocalDateTime laborStartDate) {
         this.laborStartDate = laborStartDate;
     }
 
-    public Date getLaborEndDate() {
+    public LocalDateTime getLaborEndDate() {
         return laborEndDate;
     }
 
-    public void setLaborEndDate(Date laborEndDate) {
+    public void setLaborEndDate(LocalDateTime laborEndDate) {
         this.laborEndDate = laborEndDate;
     }
 
@@ -495,19 +495,19 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
         this.trySalary = trySalary;
     }
 
-    public Date getTryStartDate() {
+    public LocalDateTime getTryStartDate() {
         return tryStartDate;
     }
 
-    public void setTryStartDate(Date tryStartDate) {
+    public void setTryStartDate(LocalDateTime tryStartDate) {
         this.tryStartDate = tryStartDate;
     }
 
-    public Date getTryEndDate() {
+    public LocalDateTime getTryEndDate() {
         return tryEndDate;
     }
 
-    public void setTryEndDate(Date tryEndDate) {
+    public void setTryEndDate(LocalDateTime tryEndDate) {
         this.tryEndDate = tryEndDate;
     }
 
@@ -583,11 +583,11 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
         this.fundCityCode = fundCityCode;
     }
 
-    public Date getOutDate() {
+    public LocalDateTime getOutDate() {
         return outDate;
     }
 
-    public void setOutDate(Date outDate) {
+    public void setOutDate(LocalDateTime outDate) {
         this.outDate = outDate;
     }
 

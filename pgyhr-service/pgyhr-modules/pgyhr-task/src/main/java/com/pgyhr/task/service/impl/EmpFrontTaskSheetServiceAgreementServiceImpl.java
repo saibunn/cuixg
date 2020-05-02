@@ -41,7 +41,8 @@ public class EmpFrontTaskSheetServiceAgreementServiceImpl extends ServiceImpl<Em
         empFrontTaskSheetServiceAgreementPO.setFundType(addEmpCompanyPO.getFundUnit());
         empFrontTaskSheetServiceAgreementPO.setCompanyServiceType(addEmpCompanyPO.getTemplateType());
         empFrontTaskSheetServiceAgreementPO.setContractLabourSignType(addEmpCompanyPO.getLaborSide());
-        empFrontTaskSheetServiceAgreementPO.setHandleWorkType(addEmpCompanyPO.getHireUnit());
+        empFrontTaskSheetServiceAgreementPO.setHandleWorkType(2);
+        empFrontTaskSheetServiceAgreementPO.setFileKeepingType(2);
 //        po.setTaskSheetServiceAgreementName("temp");
 //        po.setCustomerCompanyInfoId(1L);
 

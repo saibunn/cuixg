@@ -10,10 +10,10 @@
         <result column="task_type" property="taskType" />
         <result column="social_city_code" property="socialCityCode" />
         <result column="social_city_name" property="socialCityName" />
-        <result column="fund_city_city_code" property="fundCityCityCode" />
-        <result column="fund_city_city_name" property="fundCityCityName" />
-        <result column="add_fund_city_city_code" property="addFundCityCityCode" />
-        <result column="add_fund_city_city_name" property="addFundCityCityName" />
+        <result column="fund_city_code" property="fundCityCode" />
+        <result column="fund_city_name" property="fundCityName" />
+        <result column="add_fund_city_code" property="addFundCityCode" />
+        <result column="add_fund_city_name" property="addFundCityName" />
         <result column="entrust_organization_id" property="entrustOrganizationId" />
         <result column="entrust_organization_name" property="entrustOrganizationName" />
         <result column="emp_company_id" property="empCompanyId" />

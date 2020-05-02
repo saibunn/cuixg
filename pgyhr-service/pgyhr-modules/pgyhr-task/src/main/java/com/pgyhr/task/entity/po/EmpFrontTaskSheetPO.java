@@ -5,6 +5,7 @@ import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -53,22 +54,22 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 公积金城市code
      */
-    private String fundCityCityCode;
+    private String fundCityCode;
 
     /**
      * 公积金城市名称
      */
-    private String fundCityCityName;
+    private String fundCityName;
 
     /**
      * 补充公积金城市code
      */
-    private String addFundCityCityCode;
+    private String addFundCityCode;
 
     /**
      * 补充公积金社保城市名称
      */
-    private String addFundCityCityName;
+    private String addFundCityName;
 
     /**
      * 委托机构ID
@@ -108,17 +109,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 办理用工日期
      */
-    private Date employmentDate;
+    private LocalDateTime employmentDate;
 
     /**
      * 合同开始日期
      */
-    private Date contractStartDate;
+    private LocalDateTime contractStartDate;
 
     /**
      * 合同结束日期
      */
-    private Date contractEndDate;
+    private LocalDateTime contractEndDate;
 
     /**
      * 雇员公积金账号
@@ -158,17 +159,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 服务产品反馈日期
      */
-    private Date serviceProductStatusDate;
+    private LocalDateTime serviceProductStatusDate;
 
     /**
      * 服务产品执行年月
      */
-    private Date serviceProductStartDate;
+    private LocalDateTime serviceProductStartDate;
 
     /**
      * 服务产品结束年月
      */
-    private Date serviceProductEndDate;
+    private LocalDateTime serviceProductEndDate;
 
     /**
      * 档案所在地
@@ -188,17 +189,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 档案保管费反馈日期
      */
-    private Date fileKeepFeeStatusDate;
+    private LocalDateTime fileKeepFeeStatusDate;
 
     /**
      * 档案费执行年月
      */
-    private Date fileKeepFeeStartDate;
+    private LocalDateTime fileKeepFeeStartDate;
 
     /**
      * 档案费结束年月
      */
-    private Date fileKeepFeeEndDate;
+    private LocalDateTime fileKeepFeeEndDate;
 
     /**
      * 额外费用
@@ -213,17 +214,17 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 额外费用反馈日期
      */
-    private Date otherFeeStatusDate;
+    private LocalDateTime otherFeeStatusDate;
 
     /**
      * 额外费用执行年月
      */
-    private Date otherFeeStartDate;
+    private LocalDateTime otherFeeStartDate;
 
     /**
      * 额外费用结束年月
      */
-    private Date otherFeeEndDate;
+    private LocalDateTime otherFeeEndDate;
 
     /**
      * 实际工资
@@ -243,7 +244,7 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 离职日期
      */
-    private Date outDate;
+    private LocalDateTime outDate;
 
     /**
      * 批退审核结果
@@ -329,36 +330,36 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.socialCityName = socialCityName;
     }
 
-    public String getFundCityCityCode() {
-        return fundCityCityCode;
+    public String getFundCityCode() {
+        return fundCityCode;
     }
 
-    public void setFundCityCityCode(String fundCityCityCode) {
-        this.fundCityCityCode = fundCityCityCode;
+    public void setFundCityCode(String fundCityCode) {
+        this.fundCityCode = fundCityCode;
     }
 
-    public String getFundCityCityName() {
-        return fundCityCityName;
+    public String getFundCityName() {
+        return fundCityName;
     }
 
-    public void setFundCityCityName(String fundCityCityName) {
-        this.fundCityCityName = fundCityCityName;
+    public void setFundCityName(String fundCityName) {
+        this.fundCityName = fundCityName;
     }
 
-    public String getAddFundCityCityCode() {
-        return addFundCityCityCode;
+    public String getAddFundCityCode() {
+        return addFundCityCode;
     }
 
-    public void setAddFundCityCityCode(String addFundCityCityCode) {
-        this.addFundCityCityCode = addFundCityCityCode;
+    public void setAddFundCityCode(String addFundCityCode) {
+        this.addFundCityCode = addFundCityCode;
     }
 
-    public String getAddFundCityCityName() {
-        return addFundCityCityName;
+    public String getAddFundCityName() {
+        return addFundCityName;
     }
 
-    public void setAddFundCityCityName(String addFundCityCityName) {
-        this.addFundCityCityName = addFundCityCityName;
+    public void setAddFundCityName(String addFundCityName) {
+        this.addFundCityName = addFundCityName;
     }
 
     public String getEntrustOrganizationId() {
@@ -417,27 +418,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.companyName = companyName;
     }
 
-    public Date getEmploymentDate() {
+    public LocalDateTime getEmploymentDate() {
         return employmentDate;
     }
 
-    public void setEmploymentDate(Date employmentDate) {
+    public void setEmploymentDate(LocalDateTime employmentDate) {
         this.employmentDate = employmentDate;
     }
 
-    public Date getContractStartDate() {
+    public LocalDateTime getContractStartDate() {
         return contractStartDate;
     }
 
-    public void setContractStartDate(Date contractStartDate) {
+    public void setContractStartDate(LocalDateTime contractStartDate) {
         this.contractStartDate = contractStartDate;
     }
 
-    public Date getContractEndDate() {
+    public LocalDateTime getContractEndDate() {
         return contractEndDate;
     }
 
-    public void setContractEndDate(Date contractEndDate) {
+    public void setContractEndDate(LocalDateTime contractEndDate) {
         this.contractEndDate = contractEndDate;
     }
 
@@ -489,27 +490,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.serviceProductStatus = serviceProductStatus;
     }
 
-    public Date getServiceProductStatusDate() {
+    public LocalDateTime getServiceProductStatusDate() {
         return serviceProductStatusDate;
     }
 
-    public void setServiceProductStatusDate(Date serviceProductStatusDate) {
+    public void setServiceProductStatusDate(LocalDateTime serviceProductStatusDate) {
         this.serviceProductStatusDate = serviceProductStatusDate;
     }
 
-    public Date getServiceProductStartDate() {
+    public LocalDateTime getServiceProductStartDate() {
         return serviceProductStartDate;
     }
 
-    public void setServiceProductStartDate(Date serviceProductStartDate) {
+    public void setServiceProductStartDate(LocalDateTime serviceProductStartDate) {
         this.serviceProductStartDate = serviceProductStartDate;
     }
 
-    public Date getServiceProductEndDate() {
+    public LocalDateTime getServiceProductEndDate() {
         return serviceProductEndDate;
     }
 
-    public void setServiceProductEndDate(Date serviceProductEndDate) {
+    public void setServiceProductEndDate(LocalDateTime serviceProductEndDate) {
         this.serviceProductEndDate = serviceProductEndDate;
     }
 
@@ -537,27 +538,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.fileKeepFeeStatus = fileKeepFeeStatus;
     }
 
-    public Date getFileKeepFeeStatusDate() {
+    public LocalDateTime getFileKeepFeeStatusDate() {
         return fileKeepFeeStatusDate;
     }
 
-    public void setFileKeepFeeStatusDate(Date fileKeepFeeStatusDate) {
+    public void setFileKeepFeeStatusDate(LocalDateTime fileKeepFeeStatusDate) {
         this.fileKeepFeeStatusDate = fileKeepFeeStatusDate;
     }
 
-    public Date getFileKeepFeeStartDate() {
+    public LocalDateTime getFileKeepFeeStartDate() {
         return fileKeepFeeStartDate;
     }
 
-    public void setFileKeepFeeStartDate(Date fileKeepFeeStartDate) {
+    public void setFileKeepFeeStartDate(LocalDateTime fileKeepFeeStartDate) {
         this.fileKeepFeeStartDate = fileKeepFeeStartDate;
     }
 
-    public Date getFileKeepFeeEndDate() {
+    public LocalDateTime getFileKeepFeeEndDate() {
         return fileKeepFeeEndDate;
     }
 
-    public void setFileKeepFeeEndDate(Date fileKeepFeeEndDate) {
+    public void setFileKeepFeeEndDate(LocalDateTime fileKeepFeeEndDate) {
         this.fileKeepFeeEndDate = fileKeepFeeEndDate;
     }
 
@@ -577,27 +578,27 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.otherFeeStatus = otherFeeStatus;
     }
 
-    public Date getOtherFeeStatusDate() {
+    public LocalDateTime getOtherFeeStatusDate() {
         return otherFeeStatusDate;
     }
 
-    public void setOtherFeeStatusDate(Date otherFeeStatusDate) {
+    public void setOtherFeeStatusDate(LocalDateTime otherFeeStatusDate) {
         this.otherFeeStatusDate = otherFeeStatusDate;
     }
 
-    public Date getOtherFeeStartDate() {
+    public LocalDateTime getOtherFeeStartDate() {
         return otherFeeStartDate;
     }
 
-    public void setOtherFeeStartDate(Date otherFeeStartDate) {
+    public void setOtherFeeStartDate(LocalDateTime otherFeeStartDate) {
         this.otherFeeStartDate = otherFeeStartDate;
     }
 
-    public Date getOtherFeeEndDate() {
+    public LocalDateTime getOtherFeeEndDate() {
         return otherFeeEndDate;
     }
 
-    public void setOtherFeeEndDate(Date otherFeeEndDate) {
+    public void setOtherFeeEndDate(LocalDateTime otherFeeEndDate) {
         this.otherFeeEndDate = otherFeeEndDate;
     }
 
@@ -625,11 +626,11 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         this.outReason = outReason;
     }
 
-    public Date getOutDate() {
+    public LocalDateTime getOutDate() {
         return outDate;
     }
 
-    public void setOutDate(Date outDate) {
+    public void setOutDate(LocalDateTime outDate) {
         this.outDate = outDate;
     }
 
@@ -711,10 +712,10 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
         ", taskType=" + taskType +
         ", socialCityCode=" + socialCityCode +
         ", socialCityName=" + socialCityName +
-        ", fundCityCityCode=" + fundCityCityCode +
-        ", fundCityCityName=" + fundCityCityName +
-        ", addFundCityCityCode=" + addFundCityCityCode +
-        ", addFundCityCityName=" + addFundCityCityName +
+        ", fundCityCode=" + fundCityCode +
+        ", fundCityName=" + fundCityName +
+        ", addFundCityCode=" + addFundCityCode +
+        ", addFundCityName=" + addFundCityName +
         ", entrustOrganizationId=" + entrustOrganizationId +
         ", entrustOrganizationName=" + entrustOrganizationName +
         ", empCompanyId=" + empCompanyId +

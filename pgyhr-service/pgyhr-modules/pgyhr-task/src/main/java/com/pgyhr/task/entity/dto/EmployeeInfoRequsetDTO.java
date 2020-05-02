@@ -48,7 +48,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 雇员出生日期
      */
-    private Date birthday;
+    private LocalDateTime birthday;
 
     /**
      * 户口性质:1: 非农业户口, 2: 农业户口
@@ -226,11 +226,11 @@ public class EmployeeInfoRequsetDTO implements Serializable{
         this.idNum = idNum;
     }
 
-    public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 
