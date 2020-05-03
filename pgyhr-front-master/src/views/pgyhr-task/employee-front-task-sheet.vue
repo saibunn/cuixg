@@ -46,9 +46,6 @@
   import { createNamespacedHelpers } from 'vuex';
   import employeeTaskSheetCondition from "./front-task-components/employee-task-sheet-condition.vue";
   import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_front_task_sheet_types.js";
-  import employeeTaskApi from "../../api/pgyhr-task/employee_front_task_api.js";
-  import companyTypes from "../../store/event-types/pgyhr-company/company-types";
-  //import {connect, disconnect,send} from '@/lib/agent_socket';
 
   const { mapState, mapActions } = createNamespacedHelpers('employeeFrontTaskModule');
 
@@ -75,25 +72,78 @@
             fixed: 'left'
           },
           {
+            title: '处理状态',
+            key: 'taskStatusLabel',
+            minWidth: 120,
+            sortable: true,
+            fixed: 'left'
+          },
+          {
+            title: '社保执行城市',
+            minWidth: 100,
+            key: 'socialCityName'
+          },
+          {
+            title: '公积金执行城市',
+            minWidth: 100,
+            key: 'fundCityName'
+          },
+          {
+            title: '公司名称',
+            minWidth: 150,
+            key: 'companyName'
+          },
+          {
             title: '雇员编号',
-            width: 150,
+            minWidth: 180,
             key: 'employeeId'
           },
           {
             title: '雇员姓名',
-            width: 100,
+            minWidth: 100,
             key: 'employeeName'
           },
           {
-            title: '公司名称',
-            width: 150,
-            key: 'companyName'
+            title: '任务单类型',
+            minWidth: 100,
+            key: 'taskTypeLabel'
           },
           {
-            title: '公司编号',
-            width: 120,
-            key: 'companyId'
+            title: '任务单前道发起日期',
+            minWidth: 150,
+            key: 'createdTime',
+            render:(h, params) => {
+              if (params.row.createdTime === undefined || params.row.createdTime === null) {
+                return;
+              }
+              return h('div', this.$moment(params.row.createdTime).format('YYYY/MM/DD'))
+            }
           },
+          {
+            title: '操作',
+            key: 'action',
+            minWidth: 100,
+            fixed: 'right',
+            align: 'center',
+            render: (h, params) => {
+              return h('div', [
+                h('Button', {
+                  props: {
+                    type: 'success',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.show(params.row)
+                    }
+                  }
+                }, '查看')
+              ]);
+            }
+          }
         ],
       }
     },
@@ -134,16 +184,13 @@
       reload: function() {
         this.showDetail = true;
       },
-      show(id) {
+      show(empFrontTaskSheetInfo) {
+        this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_SELECTED_EMPLOYEE_TASK_SHEET_INFO, empFrontTaskSheetInfo);
         //双击跳转任务单明细 todo
-        // this.showDetail = true;
-        //disconnect(); // 关闭 Websocket
-        // this.$router.push({
-        //   name: "entrustDetail",
-        //   params: {
-        //     id:id
-        //   }
-        // })
+        this.showDetail = true;
+        this.$router.push({
+          name: "employ_front_task_sheet_detail",
+        })
       },
       backSearch() {
         this.showDetail = false;

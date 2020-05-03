@@ -9,6 +9,7 @@ import { router } from './router/index'
 import store from './store'
 import i18n from '@/locale'
 import Icon from 'vue-awesome/components/Icon'
+import moment from 'moment'
 //import _ from 'lodash';
 // 按需引入awesome图标
 import 'vue-awesome/icons/brands/qq'
@@ -54,6 +55,7 @@ Vue.prototype.uploadFileRequest = uploadFileRequest;
 Vue.prototype.setStore = setStore;
 Vue.prototype.getStore = getStore;
 Vue.prototype.removeStore = removeStore;
+Vue.prototype.$moment = moment
 //Vue.prototype._ = _;
 
 /* eslint-disable no-new */

@@ -14,11 +14,23 @@ const getEmpFrontTaskSheetSocialFeeSegmentByParam = params => getRequest('/front
 // 新增雇员前道任务单
 const saveNewEmployeeTaskSheetInfo = params => postCollectionRequest('/front/task/saveNewEmployeeTaskSheetInfo', params);
 
+// 雇员前道任务单详情
+const getEmployeeTaskSheetDetail = params => getRequest('/front/task/getEmployeeTaskSheetDetail', params);
+
+// 雇员基本信息
+const getEmployeeInfo = params => getRequest('/front/task/getEmployeeInfoById', params);
+// 雇员前道任务单社保费用详情
+const getEmployeeTaskSheetSocialFeeSegment = params => getRequest('/front/task/getEmployeeTaskSheetSocialFeeSegment', params);
+
 export default {
   getEmployeeTaskSheetListPage,
   saveEmployeeInfo,
   getEmpFrontTaskSheetSocialFeeSegmentByParam,
   saveNewEmployeeTaskSheetInfo,
+  getEmployeeTaskSheetDetail,
+  getEmployeeTaskSheetSocialFeeSegment,
+  getEmployeeInfo,
+
 
 }
 

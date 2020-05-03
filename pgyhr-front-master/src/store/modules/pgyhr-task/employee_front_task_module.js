@@ -15,12 +15,21 @@ const state = {
     },
     searchForm:{},
     addEmployeeInfo:{},
+    employeeInfo:{},
+
+    selectedEmpTaskInfo:{},
 
     empFrontTaskForSubmit:{
         organizationAgreementProductRelationRequestDTOList:[],
         taskSheetServiceProductFeeSegmentRequestDTOList:[],
         taskSheetSocialFeeSegmentRequestDTOList:[],
     },
+
+    empFrontTaskSheetDetail: {
+
+    },
+
+    empFrontTaskSheetSocialFeeSegment: [],
 
     title: "雇员任务单",
 };
@@ -73,6 +82,63 @@ const actions = {
         return employeeTaskApi.saveNewEmployeeTaskSheetInfo(params);
     },
 
+    [employeeTaskSheetTypes.GET_EMP_TASK_SHEET_EMPLOYEE_INFO]({state, commit}) {
+        const config = {
+            params: {
+                selectedEmpTaskInfo: state.selectedEmpTaskInfo,
+            }
+        }
+        employeeTaskApi.getEmployeeInfo(config)
+            .then(response => {
+                const responseData = response.result;
+                if (responseData.code === 200) {
+                    commit(employeeTaskSheetTypes.MUTATE_GET_EMP_TASK_SHEET_EMPLOYEE_INFO, response.result);
+                } else {
+                    throw (responseData.message)
+                }
+            }).catch(error => {
+            console.log(error)
+        })
+    },
+
+    [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_DETAIL] ({state, commit}) {
+        const config = {
+            params: {
+                selectedEmpTaskInfo: state.selectedEmpTaskInfo,
+            }
+        };
+        console.log("GET_EMPLOYEE_TASK_SHEET_DETAIL-------------"+JSON.stringify(state.selectedEmpTaskInfo));
+        return employeeTaskApi.getEmployeeTaskSheetDetail(state.selectedEmpTaskInfo)
+            .then(response => {
+                const responseData = response.result;
+                if (responseData.code === 200) {
+                    commit(employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL, responseData)
+                } else {
+                    throw (responseData.message)
+                }
+                return response
+            })
+    },
+
+    [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_SOCIAL_FEE_SEGMENT]({state, commit}) {
+        const config = {
+            params: {
+                selectedEmpTaskInfo: state.selectedEmpTaskInfo,
+            }
+        };
+        employeeTaskApi.getEmployeeTaskSheetSocialFeeSegment(config)
+            .then(response => {
+                const responseData = response.result;
+                if (responseData.code ===200) {
+                    commit(employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_SOCIAL_FEE_SEGMENT, responseData)
+                } else {
+                    throw (responseData.message)
+                }
+            }).catch(error => {
+            console.log(error)
+        })
+    },
+
 };
 
 // 更改组件状态
@@ -95,9 +161,28 @@ const mutations = {
         state.searchForm = data;
     },
 
+    [employeeTaskSheetTypes.MUTATE_SELECTED_EMPLOYEE_TASK_SHEET_INFO](state, data){
+        state.selectedEmpTaskInfo = data;
+    },
+
     [employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE](state, data){
         state.empTaskPage.currentPage = data;
     },
+
+    [employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL] (state, data) {
+        state.empFrontTaskSheetDetail = data.empCompanyPO;
+        state.taskSheetSocialFeeInfo = data.empFrontTaskSheetSocialFeeSegmentPOList;
+        state.employeeInfo = data.employeeInfoPO;
+    },
+
+    [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_SOCIAL_FEE_SEGMENT] (state, data) {
+        state.taskSheetSocialFeeInfo = data
+    },
+
+    [employeeTaskSheetTypes.MUTATE_GET_EMP_TASK_SHEET_EMPLOYEE_INFO] (state, data) {
+        state.employeeInfo = data
+    },
+
 };
 
 // UI 组件数据
