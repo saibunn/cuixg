@@ -2,7 +2,7 @@ package com.pgyhr.task.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pgyhr.task.entity.dto.SocialPolicyTemplateDTO;
-import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO;
+import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponseDTO;
 import com.pgyhr.task.entity.po.SocialPolicyTemplatePO;
 
 import java.util.List;
@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface SocialPolicyTemplateMapper extends BaseMapper<SocialPolicyTemplatePO> {
 
-    List<SocialPolicyTemplateResponeDTO> querySocialPolicyByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
+    List<SocialPolicyTemplateResponseDTO> querySocialPolicyByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
 }

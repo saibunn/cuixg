@@ -1,10 +1,20 @@
 package com.pgyhr.task.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pgyhr.core.base.PgyhrBaseEntityNoId;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -15,10 +25,10 @@ import java.time.LocalDateTime;
  * @since 2020-04-30
  */
 @Data
-public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Serializable {
+public class EmpFrontTaskSheetPageRequestDTO implements Serializable{
 
 
-    private static final long serialVersionUID = -6268844334179676362L;
+    private static final long serialVersionUID = 5202749885303133990L;
     /**
      * 雇员前道任务单ID
      */
@@ -104,6 +114,20 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
      */
     private String companyName;
 
+    /**
+     * 办理用工日期
+     */
+    private LocalDateTime employmentDate;
+
+    /**
+     * 合同开始日期
+     */
+    private LocalDateTime contractStartDate;
+
+    /**
+     * 合同结束日期
+     */
+    private LocalDateTime contractEndDate;
 
     /**
      * 雇员公积金账号
@@ -141,6 +165,21 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
     private Integer serviceProductStatus;
 
     /**
+     * 服务产品反馈日期
+     */
+    private LocalDateTime serviceProductStatusDate;
+
+    /**
+     * 服务产品执行年月
+     */
+    private LocalDateTime serviceProductStartDate;
+
+    /**
+     * 服务产品结束年月
+     */
+    private LocalDateTime serviceProductEndDate;
+
+    /**
      * 档案所在地
      */
     private String fileAddress;
@@ -156,6 +195,21 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
     private Integer fileKeepFeeStatus;
 
     /**
+     * 档案保管费反馈日期
+     */
+    private LocalDateTime fileKeepFeeStatusDate;
+
+    /**
+     * 档案费执行年月
+     */
+    private LocalDateTime fileKeepFeeStartDate;
+
+    /**
+     * 档案费结束年月
+     */
+    private LocalDateTime fileKeepFeeEndDate;
+
+    /**
      * 额外费用
      */
     private BigDecimal otherFee;
@@ -164,6 +218,21 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
      * 额外费用反馈状态:0-取消委托，1-委托成功，2-委托办理
      */
     private Integer otherFeeStatus;
+
+    /**
+     * 额外费用反馈日期
+     */
+    private LocalDateTime otherFeeStatusDate;
+
+    /**
+     * 额外费用执行年月
+     */
+    private LocalDateTime otherFeeStartDate;
+
+    /**
+     * 额外费用结束年月
+     */
+    private LocalDateTime otherFeeEndDate;
 
     /**
      * 实际工资
@@ -180,6 +249,10 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
      */
     private Integer outReason;
 
+    /**
+     * 离职日期
+     */
+    private LocalDateTime outDate;
 
     /**
      * 批退审核结果
@@ -216,4 +289,22 @@ public class EmpFrontTaskSheetSearchDTO extends CommonListDTO implements Seriali
      */
     private Long version;
 
+    /**
+     * 任务单类型label
+     */
+    private String taskTypeLabel;
+
+    /**
+     * 任务单状态label
+     */
+    private String taskStatusLabel;
+
+    /**
+     * 离职原因Lable：1: 辞职,2: 协商解除,3: 公司解聘,4: 合同到期,5: 关闭,6: 出国,7: 退休,8: 工伤死亡,// 9: 取消入职,10: 死亡,11: 转科技人才,12: 转用工单位（翻牌）,13: 公司自行管理, 无需退工,14: 公司自行管理, 需办退工,15: 转其他公司管理, 无需退工,16: 转其他公司管理, 需办退工
+     */
+    private String outReasonLabel;
+
+    private String createdBy;
+
+    private LocalDateTime createdTime;
 }

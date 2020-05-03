@@ -2,7 +2,7 @@ package com.pgyhr.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pgyhr.task.entity.dto.SocialPolicyTemplateDTO;
-import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO;
+import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponseDTO;
 import com.pgyhr.task.entity.po.SocialPolicyTemplatePO;
 
 import java.util.List;
@@ -19,5 +19,5 @@ public interface SocialPolicyTemplateService extends IService<SocialPolicyTempla
 
     List<SocialPolicyTemplatePO> getSocialPolicyByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
 
-    List<SocialPolicyTemplateResponeDTO> getSocialPolicyItemByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
+    List<SocialPolicyTemplateResponseDTO> getSocialPolicyItemByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO);
 }

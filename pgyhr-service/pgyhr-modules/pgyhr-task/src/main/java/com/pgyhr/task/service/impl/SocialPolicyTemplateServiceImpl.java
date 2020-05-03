@@ -2,8 +2,7 @@ package com.pgyhr.task.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.pgyhr.task.entity.dto.SocialPolicyTemplateDTO;
-import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO;
-import com.pgyhr.task.entity.po.EmployeeInfoPO;
+import com.pgyhr.task.entity.dto.SocialPolicyTemplateResponseDTO;
 import com.pgyhr.task.entity.po.SocialPolicyTemplatePO;
 import com.pgyhr.task.dao.mapper.SocialPolicyTemplateMapper;
 import com.pgyhr.task.service.SocialPolicyTemplateService;
@@ -31,7 +30,7 @@ public class SocialPolicyTemplateServiceImpl extends ServiceImpl<SocialPolicyTem
     }
 
     @Override
-    public List<SocialPolicyTemplateResponeDTO> getSocialPolicyItemByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO) {
+    public List<SocialPolicyTemplateResponseDTO> getSocialPolicyItemByParam(SocialPolicyTemplateDTO socialPolicyTemplateDTO) {
         return baseMapper.querySocialPolicyByParam(socialPolicyTemplateDTO);
     }
 }

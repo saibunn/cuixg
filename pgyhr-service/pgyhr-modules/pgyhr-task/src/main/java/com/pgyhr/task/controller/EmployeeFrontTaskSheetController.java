@@ -9,6 +9,7 @@ import com.pgyhr.core.common.vo.Result;
 import com.pgyhr.task.entity.CodePrefixUtil;
 import com.pgyhr.task.entity.dto.*;
 import com.pgyhr.task.entity.po.*;
+import com.pgyhr.task.entity.translator.EmpFrontTaskSheetTranslator;
 import com.pgyhr.task.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -62,12 +63,19 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 
     @RequestMapping(value = "/getEmployeeFrontTaskSheetPage",method = RequestMethod.GET)
     @ApiOperation(value = "多条件分页获取雇员任务单列表")
-    public Result<Page<EmpFrontTaskSheetPO>> getEmployeeFrontTaskSheetPage(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO){
+    public Result<Page<EmpFrontTaskSheetPageRequestDTO>> getEmployeeFrontTaskSheetPage(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO){
 
         Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage = new Page<>(empFrontTaskSheetSearchDTO.getCurrentPage(),empFrontTaskSheetSearchDTO.getSize());
         empFrontTaskSheetPOPage = empFrontTaskSheetService.getEmployeeFrontTaskSheetPageByParam(empFrontTaskSheetPOPage,empFrontTaskSheetSearchDTO);
-        System.out.print("test");
-        return new ResultUtil<Page<EmpFrontTaskSheetPO>>().setData(empFrontTaskSheetPOPage);
+        List<EmpFrontTaskSheetPageRequestDTO> resultList = empFrontTaskSheetPOPage.getRecords()
+                .stream()
+                .map(EmpFrontTaskSheetTranslator::toTaskSheetResponseDTO)
+                .collect(Collectors.toList());
+        Page<EmpFrontTaskSheetPageRequestDTO> resultPage = new Page<>(empFrontTaskSheetPOPage.getCurrent(), empFrontTaskSheetPOPage.getSize());
+        resultPage.setTotal(empFrontTaskSheetPOPage.getTotal());
+        resultPage.setRecords(resultList);
+
+        return new ResultUtil<Page<EmpFrontTaskSheetPageRequestDTO>>().setData(resultPage);
     }
 
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
@@ -75,6 +83,29 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     public Result<EmployeeInfoPO> getEmployeeInfoById(EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
         EmployeeInfoPO employeeInfoPO = employeeInfoService.getById(employeeInfoRequsetDTO.getEmployeeId());
         return new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
+    }
+
+    /**
+     * 获取前道雇员任务单详情
+     * @author xiaoguang cui
+     * @param empFrontTaskSheetSearchDTO
+     * @return 前道雇员任务单详情数据
+     */
+    @RequestMapping(value = "/getEmployeeTaskSheetDetail",method = RequestMethod.GET)
+    @ApiOperation(value = "雇员任务单取雇员信息")
+    public Result<EmpFrontTaskResponseDTO> getEmployeeTaskSheetDetail(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO) {
+        return new ResultUtil<EmpFrontTaskResponseDTO>().setData(null);
+    }
+
+    /**
+     * 获取委托单的社保费用明细
+     * @author xiaoguang cui
+     * @param empFrontTaskSheetSearchDTO
+     * @return
+     */
+    @GetMapping(value = "/getEmployeeTaskSheetSocialFeeSegment")
+    public Result<List<EmpFrontTaskSheetSocialFeeSegmentPO>> getEmployeeTaskSheetSocialFeeSegment(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO) {
+        return new ResultUtil<List<EmpFrontTaskSheetSocialFeeSegmentPO>>().setData(null);
     }
 
     @ApiOperation(value = "新增雇员信息")

@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2020-04-24
  */
 @Data
-public class SocialPolicyTemplateListResponeDTO implements Serializable {
+public class SocialPolicyTemplateListResponseDTO implements Serializable {
 
 
     private static final long serialVersionUID = -2695107002259155697L;

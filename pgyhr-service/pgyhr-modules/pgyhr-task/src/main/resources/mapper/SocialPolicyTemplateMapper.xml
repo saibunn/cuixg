@@ -24,7 +24,7 @@
     </resultMap>
 
 
-    <resultMap id="SocialPolicyTemplateResultMap" type="com.pgyhr.task.entity.dto.SocialPolicyTemplateResponeDTO">
+    <resultMap id="SocialPolicyTemplateResultMap" type="com.pgyhr.task.entity.dto.SocialPolicyTemplateResponseDTO">
         <id column="social_policy_code" property="socialPolicyCode" />
         <result column="social_policy_name" property="socialPolicyName" />
         <result column="social_policy_type" property="socialPolicyType" />
