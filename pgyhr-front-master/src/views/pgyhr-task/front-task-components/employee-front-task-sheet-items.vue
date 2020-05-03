@@ -1,6 +1,6 @@
 <style lang="less">
     @import "../../../styles/table-common.less";
-    @import "./add-employee-info.less";
+    @import "./employee-front-task-sheet-items.less";
 </style>
 
 <template>
@@ -640,7 +640,7 @@
                                 desc: title + '成功',
                             });
                             // this.$router.push({
-                            //     name: "employee-task-sheet"
+                            //     name: "employee-front-task-sheet-items"
                             // });
 
                         }else{

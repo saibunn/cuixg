@@ -292,7 +292,7 @@
 
       addEmployeeInfo() {
           // this.$router.push({
-          //     name: "employee-task-sheet"
+          //     name: "employee-front-task-sheet-items"
           // });
 
           this.$refs['empInfo'].validate((valid) => {
@@ -309,7 +309,7 @@
                               desc: title + '成功',
                           });
                           this.$router.push({
-                              name: "employee-task-sheet"
+                              name: "employee-front-task-sheet-items"
                           });
 
                       }else{

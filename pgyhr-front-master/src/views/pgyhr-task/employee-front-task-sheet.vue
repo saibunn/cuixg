@@ -44,7 +44,7 @@
    * Created by cuixiaoguang on 2020/4/18
    */
   import { createNamespacedHelpers } from 'vuex';
-  import employeeTaskSheetCondition from "./task-components/employee-task-sheet-condition.vue";
+  import employeeTaskSheetCondition from "./front-task-components/employee-task-sheet-condition.vue";
   import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_front_task_sheet_types.js";
   import employeeTaskApi from "../../api/pgyhr-task/employee_front_task_api.js";
   import companyTypes from "../../store/event-types/pgyhr-company/company-types";
@@ -74,17 +74,6 @@
             align: 'center',
             fixed: 'left'
           },
-
-          {
-            title: '公司名称',
-            width: 150,
-            key: 'companyName'
-          },
-          {
-            title: '公司编号',
-            width: 120,
-            key: 'companyId'
-          },
           {
             title: '雇员编号',
             width: 150,
@@ -94,6 +83,16 @@
             title: '雇员姓名',
             width: 100,
             key: 'employeeName'
+          },
+          {
+            title: '公司名称',
+            width: 150,
+            key: 'companyName'
+          },
+          {
+            title: '公司编号',
+            width: 120,
+            key: 'companyId'
           },
         ],
       }

@@ -91,8 +91,8 @@ export const employeeRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'add-employee-info', title: '新增雇员', name: 'add_employee_info', component: () => import('@/views/pgyhr-task/task-components/add-employee-info.vue') },
-        { path: 'employee-task-sheet', title: '雇员任务单', name: 'employee-task-sheet', component: () => import('@/views/pgyhr-task/task-components/employee-task-sheet.vue') },
+        { path: 'add-employee-info', title: '新增雇员', name: 'add_employee_info', component: () => import('@/views/pgyhr-task/front-task-components/add-employee-info.vue') },
+        { path: 'employee-front-task-sheet-items', title: '雇员任务单', name: 'employee-front-task-sheet-items', component: () => import('@/views/pgyhr-task/front-task-components/employee-front-task-sheet-items.vue') },
     ]
 };
 
