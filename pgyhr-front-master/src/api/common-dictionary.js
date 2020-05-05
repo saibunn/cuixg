@@ -544,7 +544,7 @@ let dateUtils = {
    * @param  {[Date]} date
    */
   stdFormatDate (date) {
-    if (date !== '' && date !== undefined) {
+    if (date != '' && date != undefined) {
       return moment(date).format('YYYY-MM-DD')
     }
     return ''

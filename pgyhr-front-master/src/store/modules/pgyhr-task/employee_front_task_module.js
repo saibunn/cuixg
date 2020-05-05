@@ -107,17 +107,11 @@ const actions = {
                 selectedEmpTaskInfo: state.selectedEmpTaskInfo,
             }
         };
-        console.log("GET_EMPLOYEE_TASK_SHEET_DETAIL-------------"+JSON.stringify(state.selectedEmpTaskInfo));
-        return employeeTaskApi.getEmployeeTaskSheetDetail(state.selectedEmpTaskInfo)
-            .then(response => {
-                const responseData = response.result;
-                if (responseData.code === 200) {
-                    commit(employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL, responseData)
-                } else {
-                    throw (responseData.message)
-                }
-                return response
-            })
+
+        return employeeTaskApi.getEmployeeTaskSheetDetail(state.selectedEmpTaskInfo).then(response => {
+                commit(employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL, response.result)
+            }
+        )
     },
 
     [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_SOCIAL_FEE_SEGMENT]({state, commit}) {
@@ -170,9 +164,13 @@ const mutations = {
     },
 
     [employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL] (state, data) {
-        state.empFrontTaskSheetDetail = data.empCompanyPO;
-        state.taskSheetSocialFeeInfo = data.empFrontTaskSheetSocialFeeSegmentPOList;
-        state.employeeInfo = data.employeeInfoPO;
+        //console.log("MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL======result============"+JSON.stringify(data));
+        state.empFrontTaskSheetDetail = data.empFrontTaskSheetResponseDTO;
+        state.taskSheetSocialFeeInfo = data.empFrontTaskSheetSocialFeeSegmentResponseDTOList;
+        state.employeeInfo = data.employeeInfoResponseDTO;
+        console.log("taskSheetSocialFeeInfo======result============"+JSON.stringify(state.taskSheetSocialFeeInfo));
+
+
     },
 
     [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_SOCIAL_FEE_SEGMENT] (state, data) {
