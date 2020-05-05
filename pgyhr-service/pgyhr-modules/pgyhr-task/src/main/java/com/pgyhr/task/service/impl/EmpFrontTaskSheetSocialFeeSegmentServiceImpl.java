@@ -1,10 +1,16 @@
 package com.pgyhr.task.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pgyhr.task.dao.mapper.EmpFrontTaskSheetSocialFeeSegmentMapper;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSocialFeeSegmentDTO;
+import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO;
 import com.pgyhr.task.service.EmpFrontTaskSheetSocialFeeSegmentService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +23,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmpFrontTaskSheetSocialFeeSegmentServiceImpl extends ServiceImpl<EmpFrontTaskSheetSocialFeeSegmentMapper, EmpFrontTaskSheetSocialFeeSegmentPO> implements EmpFrontTaskSheetSocialFeeSegmentService {
 
+    @Override
+    public List<EmpFrontTaskSheetSocialFeeSegmentPO> getEmpFrontTaskSheetSocialFeeSegmentByParam(EmpFrontTaskSheetSocialFeeSegmentDTO empFrontTaskSheetSocialFeeSegmentDTO) {
+        QueryWrapper<EmpFrontTaskSheetSocialFeeSegmentPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("emp_front_task_sheet_code",empFrontTaskSheetSocialFeeSegmentDTO.getEmpFrontTaskSheetCode());
+        return baseMapper.selectList(queryWrapper);
+    }
 }

@@ -27,4 +27,11 @@ public class EmpFrontTaskSheetServiceImpl extends ServiceImpl<EmpFrontTaskSheetM
         queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getCompanyName()),"company_name",empFrontTaskSheetSearchDTO.getCompanyName());
         return baseMapper.selectPage(empFrontTaskSheetPOPage,queryWrapper);
     }
+
+    @Override
+    public EmpFrontTaskSheetPO getEmpFrontTaskSheetByKey(String empFrontTaskSheetCode) {
+        QueryWrapper<EmpFrontTaskSheetPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("emp_front_task_sheet_code",empFrontTaskSheetCode);
+        return baseMapper.selectOne(queryWrapper);
+    }
 }

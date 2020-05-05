@@ -25,7 +25,7 @@ import java.util.Date;
  * @since 2020-04-30
  */
 @Data
-public class EmpFrontTaskSheetPageRequestDTO implements Serializable{
+public class EmpFrontTaskSheetResponseDTO implements Serializable{
 
 
     private static final long serialVersionUID = 5202749885303133990L;
@@ -250,6 +250,11 @@ public class EmpFrontTaskSheetPageRequestDTO implements Serializable{
     private Integer outReason;
 
     /**
+     * 离职原因：1: 辞职,2: 协商解除,3: 公司解聘,4: 合同到期,5: 关闭,6: 出国,7: 退休,8: 工伤死亡,// 9: 取消入职,10: 死亡,11: 转科技人才,12: 转用工单位（翻牌）,13: 公司自行管理, 无需退工,14: 公司自行管理, 需办退工,15: 转其他公司管理, 无需退工,16: 转其他公司管理, 需办退工
+     */
+    private String outReasonLabel;
+
+    /**
      * 离职日期
      */
     private LocalDateTime outDate;
@@ -268,6 +273,11 @@ public class EmpFrontTaskSheetPageRequestDTO implements Serializable{
      * 批退状态:0-正常，1-未处理，2-已拒绝，3-已批退
      */
     private Integer retreatStatus;
+
+    /**
+     * 批退状态:0-正常，1-未处理，2-已拒绝，3-已批退
+     */
+    private String retreatStatusLabel;
 
     /**
      * 备注
@@ -299,10 +309,6 @@ public class EmpFrontTaskSheetPageRequestDTO implements Serializable{
      */
     private String taskStatusLabel;
 
-    /**
-     * 离职原因Lable：1: 辞职,2: 协商解除,3: 公司解聘,4: 合同到期,5: 关闭,6: 出国,7: 退休,8: 工伤死亡,// 9: 取消入职,10: 死亡,11: 转科技人才,12: 转用工单位（翻牌）,13: 公司自行管理, 无需退工,14: 公司自行管理, 需办退工,15: 转其他公司管理, 无需退工,16: 转其他公司管理, 需办退工
-     */
-    private String outReasonLabel;
 
     private String createdBy;
 

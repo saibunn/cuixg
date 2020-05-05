@@ -16,4 +16,6 @@ import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 public interface EmpFrontTaskSheetService extends IService<EmpFrontTaskSheetPO> {
 
     Page<EmpFrontTaskSheetPO> getEmployeeFrontTaskSheetPageByParam(Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage, EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO);
+
+    EmpFrontTaskSheetPO getEmpFrontTaskSheetByKey(String empFrontTaskSheetCode);
 }

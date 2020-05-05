@@ -29,4 +29,11 @@ public class EmployeeInfoServiceImpl extends ServiceImpl<EmployeeInfoMapper, Emp
         queryWrapper.eq("id_num",employeeInfoRequsetDTO.getIdNum());
         return baseMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public EmployeeInfoPO getemployeeInfoByKey(String employeeId) {
+        QueryWrapper<EmployeeInfoPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("employee_id",employeeId);
+        return baseMapper.selectOne(queryWrapper);
+    }
 }

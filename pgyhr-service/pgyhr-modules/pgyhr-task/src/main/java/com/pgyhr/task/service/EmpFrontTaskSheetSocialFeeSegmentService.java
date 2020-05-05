@@ -1,7 +1,10 @@
 package com.pgyhr.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSocialFeeSegmentDTO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO;
  */
 public interface EmpFrontTaskSheetSocialFeeSegmentService extends IService<EmpFrontTaskSheetSocialFeeSegmentPO> {
 
+    List<EmpFrontTaskSheetSocialFeeSegmentPO> getEmpFrontTaskSheetSocialFeeSegmentByParam(EmpFrontTaskSheetSocialFeeSegmentDTO empFrontTaskSheetSocialFeeSegmentDTO);
 }

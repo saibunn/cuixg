@@ -17,4 +17,6 @@ import java.util.List;
 public interface EmployeeInfoService extends IService<EmployeeInfoPO> {
 
     List<EmployeeInfoPO> selectEmployeeInfoByParam(EmployeeInfoRequsetDTO employeeInfoRequsetDTO);
+
+    EmployeeInfoPO getemployeeInfoByKey(String employeeId);
 }

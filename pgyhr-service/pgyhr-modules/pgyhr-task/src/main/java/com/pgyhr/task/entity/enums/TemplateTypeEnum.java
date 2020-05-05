@@ -1,31 +1,33 @@
 package com.pgyhr.task.entity.enums;
 
 /**
- * @author xiaoguang cui
- * @date 2020/5/2
+ * 客户公司服务性质枚举
+ * Created by NeoJiang on 2018/1/18.
+ *
+ * @author NeoJiang
  */
-public enum TaskStatusEnum {
+public enum TemplateTypeEnum {
 
     /**
-     * 取消委托
+     * 派遣
      */
-    ENTRUST_CANCEL(0, "取消委托"),
+    DISPATCH(1, "派遣"),
 
     /**
-     * 委托成功
+     * 代理
      */
-    ENTRUST_DONE(1, "委托成功"),
+    DELEGATE(2, "代理"),
 
     /**
-     * 委托办理
+     * 业务外包
      */
-    ENTRUST_PROCESS(2, "委托办理");
+    BUSINESS_OUTSOURCE(3, "业务外包");
 
     private int key;
 
     private String value;
 
-    TaskStatusEnum(int key, String value) {
+    TemplateTypeEnum(int key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -42,7 +44,7 @@ public enum TaskStatusEnum {
         if (key == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (TemplateTypeEnum ts : TemplateTypeEnum.values()) {
             if (ts.getKey() == key) {
                 return ts.getValue();
             }
@@ -54,7 +56,7 @@ public enum TaskStatusEnum {
         if (value == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (TemplateTypeEnum ts : TemplateTypeEnum.values()) {
             if (value.equals(ts.getValue())) {
                 return ts.getKey();
             }

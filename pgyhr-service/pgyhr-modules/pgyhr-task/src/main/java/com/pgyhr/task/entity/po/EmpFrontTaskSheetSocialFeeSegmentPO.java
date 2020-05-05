@@ -8,7 +8,7 @@ import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -92,42 +92,42 @@ public class EmpFrontTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<Emp
     /**
      * 反馈日期
      */
-    private Date socialStatusDate;
+    private LocalDateTime socialStatusDate;
 
     /**
      * 申请日期
      */
-    private Date applyDate;
+    private LocalDateTime applyDate;
 
     /**
      * 办理日期
      */
-    private Date handleDate;
+    private LocalDateTime handleDate;
 
     /**
      * 执行日期
      */
-    private Date executeDate;
+    private LocalDateTime executeDate;
 
     /**
      * 缴纳开始月(yyyy-MM格式)
      */
-    private Date startDate;
+    private LocalDateTime startDate;
 
     /**
      * 缴纳结束月(yyyy-MM格式)
      */
-    private Date endDate;
+    private LocalDateTime endDate;
 
     /**
      * 缴纳开始月确认月(yyyy-MM格式)
      */
-    private Date startConfirmDate;
+    private LocalDateTime startConfirmDate;
 
     /**
      * 缴纳结束月确认月(yyyy-MM格式)
      */
-    private Date endConfirmDate;
+    private LocalDateTime endConfirmDate;
 
     /**
      * 公司付款方式:1-公司自付，2-管理费
@@ -314,67 +314,67 @@ public class EmpFrontTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<Emp
         this.socialStatus = socialStatus;
     }
 
-    public Date getSocialStatusDate() {
+    public LocalDateTime getSocialStatusDate() {
         return socialStatusDate;
     }
 
-    public void setSocialStatusDate(Date socialStatusDate) {
+    public void setSocialStatusDate(LocalDateTime socialStatusDate) {
         this.socialStatusDate = socialStatusDate;
     }
 
-    public Date getApplyDate() {
+    public LocalDateTime getApplyDate() {
         return applyDate;
     }
 
-    public void setApplyDate(Date applyDate) {
+    public void setApplyDate(LocalDateTime applyDate) {
         this.applyDate = applyDate;
     }
 
-    public Date getHandleDate() {
+    public LocalDateTime getHandleDate() {
         return handleDate;
     }
 
-    public void setHandleDate(Date handleDate) {
+    public void setHandleDate(LocalDateTime handleDate) {
         this.handleDate = handleDate;
     }
 
-    public Date getExecuteDate() {
+    public LocalDateTime getExecuteDate() {
         return executeDate;
     }
 
-    public void setExecuteDate(Date executeDate) {
+    public void setExecuteDate(LocalDateTime executeDate) {
         this.executeDate = executeDate;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Date getStartConfirmDate() {
+    public LocalDateTime getStartConfirmDate() {
         return startConfirmDate;
     }
 
-    public void setStartConfirmDate(Date startConfirmDate) {
+    public void setStartConfirmDate(LocalDateTime startConfirmDate) {
         this.startConfirmDate = startConfirmDate;
     }
 
-    public Date getEndConfirmDate() {
+    public LocalDateTime getEndConfirmDate() {
         return endConfirmDate;
     }
 
-    public void setEndConfirmDate(Date endConfirmDate) {
+    public void setEndConfirmDate(LocalDateTime endConfirmDate) {
         this.endConfirmDate = endConfirmDate;
     }
 

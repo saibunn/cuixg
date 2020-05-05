@@ -9,7 +9,9 @@ import com.pgyhr.core.common.vo.Result;
 import com.pgyhr.task.entity.CodePrefixUtil;
 import com.pgyhr.task.entity.dto.*;
 import com.pgyhr.task.entity.po.*;
+import com.pgyhr.task.entity.translator.EmpFrontTaskSheetSocialFeeSegmentTranslator;
 import com.pgyhr.task.entity.translator.EmpFrontTaskSheetTranslator;
+import com.pgyhr.task.entity.translator.EmployeeInfoTranslator;
 import com.pgyhr.task.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -22,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,25 +64,25 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 
     @RequestMapping(value = "/getEmployeeFrontTaskSheetPage",method = RequestMethod.GET)
     @ApiOperation(value = "多条件分页获取雇员任务单列表")
-    public Result<Page<EmpFrontTaskSheetPageRequestDTO>> getEmployeeFrontTaskSheetPage(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO){
+    public Result<Page<EmpFrontTaskSheetResponseDTO>> getEmployeeFrontTaskSheetPage(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO){
 
         Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage = new Page<>(empFrontTaskSheetSearchDTO.getCurrentPage(),empFrontTaskSheetSearchDTO.getSize());
         empFrontTaskSheetPOPage = empFrontTaskSheetService.getEmployeeFrontTaskSheetPageByParam(empFrontTaskSheetPOPage,empFrontTaskSheetSearchDTO);
-        List<EmpFrontTaskSheetPageRequestDTO> resultList = empFrontTaskSheetPOPage.getRecords()
+        List<EmpFrontTaskSheetResponseDTO> resultList = empFrontTaskSheetPOPage.getRecords()
                 .stream()
                 .map(EmpFrontTaskSheetTranslator::toTaskSheetResponseDTO)
                 .collect(Collectors.toList());
-        Page<EmpFrontTaskSheetPageRequestDTO> resultPage = new Page<>(empFrontTaskSheetPOPage.getCurrent(), empFrontTaskSheetPOPage.getSize());
+        Page<EmpFrontTaskSheetResponseDTO> resultPage = new Page<>(empFrontTaskSheetPOPage.getCurrent(), empFrontTaskSheetPOPage.getSize());
         resultPage.setTotal(empFrontTaskSheetPOPage.getTotal());
         resultPage.setRecords(resultList);
 
-        return new ResultUtil<Page<EmpFrontTaskSheetPageRequestDTO>>().setData(resultPage);
+        return new ResultUtil<Page<EmpFrontTaskSheetResponseDTO>>().setData(resultPage);
     }
 
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
     @ApiOperation(value = "根据雇员ID取雇员信息")
     public Result<EmployeeInfoPO> getEmployeeInfoById(EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
-        EmployeeInfoPO employeeInfoPO = employeeInfoService.getById(employeeInfoRequsetDTO.getEmployeeId());
+        EmployeeInfoPO employeeInfoPO = employeeInfoService.getemployeeInfoByKey(employeeInfoRequsetDTO.getEmployeeId());
         return new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
     }
 
@@ -94,7 +95,32 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     @RequestMapping(value = "/getEmployeeTaskSheetDetail",method = RequestMethod.GET)
     @ApiOperation(value = "雇员任务单取雇员信息")
     public Result<EmpFrontTaskResponseDTO> getEmployeeTaskSheetDetail(EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO) {
-        return new ResultUtil<EmpFrontTaskResponseDTO>().setData(null);
+        EmpFrontTaskResponseDTO empFrontTaskResponseDTO = new EmpFrontTaskResponseDTO();
+
+        EmpFrontTaskSheetPO empFrontTaskSheetPO = empFrontTaskSheetService.getEmpFrontTaskSheetByKey(empFrontTaskSheetSearchDTO.getEmpFrontTaskSheetCode());
+
+        EmployeeInfoPO employeeInfoPO = employeeInfoService.getemployeeInfoByKey(empFrontTaskSheetSearchDTO.getEmployeeId());
+
+
+        EmpFrontTaskSheetSocialFeeSegmentDTO empFrontTaskSheetSocialFeeSegmentDTO = new EmpFrontTaskSheetSocialFeeSegmentDTO();
+        empFrontTaskSheetSocialFeeSegmentDTO.setEmpFrontTaskSheetCode(empFrontTaskSheetSearchDTO.getEmpFrontTaskSheetCode());
+        List<EmpFrontTaskSheetSocialFeeSegmentPO> empFrontTaskSheetSocialFeeSegmentPOList =
+                empFrontTaskSheetSocialFeeSegmentService.getEmpFrontTaskSheetSocialFeeSegmentByParam(empFrontTaskSheetSocialFeeSegmentDTO);
+
+        if(empFrontTaskSheetPO != null){
+            empFrontTaskResponseDTO.setEmpFrontTaskSheetResponseDTO(EmpFrontTaskSheetTranslator.toTaskSheetResponseDTO(empFrontTaskSheetPO));
+        }
+        if(employeeInfoPO != null){
+            empFrontTaskResponseDTO.setEmployeeInfoResponseDTO(EmployeeInfoTranslator.toEmployeeInfoResponseDTO(employeeInfoPO));
+        }
+
+        if(!CollectionUtils.isEmpty(empFrontTaskSheetSocialFeeSegmentPOList)){
+            empFrontTaskResponseDTO.setEmpFrontTaskSheetSocialFeeSegmentResponseDTOList(empFrontTaskSheetSocialFeeSegmentPOList
+                    .stream()
+                    .map(EmpFrontTaskSheetSocialFeeSegmentTranslator::toEmpFrontTaskSheetSocialFeeSegmentResponseDTO)
+                    .collect(Collectors.toList()));
+        }
+        return new ResultUtil<EmpFrontTaskResponseDTO>().setData(empFrontTaskResponseDTO);
     }
 
     /**
@@ -369,6 +395,8 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
                                 item.setEmpFrontTaskSheetCode(addEmpFrontTaskSheetPO.getEmpFrontTaskSheetCode());
                                 item.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
                                 item.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
+                                item.setStartDate(addEmpCompanyPO.getLaborStartDate());
+                                item.setEndDate(addEmpCompanyPO.getLaborEndDate());
                             }
                             );
                     if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){

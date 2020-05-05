@@ -1,31 +1,32 @@
 package com.pgyhr.task.entity.enums;
 
 /**
+ *
  * @author xiaoguang cui
  * @date 2020/5/2
  */
-public enum TaskStatusEnum {
+public enum PayMethodEnum {
 
     /**
-     * 取消委托
+     * 服务费
      */
-    ENTRUST_CANCEL(0, "取消委托"),
+    SERVICE_FEE(1, "服务费"),
 
     /**
-     * 委托成功
+     * 公司自付
      */
-    ENTRUST_DONE(1, "委托成功"),
+    COMPANY_PAY(2, "公司自付"),
 
     /**
-     * 委托办理
+     * 个人工资自付
      */
-    ENTRUST_PROCESS(2, "委托办理");
+    PERSONAL_WAGE(3, "个人工资自付");
 
     private int key;
 
     private String value;
 
-    TaskStatusEnum(int key, String value) {
+    PayMethodEnum(int key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -42,7 +43,7 @@ public enum TaskStatusEnum {
         if (key == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (PayMethodEnum ts : PayMethodEnum.values()) {
             if (ts.getKey() == key) {
                 return ts.getValue();
             }
@@ -54,7 +55,7 @@ public enum TaskStatusEnum {
         if (value == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (PayMethodEnum ts : PayMethodEnum.values()) {
             if (value.equals(ts.getValue())) {
                 return ts.getKey();
             }

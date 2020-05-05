@@ -18,13 +18,11 @@ public class EmpFrontTaskResponseDTO implements Serializable {
 
     private static final long serialVersionUID = -3166363412416468427L;
 
-    private EmployeeInfoPO employeeInfoPO;
+    private EmployeeInfoResponseDTO employeeInfoResponseDTO;
 
-    private EmpCompanyPO empCompanyPO;
+    private EmpCompanyResponseDTO empCompanyResponseDTO;
 
-    private EmpFrontTaskSheetPO empFrontTaskSheetPO;
+    private EmpFrontTaskSheetResponseDTO empFrontTaskSheetResponseDTO;
 
-    private EmpFrontTaskSheetServiceAgreementPO empFrontTaskSheetServiceAgreementPO;
-
-    private List<EmpFrontTaskSheetSocialFeeSegmentPO> empFrontTaskSheetSocialFeeSegmentPOList;
+    private List<EmpFrontTaskSheetSocialFeeSegmentResponseDTO> empFrontTaskSheetSocialFeeSegmentResponseDTOList;
 }

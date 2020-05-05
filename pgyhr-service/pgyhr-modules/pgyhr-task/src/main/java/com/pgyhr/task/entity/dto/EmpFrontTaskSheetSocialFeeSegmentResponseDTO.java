@@ -1,5 +1,9 @@
 package com.pgyhr.task.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,10 +19,12 @@ import java.util.Date;
  * @since 2020-04-26
  */
 @Data
-public class EmpFrontTaskSheetSocialFeeSegmentDTO implements Serializable {
+public class EmpFrontTaskSheetSocialFeeSegmentResponseDTO implements Serializable{
 
-
-    private static final long serialVersionUID = 5251848424917465544L;
+    private static final long serialVersionUID = -6360099911566249885L;
+    /**
+     * ID
+     */
     private Long empFrontTaskSheetSocialFeeSegmentId;
 
     /**
@@ -82,6 +88,11 @@ public class EmpFrontTaskSheetSocialFeeSegmentDTO implements Serializable {
     private Integer socialStatus;
 
     /**
+     * 反馈状态:0-取消委托，1-委托成功，2-委托办理
+     */
+    private String socialStatusLabel;
+
+    /**
      * 反馈日期
      */
     private Date socialStatusDate;
@@ -127,9 +138,19 @@ public class EmpFrontTaskSheetSocialFeeSegmentDTO implements Serializable {
     private Integer companyPayMethod;
 
     /**
+     * 公司付款方式:1-公司自付，2-管理费
+     */
+    private String companyPayMethodLabel;
+
+    /**
      * 雇员付款方式:0-个人工资，2-管理费
      */
     private Integer employeePayMethod;
+
+    /**
+     * 雇员付款方式:0-个人工资，2-管理费
+     */
+    private String employeePayMethodLabel;
 
     /**
      * 公司基数
@@ -191,13 +212,4 @@ public class EmpFrontTaskSheetSocialFeeSegmentDTO implements Serializable {
      */
     private String remark;
 
-    /**
-     * 是否可用:0-禁用 1-可用
-     */
-    private Boolean isActive;
-
-    /**
-     * 版本号
-     */
-    private Long version;
 }

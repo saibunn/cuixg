@@ -1,31 +1,27 @@
 package com.pgyhr.task.entity.enums;
 
 /**
+ *
  * @author xiaoguang cui
  * @date 2020/5/2
  */
-public enum TaskStatusEnum {
+public enum GenderTypeEnum{
 
     /**
-     * 取消委托
+     * 女
      */
-    ENTRUST_CANCEL(0, "取消委托"),
+    FEMALE(0, "女"),
 
     /**
-     * 委托成功
+     * 男
      */
-    ENTRUST_DONE(1, "委托成功"),
-
-    /**
-     * 委托办理
-     */
-    ENTRUST_PROCESS(2, "委托办理");
+    MALE(1, "男");
 
     private int key;
 
     private String value;
 
-    TaskStatusEnum(int key, String value) {
+    GenderTypeEnum(int key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -42,7 +38,7 @@ public enum TaskStatusEnum {
         if (key == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (GenderTypeEnum ts : GenderTypeEnum.values()) {
             if (ts.getKey() == key) {
                 return ts.getValue();
             }
@@ -54,7 +50,7 @@ public enum TaskStatusEnum {
         if (value == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (GenderTypeEnum ts : GenderTypeEnum.values()) {
             if (value.equals(ts.getValue())) {
                 return ts.getKey();
             }

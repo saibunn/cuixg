@@ -1,31 +1,29 @@
 package com.pgyhr.task.entity.enums;
 
 /**
- * @author xiaoguang cui
- * @date 2020/5/2
- */
-public enum TaskStatusEnum {
+ * package: com.ciicsh.gto.agentcenter.site.service.entity.enums
+ * describe: TODO
+ * creat_user: cuixiaoguang
+ * creat_date: 2018/2/5
+ * creat_time: 15:24
+ **/
+public enum ResidentTypeEnum {
 
     /**
-     * 取消委托
+     * 非农业户口
      */
-    ENTRUST_CANCEL(0, "取消委托"),
+    NON_AGRICULTURE(1, "非农业户口"),
 
     /**
-     * 委托成功
+     * 农业户口
      */
-    ENTRUST_DONE(1, "委托成功"),
-
-    /**
-     * 委托办理
-     */
-    ENTRUST_PROCESS(2, "委托办理");
+    AGRICULTURE(2, "农业户口");
 
     private int key;
 
     private String value;
 
-    TaskStatusEnum(int key, String value) {
+    ResidentTypeEnum(int key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -42,7 +40,7 @@ public enum TaskStatusEnum {
         if (key == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (ResidentTypeEnum ts : ResidentTypeEnum.values()) {
             if (ts.getKey() == key) {
                 return ts.getValue();
             }
@@ -54,7 +52,7 @@ public enum TaskStatusEnum {
         if (value == null) {
             return null;
         }
-        for (TaskStatusEnum ts : TaskStatusEnum.values()) {
+        for (ResidentTypeEnum ts : ResidentTypeEnum.values()) {
             if (value.equals(ts.getValue())) {
                 return ts.getKey();
             }
