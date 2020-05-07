@@ -14,7 +14,7 @@
         <Collapse v-model="entrustSearch">
           <Panel name="1">
             检索条件
-			    <div class="form" slot="content" style="height: 260px">
+            <div class="form" slot="content" style="height: 260px">
             <employee-back-task-sheet-search-item></employee-back-task-sheet-search-item>
           </div>
           </Panel>
@@ -70,14 +70,15 @@
   import { createNamespacedHelpers } from 'vuex';
   import employeeBackTaskSheetSearchItem from "./back-task-components/employee-back-task-sheet-search-item.vue";
   import empBackTaskSheetTypes from "../../store/event-types/pgyhr-task/emp_back_task_sheet_types.js";
-  
+  import employeeTaskSheetTypes from "../../store/event-types/pgyhr-task/employee_front_task_sheet_types";
+
   const { mapState, mapActions } = createNamespacedHelpers('employeeBackTaskSheetModule');
-  
+
   export default {
     components: {
       employeeBackTaskSheetSearchItem
     },
-    
+
     data() {
       return {
         entrustSearch: [1, 2],
@@ -188,7 +189,7 @@
                   },
                   on: {
                     click: () => {
-                      this.show(params.row.taskSheetId)
+                      this.show(params.row)
                     }
                   }
                 }, '查看')
@@ -200,16 +201,9 @@
     },
     methods: {
       ...mapActions({
-        getTaskSheetPageData: empBackTaskSheetTypes.SEARCH_TASK_SHEET_PAGE,
-        getTaskSheetData: empBackTaskSheetTypes.SEARCH_TASK_SHEET
+        getTaskSheetPageData: empBackTaskSheetTypes.SEARCH_TASK_SHEET_PAGE
       }),
-      handleSubmit(name) {
-        this.$Message.success('这是一条成功的提示');
-      },
-      handleReset(name) {
-        this.$Message.warning('这是一条警告的提示');
-      },
-      
+
       exportData() {
         // let iframe = document.createElement('iframe');
         // iframe.style.display = 'none';
@@ -220,18 +214,17 @@
         // }
         // document.body.appendChild(iframe)
       },
-      
+
       reload: function() {
         this.showDetail = false;
       },
-      show(id) {
-        // this.showDetail = true;
-        //disconnect(); // 关闭 Websocket
+      show(empBackTaskSheetInfo) {
+
+
+        this.$store.commit("employeeBackTaskSheetModule/" + empBackTaskSheetTypes.MUTATE_SELECTED_EMPLOYEE_BACK_TASK_SHEET_INFO, empBackTaskSheetInfo);
+
         this.$router.push({
-          name: "entrustDetail",
-          params: {
-            id:id
-          }
+          name: "employee_back_task_sheet_detail",
         })
       },
       backSearch() {
@@ -241,11 +234,11 @@
         this.entrustDate.splice(index, 1);
       },
       changePageSize(size) {
-        this.$store.commit("entrustTaskSheetModule/" + empBackTaskSheetTypes.MUTATE_PAGE_SIZE, size);
+        this.$store.commit("employeeBackTaskSheetModule/" + empBackTaskSheetTypes.MUTATE_PAGE_SIZE, size);
         this.getTaskSheetPageData();
       },
       changePage(page) {
-        this.$store.commit("entrustTaskSheetModule/" + empBackTaskSheetTypes.MUTATE_CURRENT_PAGE, page);
+        this.$store.commit("employeeBackTaskSheetModule/" + empBackTaskSheetTypes.MUTATE_CURRENT_PAGE, page);
         this.getTaskSheetPageData();
       },
     },
