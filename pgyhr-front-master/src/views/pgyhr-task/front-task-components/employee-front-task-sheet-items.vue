@@ -88,6 +88,13 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="合同签订方：">
+                        <Select v-model="empCompanyInfo.laborSide">
+                            <Option v-for="(value,key) in this.baseDic.laborSide" :value="key" :key="key">{{ value }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="薪资：" prop="salary">
                   <Input type="text" v-model="empCompanyInfo.salary" @on-blur="salaryChange" placeholder="请输入"/>
                 </Form-item>

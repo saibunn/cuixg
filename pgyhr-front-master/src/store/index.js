@@ -11,6 +11,7 @@ import countryModule from './modules/common/country_module';
 import employeeFrontTaskModule from './modules/pgyhr-task/employee_front_task_module';
 import socialPolicyModule from './modules/pgyhr-task/social_policy_module';
 import empFrontTaskSheetSocialFeeSegmentModule from './modules/pgyhr-task/emp_front_task_sheet_social_fee_segment_module';
+import employeeBackTaskSheetModule from './modules/pgyhr-task/employee_back_task_sheet_module.js';
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -31,6 +32,7 @@ const store = new Vuex.Store({
         employeeFrontTaskModule: employeeFrontTaskModule,
         socialPolicyModule: socialPolicyModule,
         empFrontTaskSheetSocialFeeSegmentModule: empFrontTaskSheetSocialFeeSegmentModule,
+        employeeBackTaskSheetModule: employeeBackTaskSheetModule,
         app,
         user,
         dict
