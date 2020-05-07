@@ -1,9 +1,12 @@
 package com.pgyhr.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetServiceAgreementDTO;
 import com.pgyhr.task.entity.po.EmpCompanyPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,4 +19,6 @@ import com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO;
 public interface EmpFrontTaskSheetServiceAgreementService extends IService<EmpFrontTaskSheetServiceAgreementPO> {
 
     int saveEmpFrontTaskSheetServiceAgreement(EmpCompanyPO addEmpCompanyPO,EmpFrontTaskSheetPO addEmpFrontTaskSheetPO);
+
+    List<EmpFrontTaskSheetServiceAgreementPO> getEmpFrontTaskSheetServiceAgreementByParam(EmpFrontTaskSheetServiceAgreementDTO empFrontTaskSheetServiceAgreementDTO);
 }

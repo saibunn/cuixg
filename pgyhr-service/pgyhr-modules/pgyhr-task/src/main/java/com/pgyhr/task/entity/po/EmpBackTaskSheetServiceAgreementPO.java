@@ -79,7 +79,7 @@ public class EmpBackTaskSheetServiceAgreementPO extends PgyhrBaseEntityNoId<EmpB
     private Integer companyServiceType;
 
     /**
-     * 劳动合同签订方:1-中智 2-中智外包 3-客户代签 4-客户自签
+     * 劳动合同签订方:1-蒲公英 2-蒲公英外包 3-客户代签 4-客户自签
      */
     private Integer contractLabourSignType;
 

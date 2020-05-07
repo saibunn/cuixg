@@ -1,16 +1,20 @@
 package com.pgyhr.task.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pgyhr.task.dao.mapper.EmpFrontTaskSheetServiceAgreementMapper;
+import com.pgyhr.task.entity.dto.EmpFrontTaskSheetServiceAgreementDTO;
 import com.pgyhr.task.entity.po.EmpCompanyPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetServiceAgreementPO;
+import com.pgyhr.task.entity.po.EmpFrontTaskSheetSocialFeeSegmentPO;
 import com.pgyhr.task.service.EmpFrontTaskSheetServiceAgreementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -49,5 +53,12 @@ public class EmpFrontTaskSheetServiceAgreementServiceImpl extends ServiceImpl<Em
         //todo 档案
         //empFrontTaskSheetServiceAgreementPO.setFileKeepingType(fileKeepingType);
         return baseMapper.insert(empFrontTaskSheetServiceAgreementPO);
+    }
+
+    @Override
+    public List<EmpFrontTaskSheetServiceAgreementPO> getEmpFrontTaskSheetServiceAgreementByParam(EmpFrontTaskSheetServiceAgreementDTO empFrontTaskSheetServiceAgreementDTO) {
+        QueryWrapper<EmpFrontTaskSheetServiceAgreementPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("emp_front_task_sheet_code",empFrontTaskSheetServiceAgreementDTO.getEmpFrontTaskSheetCode());
+        return baseMapper.selectList(queryWrapper);
     }
 }

@@ -282,7 +282,7 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @PostMapping(value = "/saveNewEmployeeTaskSheetInfo")
     public Result<E> saveNewEmployeeTaskSheetInfo(@RequestBody EmpFrontTaskSaveRequestDTO empFrontTaskSaveRequestDTO){
-        Boolean saveResult = false;
+        Boolean saveResult = true;
         EmpCompanyPO addEmpCompanyPO = empFrontTaskSaveRequestDTO.getEmpCompanyPO();
         addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
         addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
@@ -388,6 +388,7 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
                 //前道任务单服务约定表
                 if(empFrontTaskSheetServiceAgreementService.saveEmpFrontTaskSheetServiceAgreement(addEmpCompanyPO,addEmpFrontTaskSheetPO) != 1){
                     log.error("前道任务单服务约定表保存失败:" + addEmpFrontTaskSheetPO.toString());
+                    saveResult = false;
                 }
                 //前道任务单社保费用段表
                 List<EmpFrontTaskSheetSocialFeeSegmentPO> empFrontTaskSheetSocialFeeSegmentPOList =
@@ -405,10 +406,12 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
                             );
                     if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){
                         log.error("前道任务单社保费用段表表保存失败:" + addEmpFrontTaskSheetPO.toString());
+                        saveResult = false;
                     }
                 }
-                saveResult = true;
             }
+        }else{
+            saveResult = false;
         }
 
         if(saveResult){
