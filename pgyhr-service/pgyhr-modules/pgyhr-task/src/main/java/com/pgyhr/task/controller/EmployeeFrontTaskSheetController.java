@@ -57,6 +57,9 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     private EmpFrontTaskSheetService  empFrontTaskSheetService;
 
     @Autowired
+    private EmpBackTaskSheetService  empBackTaskSheetService;
+
+    @Autowired
     private SocialPolicyTemplateItemService socialPolicyTemplateItemService;
 
     @Autowired
@@ -284,11 +287,12 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
         addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
         addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
         addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
+        //生成雇员任务单
+        EmpFrontTaskSheetPO addEmpFrontTaskSheetPO = new EmpFrontTaskSheetPO();
         //雇员公司信息表保存
         boolean saveEmpCompanyResult = empCompanyService.save(addEmpCompanyPO);
         if(saveEmpCompanyResult){
-            //生成雇员任务单
-            EmpFrontTaskSheetPO addEmpFrontTaskSheetPO = new EmpFrontTaskSheetPO();
+
             //雇员前道任务单ID
             addEmpFrontTaskSheetPO.setEmpFrontTaskSheetCode(CommonUtil.buildId(CodePrefixUtil.EFT_CODE_PREFIX));
             //任务单域
@@ -408,6 +412,9 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
         }
 
         if(saveResult){
+
+            //生成后道任务单
+            Boolean generatorFlag = empBackTaskSheetService.generatorEmpBackTaskSheet(addEmpFrontTaskSheetPO);
             return new ResultUtil<E>().setSuccessMsg("雇员新增任务单成功！");
         }else{
             return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败！");
