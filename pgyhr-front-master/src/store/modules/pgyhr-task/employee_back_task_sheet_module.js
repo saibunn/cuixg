@@ -1,7 +1,7 @@
 import employeeBackTaskSheetApi from "../../../api/pgyhr-task/employee_back_task_sheet_api";
 import Util from "../../../libs/util";
 import empBackTaskSheetTypes from "../../event-types/pgyhr-task/emp_back_task_sheet_types";
-import axios from 'axios'
+import axios from 'axios';
 
 const namespaced = true;
 
@@ -117,11 +117,12 @@ const mutations = {
   [empBackTaskSheetTypes.MUTATE_SELECTED_EMPLOYEE_BACK_TASK_SHEET_INFO](state, data){
     state.selectedEmpBackTaskInfo = data;
   },
+  [empBackTaskSheetTypes.MUTATE_SEARCH_TASK_SHEET_PAGE](state, result){
+    //console.log("MUTATE_SEARCH_TASK_SHEET_PAGE======result=====aaaaaqqq======="+JSON.stringify(result));
+    const list = result;
+    state.taskSheetList = list.records;
+    state.pagination.total = result.total;
 
-  [empBackTaskSheetTypes.MUTATE_TASK_SHEET_PAGE](state, data){
-    const list = data.records;
-    state.taskSheetList = list;
-    state.pagination.total = data.total;
   },
 
   [empBackTaskSheetTypes.MUTATE_TASK_SHEET_RETURN_EXAMINE_PAGE](state, data){
@@ -341,25 +342,19 @@ const getters = {
 
 // 收集UI组件的所有事件，可以同步也可以异步提交
 const actions = {
-  [empBackTaskSheetTypes.SEARCH_TASK_SHEET_PAGE]({state, commit}){
-    const params = {
+  [empBackTaskSheetTypes.SEARCH_TASK_SHEET_PAGE]({commit}, params){
+    const pageParams = {
       ...state.searchForm,
       size: state.pagination.size,
       currentPage: state.pagination.currentPage
     };
-    console.log("...state.searchForm.currentPage"+JSON.stringify(params));
-    employeeBackTaskSheetApi.getEntrustTaskSheetListPage(params)
-      .then(response => {
-        console.log(response);
-        const responseData = response.data;
-        if (responseData.code === 0) {
-          commit(empBackTaskSheetTypes.MUTATE_TASK_SHEET_PAGE, responseData.object)
-        } else {
-          throw(responseData.message);
+    console.log("...state.searchForm.currentPage"+JSON.stringify(pageParams));
+
+    return employeeBackTaskSheetApi.getqueryEmployeeBackTaskSheetListPage(pageParams).then(response => {
+          commit(empBackTaskSheetTypes.MUTATE_SEARCH_TASK_SHEET_PAGE, response.result)
         }
-      }).catch(error => {
-        console.log(error)
-      })
+    )
+
   },
 
   [empBackTaskSheetTypes.SEARCH_TASK_SHEET_BATCH_PAGE]({state, commit}){

@@ -23,11 +23,11 @@
             检索结果
               <div class="form" slot="content">
             <Form  :label-width="100">
-              <Row>
-                <i-col :sm="{span:22}" :md="{span: 22}" :lg="{span: 22}" align="right" style="margin-left: 100px">
-                  <Button type="info"  @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出</Button>
-                </i-col>
-              </Row>
+<!--              <Row>-->
+<!--                <i-col :sm="{span:22}" :md="{span: 22}" :lg="{span: 22}" align="right" style="margin-left: 100px">-->
+<!--                  <Button type="info"  @click="exportData()"><Icon type="ios-download-outline"></Icon> 导出</Button>-->
+<!--                </i-col>-->
+<!--              </Row>-->
 
               <Row style="margin-top: 10px">
                 <i-col span="4">
@@ -98,18 +98,13 @@
           {
             title: '处理状态',
             key: 'taskStatusLabel',
-            width: 100,
+            width: 150,
             sortable: true,
             fixed: 'left'
           },
           {
-            title: '受托机构名称',
-            width: 120,
-            key: 'beEntrustOrganizationName'
-          },
-          {
             title: '执行城市',
-            width: 100,
+            width: 150,
             key: 'executeCityName',
           },
           {
@@ -119,62 +114,28 @@
           },
           {
             title: '公司编号',
-            width: 120,
+            width: 200,
             key: 'companyId'
           },
           {
             title: '雇员编号',
-            width: 150,
+            width: 200,
             key: 'employeeId'
           },
           {
             title: '雇员姓名',
-            width: 100,
+            width: 150,
             key: 'employeeName'
           },
           {
             title: '委托类型',
-            width: 100,
+            width: 150,
             key: 'taskTypeLabel'
-          },
-          {
-            title: '委托日期',
-            width: 150,
-            key: 'entrustDate',
-            render:(h, params) => {
-              if (params.row.entrustDate === undefined || params.row.entrustDate === null) {
-                return;
-              }
-              const date = params.row.entrustDate;
-              return h('div', this.$moment(date).format('YYYYMMDD'))
-            }
-          },
-          {
-            title: '委托操作员',
-            width: 100,
-            key: 'entrustUser'
-          },
-          {
-            title: '受托批退日期',
-            width: 150,
-            key: 'trustReturnDate',
-            render:(h, params) => {
-              if (params.row.trustReturnDate === undefined || params.row.trustReturnDate === null) {
-                return;
-              }
-              const date = params.row.trustReturnDate;
-              return h('div', this.$moment(date).format('YYYYMMDD'))
-            }
-          },
-          {
-            title: '受托操作员',
-            width: 100,
-            key: 'beEntrustUser'
           },
           {
             title: '操作',
             key: 'action',
-            width: 80,
+            width: 150,
             fixed: 'right',
             align: 'center',
             render: (h, params) => {

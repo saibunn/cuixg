@@ -104,7 +104,7 @@ export const employeeBackRouter = {
     redirect: '/home',
     component: Main,
     children: [
-        { path: 'employee-back-task-sheet-detail', title: '雇员后道任务单明细', name: 'employee_back_task_sheet_detail', component: () => import('@/views/pgyhr-task/employee-back-task-sheet-detail.vue') },
+        { path: 'employee-back-task-sheet-detail', title: '雇员后道任务单明细', name: 'employee_back_task_sheet_detail', component: () => import('@/views/pgyhr-task/back-task-components/employee-back-task-sheet-detail.vue') },
     ]
 };
 

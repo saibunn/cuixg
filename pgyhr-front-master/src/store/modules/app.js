@@ -1,4 +1,4 @@
-import { otherRouter,employeeRouter } from '@/router/router';
+import { otherRouter,employeeFrontRouter,employeeBackRouter } from '@/router/router';
 import { router } from '@/router/index';
 import Util from '@/libs/util';
 import Cookies from 'js-cookie';
@@ -34,9 +34,10 @@ const app = {
         menuList: [],
         routers: [
             otherRouter,
-            employeeRouter
+            employeeFrontRouter,
+            employeeBackRouter
         ],
-        tagsList: [...otherRouter.children,...employeeRouter.children],
+        tagsList: [...otherRouter.children,...employeeFrontRouter.children,...employeeBackRouter.children],
         messageCount: 0,
         // 在这里定义你不想要缓存的页面的name属性值(参见路由配置router.js)
         dontCache: ['test', 'test']

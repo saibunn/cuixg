@@ -1,7 +1,7 @@
 import { getRequest, postRequest,postCollectionRequest, putRequest, deleteRequest, getRequestWithNoToken } from '@/libs/axios';
 
 
-const getEntrustTaskSheetListPage = params => postCollectionRequest("/back/task//entrustTaskSheetQuery", params);
+const getqueryEmployeeBackTaskSheetListPage = params => getRequest("/back/task//queryEmployeeBackTaskSheetPage", params);
 
 const getEntrustTaskSheetBatchListPage = params => postCollectionRequest("/back/task//entrustTaskSheetBatchQuery", params);
 
@@ -72,22 +72,10 @@ const getSocialSecurityDetailByCity  = params => getRequest("/back/task//socialS
 const getOrganizationServiceAgreement  = params => getRequest("/back/task//getOrganizationServiceAgreement", params);
 
 
-// const downloadEntrustTaskSheetList =  params => ajax.get("/back/task//downLoadEntrustTaskSheetList");
-
-// var response={
-//   data:{
-//     code:200
-//   }
-// };
-// const save =  ()=>{
-//   return new Promise((resolve,reject)=>{
-//     resolve(response);
-//   });
-// }
 
 
 export default {
-  getEntrustTaskSheetListPage,
+  getqueryEmployeeBackTaskSheetListPage,
   getEntrustTaskSheetBatchListPage,
   getEntrustTaskSheetIntegrateListPage,
   getEntrustTaskSheetIntegrateReturnListPage,
@@ -114,11 +102,6 @@ export default {
   getEntrustTaskSheetIntegrateList,
   getEntrustTaskSheetIntegrateReturnList,
   getEntrustTaskSheetBatchList,
-  downloadEntrustTaskSheetList_URL,
-  downloadEntrustTaskSheetIntegrateList_URL,
-  downloadEntrustTaskSheetIntegrateReturnList_URL,
-  downloadEntrustTaskSheetReturnExamineList_URL,
-  downloadEntrustTaskSheetBatchList_URL,
   getTaskStatusEnums,
   getTaskTypeEnums,
   getRemarkTypeEnums,

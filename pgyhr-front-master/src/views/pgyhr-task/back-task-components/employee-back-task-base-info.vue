@@ -137,7 +137,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import EntrustTaskSheetTypes from "../../../store/event_types/entrust_task_sheet_types";
+import empBackTaskSheetTypes from "../../../store/event-types/pgyhr-task/emp_back_task_sheet_types.js";
 const { mapState, mapActions, mapMutations, mapGetters  } = createNamespacedHelpers('employeeBackTaskSheetModule');
   /**
    * Created by cuixiaoguang on 2020/5/7.
