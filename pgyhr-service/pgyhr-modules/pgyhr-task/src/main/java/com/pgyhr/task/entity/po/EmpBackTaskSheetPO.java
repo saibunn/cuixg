@@ -22,9 +22,14 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     private static final long serialVersionUID=1L;
 
     /**
-     * 雇员前道任务单ID
+     * 雇员后道任务单ID
      */
     private String empBackTaskSheetCode;
+
+    /**
+     * 雇员前道任务单ID
+     */
+    private String empFrontTaskSheetCode;
 
     /**
      * 任务单域:0-前道，1-后道
@@ -709,6 +714,14 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public String getEmpFrontTaskSheetCode() {
+        return empFrontTaskSheetCode;
+    }
+
+    public void setEmpFrontTaskSheetCode(String empFrontTaskSheetCode) {
+        this.empFrontTaskSheetCode = empFrontTaskSheetCode;
     }
 
     @Override

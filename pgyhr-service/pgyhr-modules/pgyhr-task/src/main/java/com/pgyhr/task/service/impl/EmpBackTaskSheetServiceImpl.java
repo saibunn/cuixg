@@ -1,10 +1,13 @@
 package com.pgyhr.task.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pgyhr.core.common.utils.CommonTransform;
 import com.pgyhr.core.common.utils.CommonUtil;
 import com.pgyhr.task.dao.mapper.EmpBackTaskSheetMapper;
 import com.pgyhr.task.entity.CodePrefixUtil;
+import com.pgyhr.task.entity.dto.EmpBackTaskSheetSearchRequestDTO;
 import com.pgyhr.task.entity.dto.EmpFrontTaskSheetServiceAgreementDTO;
 import com.pgyhr.task.entity.dto.EmpFrontTaskSheetSocialFeeSegmentDTO;
 import com.pgyhr.task.entity.po.*;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -47,7 +51,7 @@ public class EmpBackTaskSheetServiceImpl extends ServiceImpl<EmpBackTaskSheetMap
         EmpBackTaskSheetPO addEmpBackTaskSheetPO  = CommonTransform.convertToDTO(empFrontTaskSheetPO,EmpBackTaskSheetPO.class);
         //雇员后道任务单ID
         addEmpBackTaskSheetPO.setEmpBackTaskSheetCode(CommonUtil.buildId(CodePrefixUtil.EBT_CODE_PREFIX));
-
+        addEmpBackTaskSheetPO.setTaskArea(1);
         //社保和公积金不同城市，拆分任务单 todo
         addEmpBackTaskSheetPO.setCityCode(empFrontTaskSheetPO.getSocialCityCode());
         addEmpBackTaskSheetPO.setCityName(empFrontTaskSheetPO.getSocialCityName());
@@ -106,5 +110,12 @@ public class EmpBackTaskSheetServiceImpl extends ServiceImpl<EmpBackTaskSheetMap
 
 
         return generatorResult;
+    }
+
+    @Override
+    public Page<EmpBackTaskSheetPO> getEmployeeBackTaskSheetPageByParam(Page<EmpBackTaskSheetPO> empBackTaskSheetPOPage, EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO) {
+        QueryWrapper<EmpBackTaskSheetPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getCompanyName()),"company_name",empBackTaskSheetSearchRequestDTO.getCompanyName());
+        return baseMapper.selectPage(empBackTaskSheetPOPage,queryWrapper);
     }
 }

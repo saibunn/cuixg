@@ -1,6 +1,8 @@
 package com.pgyhr.task.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmpBackTaskSheetSearchRequestDTO;
 import com.pgyhr.task.entity.po.EmpBackTaskSheetPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 
@@ -15,4 +17,6 @@ import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 public interface EmpBackTaskSheetService extends IService<EmpBackTaskSheetPO> {
 
     Boolean generatorEmpBackTaskSheet(EmpFrontTaskSheetPO empFrontTaskSheetPO);
+
+    Page<EmpBackTaskSheetPO> getEmployeeBackTaskSheetPageByParam(Page<EmpBackTaskSheetPO> empBackTaskSheetPOPage, EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO);
 }
