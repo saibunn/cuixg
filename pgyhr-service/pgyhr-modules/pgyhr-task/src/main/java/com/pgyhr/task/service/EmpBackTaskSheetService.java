@@ -19,4 +19,6 @@ public interface EmpBackTaskSheetService extends IService<EmpBackTaskSheetPO> {
     Boolean generatorEmpBackTaskSheet(EmpFrontTaskSheetPO empFrontTaskSheetPO);
 
     Page<EmpBackTaskSheetPO> getEmployeeBackTaskSheetPageByParam(Page<EmpBackTaskSheetPO> empBackTaskSheetPOPage, EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO);
+
+    EmpBackTaskSheetPO getEmpBackTaskSheetByKey(String empBackTaskSheetCode);
 }

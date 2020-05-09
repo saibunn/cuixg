@@ -65,6 +65,11 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
     private String itemCode;
 
     /**
+     * 社保产品名称: 养老，医疗，工伤，生育，失业，公积金，补充公积金等
+     */
+    private String itemName;
+
+    /**
      * 社保城市CODE
      */
     private String cityCode;
@@ -147,7 +152,7 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
     /**
      * 公司比例
      */
-    private BigDecimal companyScale;
+    private BigDecimal companyRatio;
 
     /**
      * 公司金额
@@ -172,7 +177,7 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
     /**
      * 个人比例
      */
-    private BigDecimal personalScale;
+    private BigDecimal personalRatio;
 
     /**
      * 个人金额
@@ -387,12 +392,20 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
         this.companyConfirmBase = companyConfirmBase;
     }
 
-    public BigDecimal getCompanyScale() {
-        return companyScale;
+    public BigDecimal getCompanyRatio() {
+        return companyRatio;
     }
 
-    public void setCompanyScale(BigDecimal companyScale) {
-        this.companyScale = companyScale;
+    public void setCompanyRatio(BigDecimal companyRatio) {
+        this.companyRatio = companyRatio;
+    }
+
+    public BigDecimal getPersonalRatio() {
+        return personalRatio;
+    }
+
+    public void setPersonalRatio(BigDecimal personalRatio) {
+        this.personalRatio = personalRatio;
     }
 
     public BigDecimal getCompanyAmount() {
@@ -427,14 +440,6 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
         this.personalConfirmBase = personalConfirmBase;
     }
 
-    public BigDecimal getPersonalScale() {
-        return personalScale;
-    }
-
-    public void setPersonalScale(BigDecimal personalScale) {
-        this.personalScale = personalScale;
-    }
-
     public BigDecimal getPersonalAmount() {
         return personalAmount;
     }
@@ -465,6 +470,14 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     @Override
@@ -499,12 +512,12 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
         ", employeePayMethod=" + employeePayMethod +
         ", companyBase=" + companyBase +
         ", companyConfirmBase=" + companyConfirmBase +
-        ", companyScale=" + companyScale +
+        ", companyRatio=" + companyRatio +
         ", companyAmount=" + companyAmount +
         ", companyFixAmount=" + companyFixAmount +
         ", personalBase=" + personalBase +
         ", personalConfirmBase=" + personalConfirmBase +
-        ", personalScale=" + personalScale +
+        ", personalRatio=" + personalRatio +
         ", personalAmount=" + personalAmount +
         ", personalFixAmount=" + personalFixAmount +
         ", totalAmount=" + totalAmount +

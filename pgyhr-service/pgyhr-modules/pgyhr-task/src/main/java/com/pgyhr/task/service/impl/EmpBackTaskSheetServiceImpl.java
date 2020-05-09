@@ -118,4 +118,11 @@ public class EmpBackTaskSheetServiceImpl extends ServiceImpl<EmpBackTaskSheetMap
         queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getCompanyName()),"company_name",empBackTaskSheetSearchRequestDTO.getCompanyName());
         return baseMapper.selectPage(empBackTaskSheetPOPage,queryWrapper);
     }
+
+    @Override
+    public EmpBackTaskSheetPO getEmpBackTaskSheetByKey(String empBackTaskSheetCode) {
+        QueryWrapper<EmpBackTaskSheetPO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("emp_back_task_sheet_code",empBackTaskSheetCode);
+        return baseMapper.selectOne(queryWrapper);
+    }
 }

@@ -101,20 +101,20 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private String companyName;
 
-    /**
-     * 办理用工日期
-     */
-    private LocalDateTime employmentDate;
-
-    /**
-     * 合同开始日期
-     */
-    private LocalDateTime contractStartDate;
-
-    /**
-     * 合同结束日期
-     */
-    private LocalDateTime contractEndDate;
+//    /**
+//     * 办理用工日期
+//     */
+//    private LocalDateTime employmentDate;
+//
+//    /**
+//     * 合同开始日期
+//     */
+//    private LocalDateTime contractStartDate;
+//
+//    /**
+//     * 合同结束日期
+//     */
+//    private LocalDateTime contractEndDate;
 
     /**
      * 雇员公积金账号
@@ -146,20 +146,20 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private Integer serviceProductStatus;
 
-    /**
-     * 服务产品反馈日期
-     */
-    private LocalDateTime serviceProductStatusDate;
-
-    /**
-     * 服务产品执行年月
-     */
-    private LocalDateTime serviceProductStartDate;
-
-    /**
-     * 服务产品结束年月
-     */
-    private LocalDateTime serviceProductEndDate;
+//    /**
+//     * 服务产品反馈日期
+//     */
+//    private LocalDateTime serviceProductStatusDate;
+//
+//    /**
+//     * 服务产品执行年月
+//     */
+//    private LocalDateTime serviceProductStartDate;
+//
+//    /**
+//     * 服务产品结束年月
+//     */
+//    private LocalDateTime serviceProductEndDate;
 
     /**
      * 档案所在地
@@ -176,20 +176,20 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private Integer fileKeepFeeStatus;
 
-    /**
-     * 档案保管费反馈日期
-     */
-    private LocalDateTime fileKeepFeeStatusDate;
-
-    /**
-     * 档案费执行年月
-     */
-    private LocalDateTime fileKeepFeeStartDate;
-
-    /**
-     * 档案费结束年月
-     */
-    private LocalDateTime fileKeepFeeEndDate;
+//    /**
+//     * 档案保管费反馈日期
+//     */
+//    private LocalDateTime fileKeepFeeStatusDate;
+//
+//    /**
+//     * 档案费执行年月
+//     */
+//    private LocalDateTime fileKeepFeeStartDate;
+//
+//    /**
+//     * 档案费结束年月
+//     */
+//    private LocalDateTime fileKeepFeeEndDate;
 
     /**
      * 额外费用
@@ -201,20 +201,20 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private Integer otherFeeStatus;
 
-    /**
-     * 额外费用反馈日期
-     */
-    private LocalDateTime otherFeeStatusDate;
-
-    /**
-     * 额外费用执行年月
-     */
-    private LocalDateTime otherFeeStartDate;
-
-    /**
-     * 额外费用结束年月
-     */
-    private LocalDateTime otherFeeEndDate;
+//    /**
+//     * 额外费用反馈日期
+//     */
+//    private LocalDateTime otherFeeStatusDate;
+//
+//    /**
+//     * 额外费用执行年月
+//     */
+//    private LocalDateTime otherFeeStartDate;
+//
+//    /**
+//     * 额外费用结束年月
+//     */
+//    private LocalDateTime otherFeeEndDate;
 
     /**
      * 实际工资
@@ -231,10 +231,10 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private Integer serviceFeeStatus;
 
-    /**
-     * 服务费反馈日期
-     */
-    private LocalDateTime serviceFeeStatusDate;
+//    /**
+//     * 服务费反馈日期
+//     */
+//    private LocalDateTime serviceFeeStatusDate;
 
     /**
      * 服档费:0-服务费不包括档案费，1-服务费包括档案费
@@ -246,10 +246,10 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
      */
     private Integer outReason;
 
-    /**
-     * 离职日期
-     */
-    private LocalDateTime outDate;
+//    /**
+//     * 离职日期
+//     */
+//    private LocalDateTime outDate;
 
     /**
      * 批退审核结果

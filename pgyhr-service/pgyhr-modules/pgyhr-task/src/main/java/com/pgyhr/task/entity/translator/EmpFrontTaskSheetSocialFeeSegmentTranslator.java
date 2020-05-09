@@ -32,7 +32,7 @@ public class EmpFrontTaskSheetSocialFeeSegmentTranslator {
             empFrontTaskSheetSocialFeeSegmentResponseDTO.setEmployeePayMethodLabel(PayMethodEnum.getValueByKey(empFrontTaskSheetSocialFeeSegmentResponseDTO.getEmployeePayMethod()));
         }
         if (empFrontTaskSheetSocialFeeSegmentResponseDTO.getSocialStatus() != null) {
-            empFrontTaskSheetSocialFeeSegmentResponseDTO.setSocialStatusLabel(TaskStatusEnum.getValueByKey(empFrontTaskSheetSocialFeeSegmentResponseDTO.getSocialStatus()));
+            empFrontTaskSheetSocialFeeSegmentResponseDTO.setSocialStatusLabel(SocialStatusEnum.getValueByKey(empFrontTaskSheetSocialFeeSegmentResponseDTO.getSocialStatus()));
         }
 
         return empFrontTaskSheetSocialFeeSegmentResponseDTO;

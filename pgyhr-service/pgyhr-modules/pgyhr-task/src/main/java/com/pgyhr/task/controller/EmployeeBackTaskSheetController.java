@@ -9,10 +9,7 @@ import com.pgyhr.core.common.vo.Result;
 import com.pgyhr.task.entity.CodePrefixUtil;
 import com.pgyhr.task.entity.dto.*;
 import com.pgyhr.task.entity.po.*;
-import com.pgyhr.task.entity.translator.EmpBackTaskSheetTranslator;
-import com.pgyhr.task.entity.translator.EmpFrontTaskSheetSocialFeeSegmentTranslator;
-import com.pgyhr.task.entity.translator.EmpFrontTaskSheetTranslator;
-import com.pgyhr.task.entity.translator.EmployeeInfoTranslator;
+import com.pgyhr.task.entity.translator.*;
 import com.pgyhr.task.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -82,5 +79,42 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
         resultPage.setRecords(resultList);
 
         return new ResultUtil<Page<EmpBackTaskSheetResponseDTO>>().setData(resultPage);
+    }
+
+    /**
+     * 获取后道雇员任务单详情
+     * @author xiaoguang cui
+     * @param empBackTaskSheetSearchRequestDTO
+     * @return 后道雇员任务单详情数据
+     */
+    @RequestMapping(value = "/getEmployeeBackTaskSheetDetail",method = RequestMethod.GET)
+    @ApiOperation(value = "雇员任务单取雇员信息")
+    public Result<EmpBackTaskResponseDTO> getEmployeeTaskSheetDetail(EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO) {
+        EmpBackTaskResponseDTO empBackTaskResponseDTO = new EmpBackTaskResponseDTO();
+
+        EmpBackTaskSheetPO empBackTaskSheetPO = empBackTaskSheetService.getEmpBackTaskSheetByKey(empBackTaskSheetSearchRequestDTO.getEmpBackTaskSheetCode());
+
+        EmployeeInfoPO employeeInfoPO = employeeInfoService.getemployeeInfoByKey(empBackTaskSheetSearchRequestDTO.getEmployeeId());
+
+
+        EmpBackTaskSheetSocialFeeSegmentResponseDTO empBackTaskSheetSocialFeeSegmentResponseDTO = new EmpBackTaskSheetSocialFeeSegmentResponseDTO();
+        empBackTaskSheetSocialFeeSegmentResponseDTO.setEmpBackTaskSheetCode(empBackTaskSheetSearchRequestDTO.getEmpBackTaskSheetCode());
+        List<EmpBackTaskSheetSocialFeeSegmentPO> empBackTaskSheetSocialFeeSegmentPOList =
+                empBackTaskSheetSocialFeeSegmentService.getEmpBackTaskSheetSocialFeeSegmentByParam(empBackTaskSheetSocialFeeSegmentResponseDTO);
+
+        if(empBackTaskSheetPO != null){
+            empBackTaskResponseDTO.setEmpBackTaskSheetResponseDTO(EmpBackTaskSheetTranslator.toTaskSheetResponseDTO(empBackTaskSheetPO));
+        }
+        if(employeeInfoPO != null){
+            empBackTaskResponseDTO.setEmployeeInfoResponseDTO(EmployeeInfoTranslator.toEmployeeInfoResponseDTO(employeeInfoPO));
+        }
+
+        if(!CollectionUtils.isEmpty(empBackTaskSheetSocialFeeSegmentPOList)){
+            empBackTaskResponseDTO.setEmpBackTaskSheetSocialFeeSegmentResponseDTOList(empBackTaskSheetSocialFeeSegmentPOList
+                    .stream()
+                    .map(EmpBackTaskSheetSocialFeeSegmentTranslator::toEmpBackTaskSheetSocialFeeSegmentResponseDTO)
+                    .collect(Collectors.toList()));
+        }
+        return new ResultUtil<EmpBackTaskResponseDTO>().setData(empBackTaskResponseDTO);
     }
 }

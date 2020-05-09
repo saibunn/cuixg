@@ -7,19 +7,34 @@ package com.pgyhr.task.entity.enums;
 public enum TaskStatusEnum {
 
     /**
-     * 取消委托
+     * 后道批退
      */
-    ENTRUST_CANCEL(0, "取消委托"),
+    BACK_REJECTE(0, "后道批退"),
 
     /**
-     * 委托成功
+     * 前道提交
      */
-    ENTRUST_DONE(1, "委托成功"),
+    FRONT_SEND(1, "前道提交"),
 
     /**
-     * 委托办理
+     * 后道客服确认
      */
-    ENTRUST_PROCESS(2, "委托办理");
+    BACK_SERVICE_CONFIRM(2, "后道客服确认"),
+
+    /**
+     * 后道专员确认
+     */
+    BACK_COMMISSIONER_CONFIRM(3, "后道专员确认"),
+
+    /**
+     * 后道部分完成
+     */
+    BACK_PARTIALLY_COMPLETE(4, "后道部分完成"),
+
+    /**
+     * 后道完成
+     */
+    BACK_COMPLETE(5, "后道完成");
 
     private int key;
 
