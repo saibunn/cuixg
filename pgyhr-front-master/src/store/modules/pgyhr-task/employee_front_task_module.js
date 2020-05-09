@@ -29,6 +29,8 @@ const state = {
 
     },
 
+    taskSheetSocialFeeInfo:[],
+
     empFrontTaskSheetSocialFeeSegment: [],
 
     title: "雇员任务单",
@@ -102,12 +104,11 @@ const actions = {
     },
 
     [employeeTaskSheetTypes.GET_EMPLOYEE_TASK_SHEET_DETAIL] ({state, commit}) {
-        const config = {
-            params: {
-                selectedEmpTaskInfo: state.selectedEmpTaskInfo,
-            }
-        };
-
+        // const config = {
+        //     params: {
+        //         selectedEmpTaskInfo: state.selectedEmpTaskInfo,
+        //     }
+        // };
         return employeeTaskApi.getEmployeeTaskSheetDetail(state.selectedEmpTaskInfo).then(response => {
                 commit(employeeTaskSheetTypes.MUTATE_GET_EMPLOYEE_TASK_SHEET_DETAIL, response.result)
             }

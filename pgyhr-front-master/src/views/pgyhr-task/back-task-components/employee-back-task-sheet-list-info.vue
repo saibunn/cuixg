@@ -1,7 +1,7 @@
 <template>
       <Tabs :value="name" type="card" v-bind:style="tabStyle" >
         <Tab-pane label="委托单详情" name="entrustTab">
-          <entrust-list-info-tab1></entrust-list-info-tab1>
+          <employee-back-task-sheet-list-info-tab></employee-back-task-sheet-list-info-tab>
         </Tab-pane>
       </Tabs>
 </template>

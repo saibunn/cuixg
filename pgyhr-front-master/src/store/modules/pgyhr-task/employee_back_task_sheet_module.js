@@ -2,6 +2,7 @@ import employeeBackTaskSheetApi from "../../../api/pgyhr-task/employee_back_task
 import Util from "../../../libs/util";
 import empBackTaskSheetTypes from "../../event-types/pgyhr-task/emp_back_task_sheet_types";
 import axios from 'axios';
+import employeeTaskApi from "../../../api/pgyhr-task/employee_front_task_api";
 
 const namespaced = true;
 
@@ -31,40 +32,7 @@ const state = {
   },
   employeeInfo:{},
   taskSheetDetail:{
-    taskSheetId: '',
-    taskType: null,
-    entrustCityId: null,
-    beEntrustCityId:'',
-    employeeName: '',
-    entrustOrganizationId: '',
-    beEntrustOrganizationId: '',
-    companyId:'',
-    companyName: '',
-    employmentDate: '',
-    contractStartDate: '',
-    contractEndDate: '',
-    serviceAgreementTypeLabel:null,
-    serviceProductStartDate:null,
-    serviceProductEndDate:null,
-    fileKeepFee:0,
-    fileKeepFeeStartDate:null,
-    fileKeepFeeEndDate:null,
-    otherFee:0,
-    otherFeeStartDate:null,
-    otherFeeEndDate:null,
-    serviceFee:0,
-    serviceProductCost:0,
-    billYm:'',
-    actualWage:null,
-    entrustRemark:null,
-    beEntrustRemark:null,
-    terminationReason:null,
-    terminationDate:null,
-    retreatReason:null,
-    entrustDate:null,
-    createdTime:null,
-    executeCityId:null,
-    organizationAgreementResponseDTOList:[],
+    taskStatus:1,
   },
   taskSheetSocialFeeBatchInfo:[],
   taskSheetSocialFeeInfo:[],
@@ -109,6 +77,11 @@ const state = {
   sTaskSheetSocialInfoList:[],
   hTaskSheetSocialInfoList:[],
   selectedEmpBackTaskInfo:{},
+
+  empBackTaskSheetDetail: {
+    taskStatus:1,
+  },
+  empBackTaskSheetSocialFeeInfo: [],
 };
 
 // 更改组件状态
@@ -201,8 +174,12 @@ const mutations = {
     state.taskSheetBatchDetail = data;
   },
 
-  [empBackTaskSheetTypes.MUTATE_TASK_SHEET_DETAIL](state, data){
-    state.taskSheetDetail = data;
+  [empBackTaskSheetTypes.MUTATE_GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL](state, data){
+    state.empBackTaskSheetDetail = data.empBackTaskSheetResponseDTO;
+    state.empBackTaskSheetSocialFeeInfo = data.empBackTaskSheetSocialFeeSegmentResponseDTOList;
+    state.employeeInfo = data.employeeInfoResponseDTO;
+    console.log("MUTATE_GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL======result============"+JSON.stringify(data.empBackTaskSheetSocialFeeSegmentResponseDTOList));
+
   },
   [empBackTaskSheetTypes.MUTATE_TASK_SHEET_EMPLOYEE_INFO](state, data){
     state.employeeInfo = data;
@@ -327,7 +304,7 @@ const getters = {
     const serviceAgreement = state.taskSheetServiceAgreement;
   },
   isTaskSheetProcessed: state => {
-    return state.taskSheetDetail.taskStatus != 1;
+    return state.selectedEmpBackTaskInfo.taskStatus != 1;
   },
   socialYearList: state => {
     const yearList = [...state.socialSecurityDetailList].map(i => {
@@ -350,7 +327,7 @@ const actions = {
     };
     console.log("...state.searchForm.currentPage"+JSON.stringify(pageParams));
 
-    return employeeBackTaskSheetApi.getqueryEmployeeBackTaskSheetListPage(pageParams).then(response => {
+    return employeeBackTaskSheetApi.getQueryEmployeeBackTaskSheetListPage(pageParams).then(response => {
           commit(empBackTaskSheetTypes.MUTATE_SEARCH_TASK_SHEET_PAGE, response.result)
         }
     )
@@ -488,19 +465,13 @@ const actions = {
     })
   },
 
-  [empBackTaskSheetTypes.GET_TASK_SHEET_DETAIL]({commit}, payload){
-    const id = payload;
-    return employeeBackTaskSheetApi.getTaskSheetDetail(id)
-      .then(response => {
-        console.log("MUTATE_TASK_SHEET_DETAIL"+response);
-        const responseData = response.data;
-        if (responseData.code === 0) {
-          commit(empBackTaskSheetTypes.MUTATE_TASK_SHEET_DETAIL, responseData.object)
-        } else {
-          throw(responseData.message);
+  [empBackTaskSheetTypes.GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL] ({state, commit}) {
+
+    console.log("GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL"+JSON.stringify(state.selectedEmpBackTaskInfo));
+    return employeeBackTaskSheetApi.getEmployeeBackTaskSheetDetail(state.selectedEmpBackTaskInfo).then(response => {
+          commit(empBackTaskSheetTypes.MUTATE_GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL, response.result)
         }
-        return response;
-      })
+    )
   },
 
   [empBackTaskSheetTypes.GET_TASK_SHEET_SOCIAL_FEE_INFO]({commit}, payload){

@@ -16,20 +16,23 @@
     </Panel>
     <Panel name="3">
       <div class="form" slot="content">
-          <Row>
+          <Row >
             <i-col span="24" align="right">
-              <Button type="warning" style="width: 100px" @click="backSearch" >返回</Button>
-              <!--<Button type="info" style="width: 150px">委托合同预览打印</Button>-->
+              <Button type="warning" style="width: 100px;margin-left: 20px" @click="backSearch" >返回</Button>
               <Button
                 type="primary"
-                style="width: 100px"
-                :disabled="isTaskSheetProcessed"
+                v-if="this.getControlDisabled(3)"
+                style="width: 100px;margin-left: 20px"
                 :loading="submitting"
                 @click="submit">提交</Button>
-              <Button type="primary"
-                style="width: 100px"
-                @click="this.showrejectEmployeeBackTaskSheetModal"
-                :disabled="isTaskSheetProcessed">退前道</Button>
+              <Button type="primary" v-if="this.getControlDisabled(12)" style="width: 100px;margin-left: 20px"
+                @click="this.showrejectEmployeeBackTaskSheetModal" >退前道</Button>
+
+              <Button type="primary" v-if="this.getControlDisabled(1)" style="width: 120px;margin-left: 20px"
+                      @click="this.backServiceConfirm" >后道客服确认</Button>
+
+              <Button type="primary" v-if="this.getControlDisabled(2)" style="width: 120px;margin-left: 20px"
+                      @click="this.backCommissionerConfirm" >后道专员确认</Button>
             </i-col>
           </Row>
       </div>
@@ -63,6 +66,7 @@
   import employeeBackTaskSheetListInfo from "./employee-back-task-sheet-list-info";
   import empBackTaskSheetTypes from "../../../store/event-types/pgyhr-task/emp_back_task_sheet_types.js";
   import rejectEmployeeBackTaskSheetModal from "./reject-employee-back-task-sheet-modal.vue";
+  import employeeFrontTaskSheetTypes from "../../../store/event-types/pgyhr-task/employee_front_task_sheet_types";
 
   // const { mapActions, mapGetters } = createNamespacedHelpers('employeeBackTaskSheetModule')
 
@@ -83,19 +87,9 @@
     props:['showDetail'],
     methods: {
       ...mapActions('employeeBackTaskSheetModule', {
-        getTaskSheetDetail: empBackTaskSheetTypes.GET_TASK_SHEET_DETAIL,
+        getEmpBackTaskSheetDetail: empBackTaskSheetTypes.GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL,
         submitTaskSheet: empBackTaskSheetTypes.SUBMIT_TASK_SHEET,
-        getSocialFeeInfo: empBackTaskSheetTypes.GET_TASK_SHEET_SOCIAL_FEE_INFO,
-//        getSocialInfoList: empBackTaskSheetTypes.GET_TASK_SHEET_SOCIAL_INFO_LIST,
-        getHistory: empBackTaskSheetTypes.GET_TASK_SHEET_HISTORY,
-        getUndoneReason: empBackTaskSheetTypes.GET_TASK_SHEET_UNDONE_REASON,
-        getServiceAgreement: empBackTaskSheetTypes.GET_TASK_SHEET_SERVICE_AGREEMENT,
-        getAfProductService: empBackTaskSheetTypes.GET_TASK_SHEET_AF_SERVICE_PRODUCT,
-        getServiceProduct: empBackTaskSheetTypes.GET_TASK_SHEET_SERVICE_PRODUCT,
-        getEmployeeInfo: empBackTaskSheetTypes.GET_TASK_SHEET_EMPLOYEE_INFO,
-        backTaskSheetToAf: empBackTaskSheetTypes.BACK_TASK_SHEET_TO_AF,
-        getCitySocialDetails: empBackTaskSheetTypes.GET_SOCIAL_SECURITY_DETAILS,
-        getServiceProductByTaskSheetCity:empBackTaskSheetTypes.GET_SERVICE_PRODUCT_BY_TASK_SHEET_CITY,
+        rejecteTaskSheet: empBackTaskSheetTypes.BACK_TASK_SHEET_TO_AF,
       }),
 
       ...mapMutations('employeeBackTaskSheetModule', {
@@ -127,6 +121,16 @@
 //          this.submitting = false
 //        )
 //      },
+
+      //后道客服确认
+      backServiceConfirm(){
+
+      },
+
+      //后道专员确认
+      backCommissionerConfirm(){
+
+      },
 
       submit() {
 
@@ -163,20 +167,35 @@
       },
 
       initializeData() {
-        const taskSheetId = this.$route.params.id;
-        this.getTaskSheetDetail(taskSheetId).then(response => {
-          this.getSocialFeeInfo(taskSheetId);
-//          this.getSocialInfoList(taskSheetId);
-          this.getCitySocialDetails("310000");
-          this.getAfProductService(taskSheetId);
-          this.getServiceProduct(taskSheetId);
-          this.getServiceProductByTaskSheetCity();
-          this.getEmployeeInfo(taskSheetId);
-          //this.getOrgAgreement(this.cityId,this.companyId);
-          this.getServiceAgreement(taskSheetId);
-          this.getHistory();
-          this.getUndoneReason(taskSheetId);
-        });
+        this.getEmpBackTaskSheetDetail();
+      },
+
+      getControlDisabled(modelType){
+        var result = false;
+        console.log("modelType=================="+this.selectedEmpBackTaskInfo.taskStatus);
+        if(modelType === 3){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 3){
+            result = true;
+          }
+        }
+        if(modelType === 2){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 2 ){
+            result = true;
+          }
+        }
+        if(modelType === 1){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 1 ){
+            result = true;
+          }
+        }
+        if(modelType === 12){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 1 ||
+                  this.selectedEmpBackTaskInfo.taskStatus ===2){
+            result = true;
+          }
+        }
+
+        return result;
       },
 
       showrejectEmployeeBackTaskSheetModal(){
@@ -193,7 +212,7 @@
           this.returnCustomerServiceModel = false;
           this.mutateEntrustRetreatReason(this.$refs.rejectEmployeeBackTaskSheetModalRef.returnCustomerServiceItem.entrustRetreatReason);
           var title = '委托退单';
-          this.backTaskSheetToAf().then(response => {
+          this.rejecteTaskSheet().then(response => {
             if (response.data.code == 0) {
               this.$Notice.success({
                 title: title,
@@ -236,11 +255,11 @@
         //companyId: state => state.taskSheetDetail.companyId,
         taskSheetSocialFeeInfo: state => state.taskSheetSocialFeeInfo,
         formForSubmit: state => state.formForSubmit,
+        selectedEmpBackTaskInfo :state=> state.selectedEmpBackTaskInfo,
       })
     },
 
     created() {
-      console.log(this.$route.params.id);
       this.initializeData();
     }
 
