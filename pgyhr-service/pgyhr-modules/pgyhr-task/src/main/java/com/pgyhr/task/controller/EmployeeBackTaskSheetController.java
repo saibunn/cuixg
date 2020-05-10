@@ -117,4 +117,43 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
         }
         return new ResultUtil<EmpBackTaskResponseDTO>().setData(empBackTaskResponseDTO);
     }
+
+    @ApiOperation(value = "后道客服确认")
+    @PostMapping(value = "/submitBackServiceConfirm")
+    public Result<E> submitBackServiceConfirm(@RequestBody EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO){
+        EmpBackTaskSheetPO empBackTaskSheetPO = empBackTaskSheetService.getEmpBackTaskSheetByKey(empBackTaskSheetSearchRequestDTO.getEmpBackTaskSheetCode());
+        empBackTaskSheetPO.setTaskStatus(2);
+        if(empBackTaskSheetService.updateById(empBackTaskSheetPO)){
+            return new ResultUtil<E>().setSuccessMsg("后道客服确认成功！");
+        }else{
+            return new ResultUtil<E>().setErrorMsg("后道客服确认失败！");
+        }
+    }
+
+    @ApiOperation(value = "后道专员确认")
+    @PostMapping(value = "/submitBackCommissionerConfirm")
+    public Result<E> submitBackCommissionerConfirm(@RequestBody EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO){
+        EmpBackTaskSheetPO empBackTaskSheetPO = empBackTaskSheetService.getEmpBackTaskSheetByKey(empBackTaskSheetSearchRequestDTO.getEmpBackTaskSheetCode());
+        empBackTaskSheetPO.setTaskStatus(3);
+        if(empBackTaskSheetService.updateById(empBackTaskSheetPO)){
+            return new ResultUtil<E>().setSuccessMsg("后道专员确认成功！");
+        }else{
+            return new ResultUtil<E>().setErrorMsg("后道专员确认失败！");
+        }
+    }
+
+    @ApiOperation(value = "后道专员确认")
+    @PostMapping(value = "/rejectBackTaskSheetToFront")
+    public Result<E> rejectBackTaskSheetToFront(@RequestBody EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO){
+        EmpBackTaskSheetPO empBackTaskSheetPO = empBackTaskSheetService.getEmpBackTaskSheetByKey(empBackTaskSheetSearchRequestDTO.getEmpBackTaskSheetCode());
+        empBackTaskSheetPO.setTaskStatus(0);
+        empBackTaskSheetPO.setRetreatReason(empBackTaskSheetSearchRequestDTO.getRetreatReason());
+        if(empBackTaskSheetService.updateById(empBackTaskSheetPO)){
+            return new ResultUtil<E>().setSuccessMsg("后道退单成功！");
+        }else{
+            return new ResultUtil<E>().setErrorMsg("后道退单失败！");
+        }
+    }
+
+
 }

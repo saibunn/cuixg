@@ -1,5 +1,7 @@
 package com.pgyhr.task.entity.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.pgyhr.core.base.PgyhrBaseEntityNoId;
@@ -24,6 +26,7 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     /**
      * 雇员后道任务单ID
      */
+    @TableId(value = "emp_back_task_sheet_code", type = IdType.AUTO)
     private String empBackTaskSheetCode;
 
     /**
@@ -37,7 +40,7 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     private Integer taskArea;
 
     /**
-     * 任务单状态:0-后道批退,1-前道提交,2-后道处理,3-后道部分完成,4-后道完成,
+     * 任务单状态:0-后道批退,1-前道提交,2-后道客服确认,3-后道专员确认4-后道部分完成,5-后道完成,
      */
     private Integer taskStatus;
 
