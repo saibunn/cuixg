@@ -83,35 +83,7 @@
     name: 'employeeBackTaskSheetSearchItem',
     data () {
       return {
-  
-        cityList: [
-          {
-            value: 'New York',
-            label: 'New York'
-          },
-          {
-            value: 'London',
-            label: 'London'
-          },
-          {
-            value: 'Sydney',
-            label: 'Sydney'
-          },
-          {
-            value: 'Ottawa',
-            label: 'Ottawa'
-          },
-          {
-            value: 'Paris',
-            label: 'Paris'
-          },
-          {
-            value: 'Canberra',
-            label: 'Canberra'
-          }
-        ],
-        model10: [],
-  
+
         entrustSearchFormItem: {
           executeCityId:'',
           taskStatus:'',
@@ -121,7 +93,7 @@
           companyName:'',
           companyId:'',
         },
-  
+
         entrustTaskStatus: {
           statusVal: 0, // 0 无更新，1 新任务单
         },
@@ -129,9 +101,10 @@
         taskStatusOptions: [
           {id: 0, name: '后道批退'},
           {id: 1, name: '前道提交'},
-          {id: 2, name: '后道处理'},
-          {id: 3, name: '后道部分完成'},
-          {id: 4, name: '后道完成'}
+          {id: 2, name: '后道客服确认'},
+          {id: 3, name: '后道专员确认'},
+          {id: 4, name: '后道部分完成'},
+          {id: 5, name: '后道完成'}
         ],
         taskTypeOptions: [
           {id: 0, name: '新增'},
@@ -140,12 +113,12 @@
           {id: 3, name: '终止'},
           {id: 4, name: '一次性费用'}
         ],
-  
+
         isSubmit:false,
       }
 
     },
-  
+
     computed: {
       ...mapState('areaModule', {
         areaAllData: state => state.areaAllData
@@ -177,11 +150,11 @@
       this.form = this.searchForm;
       //this.initWebSocket();
     },
-  
+
     watch: {
     }
-  
-    
+
+
   }
 
 

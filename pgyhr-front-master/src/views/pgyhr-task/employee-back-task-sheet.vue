@@ -166,14 +166,7 @@
       }),
 
       exportData() {
-        // let iframe = document.createElement('iframe');
-        // iframe.style.display = 'none';
-        // console.log(this.searchForm);
-        // iframe.src = EntrustApi.downloadEntrustTaskSheetList_URL + JSON.stringify(this.searchForm)+'?token='+encodeURIComponent(window.sessionStorage.getItem('user_token'));
-        // iframe.onload = function () {
-        //   document.body.removeChild(iframe)
-        // }
-        // document.body.appendChild(iframe)
+
       },
 
       reload: function() {
@@ -214,9 +207,6 @@
     },
     created() {
       let submitForm = {...this.form};
-      submitForm.entrustCityId = '';
-      submitForm.beEntrustCityId = '';
-      submitForm.executeCityId = '';
       this.getTaskSheetPageData();
     }
   }

@@ -45,7 +45,7 @@
         <div slot="footer">
           <Row>
             <i-col span="24" >
-              <i-button type="ghost"  @click="this.closeReturnCustomerServiceModel">关闭</i-button>
+              <i-button  @click="this.closeReturnCustomerServiceModel">关闭</i-button>
               <i-button type="primary" @click="this.returnCustomerService" >确认</i-button>
 
             </i-col>
@@ -89,17 +89,19 @@
       ...mapActions('employeeBackTaskSheetModule', {
         getEmpBackTaskSheetDetail: empBackTaskSheetTypes.GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL,
         submitTaskSheet: empBackTaskSheetTypes.SUBMIT_TASK_SHEET,
-        rejecteTaskSheet: empBackTaskSheetTypes.BACK_TASK_SHEET_TO_AF,
+        rejecteTaskSheet: empBackTaskSheetTypes.BACK_TASK_SHEET_TO_FRONT,
+        backServiceConfirmTaskSheet: empBackTaskSheetTypes.BACK_SERVICE_CONFIRM_BACK_TASK_SHEET,
+        backCommissionerConfirmTaskSheet: empBackTaskSheetTypes.BACK_COMMISSIONER_CONFIRM_BACK_TASK_SHEET,
       }),
 
       ...mapMutations('employeeBackTaskSheetModule', {
-        mutateEntrustRetreatReason: empBackTaskSheetTypes.MUTATE_SUBMIT_ENTRUST_RETREAT_REASON
+        mutateEntrustRetreatReason: empBackTaskSheetTypes.MUTATE_SUBMIT_BACK_TASK_SHEET_RETREAT_REASON
       }),
 
 
       backSearch () {
         this.$router.push({
-          name: 'entrustSearch'
+          name: 'employee-back-manage'
         })
         // this.$emit('entrustDetailBack');
       },
@@ -123,16 +125,63 @@
 //      },
 
       //后道客服确认
-      backServiceConfirm(){
+      async backServiceConfirm(){
 
+        var type = '后道客服确认';
+        var title = "任务单" + type;
+        this.backServiceConfirmTaskSheet().then((response) => {
+          if (response.code == 200){
+            this.$Notice.success({
+              title: title,
+              desc: title + '成功',
+            });
+            this.$router.push({
+              name: "employee-back-manage"
+            });
+
+          }else{
+            this.$Notice.error({
+              title: title,
+              content: response.message
+            });
+          }
+        }).catch((error) => {
+          this.$Notice.error({
+            title: title,
+            content: title + "错误"
+          });
+        });
       },
 
       //后道专员确认
-      backCommissionerConfirm(){
+      async backCommissionerConfirm(){
+        var type = '后道专员确认';
+        var title = "任务单" + type;
+        this.backCommissionerConfirmTaskSheet().then((response) => {
+          if (response.code == 200){
+            this.$Notice.success({
+              title: title,
+              desc: title + '成功',
+            });
+            this.$router.push({
+              name: "employee-back-manage"
+            });
 
+          }else{
+            this.$Notice.error({
+              title: title,
+              content: response.message
+            });
+          }
+        }).catch((error) => {
+          this.$Notice.error({
+            title: title,
+            content: title + "错误"
+          });
+        });
       },
 
-      submit() {
+      async submit() {
 
         console.log("taskSheetSocialFeeInfo=====filter====="+this.taskSheetSocialFeeInfo.filter(function(item){ return item.zytSiId === ''; }).length);
 
@@ -206,33 +255,26 @@
         this.returnCustomerServiceModel = false;
       },
 
-      async returnCustomerService(){
+      async returnCustomerService() {
         this.$refs.rejectEmployeeBackTaskSheetModalRef.validateInput();
         if (this.$refs.rejectEmployeeBackTaskSheetModalRef.validateConfrimResult) {
           this.returnCustomerServiceModel = false;
-          this.mutateEntrustRetreatReason(this.$refs.rejectEmployeeBackTaskSheetModalRef.returnCustomerServiceItem.entrustRetreatReason);
-          var title = '委托退单';
+          this.mutateEntrustRetreatReason(this.$refs.rejectEmployeeBackTaskSheetModalRef.returnCustomerServiceItem.retreatReason);
+          var title = '后道退单';
           this.rejecteTaskSheet().then(response => {
-            if (response.data.code == 0) {
+            if (response.code == 200) {
               this.$Notice.success({
                 title: title,
                 desc: title + '成功',
               });
-              this.handleCurrentChange(1);
-            } else if (response.data.code == 200) {
-              this.$Notice.error({
-                title: title,
-                desc: response.data.message,
+              this.$router.push({
+                name: "employee-back-manage"
               });
-            }else if (response.data.code == 300) {
+
+            } else {
               this.$Notice.error({
                 title: title,
-                desc: response.data.message,
-              });
-            }else if (response.data.code == 404) {
-              this.$Notice.error({
-                title: title,
-                desc: title + "接口不存在",
+                content: response.message
               });
             }
           }).catch((error) => {
@@ -242,8 +284,7 @@
             });
           });
         }
-      },
-
+      }
     },
 
     computed: {
