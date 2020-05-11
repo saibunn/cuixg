@@ -18,8 +18,8 @@ import java.util.Locale;
 
 /**
  * @Description: 日期处理类
- * @Author: ningkuilong/宁奎龙
- * @Date: 2017/11/21 9:55
+ * @Author: xiaoguang cui
+ * @Date: 2020/05/11 9:55
  */
 public class DateUtil {
 
