@@ -7,7 +7,7 @@
         </Form-item>
         </i-col>
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-        <Form-item label="合同结束日期" prop="employeeName">
+        <Form-item label="合同结束日期" prop="contractEndDate">
           {{$dateUtils.stdFormatDate(taskSheetDetail.contractEndDate)}}
         </Form-item>
         </i-col>
@@ -85,12 +85,12 @@
 
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
         <Form-item label="前道备注" prop="entrustRemarks">
-          <i-input v-model="taskSheetDetail.entrustRemark" :disabled="isTaskSheetProcessed" @on-change="entrustRemarkChangeHandler" type="textarea" :rows="4" ></i-input>
+          <i-input v-model="taskSheetDetail.entrustRemark"   type="textarea" :rows="4" ></i-input>
         </Form-item>
         </i-col>
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
         <Form-item label="后道备注"  prop="trustRemarks">
-          <i-input v-model="taskSheetDetail.beEntrustRemark"  type="textarea" :rows="4" disabled></i-input>
+          <i-input v-model="taskSheetDetail.beEntrustRemark" @on-change="entrustRemarkChangeHandler" type="textarea" :rows="4" disabled></i-input>
         </Form-item>
         </i-col>
       </Row>
@@ -199,12 +199,6 @@
 
         insuranceItemsColumns: [
           {
-            type: 'index',
-            width: 60,
-            align: 'center',
-            fixed: 'left'
-          },
-          {
             title: '项目',
             key: 'itemName',
             width: 100,
@@ -223,9 +217,263 @@
             key: 'companyBase'
           },
           {
+            title: '企业实缴基数',
+            key: 'companyConfirmBase',
+            width: 130,
+            minWidth: 55,
+            align: 'center',
+            render: (h, params) => {
+              if (this.getControlDisabled(3)) {
+                let self = this;
+                return h('div', [
+                  h('Input', {
+                    props: {
+                      value: self.$math.eval(params.row.companyConfirmBase)
+                    },
+                    on: {
+                      'on-blur': (val) => {
+                        // 如果是险种合一 统一修改社保类基数
+                        if (self.tnsuranceType && params.row.policyType == '1') {
+                          self.taskSheetSocialFeeInfo.forEach(function (infoItem) {
+                            if (infoItem.policyType === params.row.policyType) {
+                              infoItem.companyConfirmBase = val.target.value
+                            }
+                          })
+                        } else {
+                          self.taskSheetSocialFeeInfo[params.index].companyConfirmBase = val.target.value
+                        }
+
+                        //self.syncFundBase(params.row, 'company', val.target.value)
+                      }
+                    }
+                  })
+                ])
+              } else {
+                return h('div', [
+                  h('span', params.row.companyBase)
+                ])
+              }
+            }
+          },
+          {
             title: '人个基数',
             width: 100,
             key: 'personalBase'
+          },
+          {
+            title: '个人实缴基数',
+            key: 'personalConfirmBase',
+            width: 130,
+            minWidth: 55,
+            align: 'center',
+            render: (h, params) => {
+              if (this.getControlDisabled(3)) {
+                let self = this;
+                return h('div', [
+                  h('Input', {
+                    props: {
+                      value: self.$math.eval(params.row.personalConfirmBase)
+                    },
+                    on: {
+                      'on-blur': (val) => {
+                        // 如果是险种合一 统一修改社保类基数
+                        if (self.tnsuranceType && params.row.policyType == '1') {
+                          self.taskSheetSocialFeeInfo.forEach(function (infoItem) {
+                            if (infoItem.policyType === params.row.policyType) {
+                              infoItem.personalConfirmBase = val.target.value
+                            }
+                          })
+                        } else {
+                          self.taskSheetSocialFeeInfo[params.index].personalConfirmBase = val.target.value
+                        }
+
+                        self.syncFundBase(params.row, 'personal', val.target.value)
+                      }
+                    }
+                  })
+                ])
+              } else {
+                return h('div', [
+                  h('span', params.row.personalBase)
+                ])
+              }
+            }
+          },
+          {
+            title: '企业收费方式',
+            key: 'companyPayMethod',
+            minWidth: 130,
+            align: 'center',
+            render: (h, params) => {
+              if (!this.getControlDisabled(3)) {
+                return h('div', [
+                  h('span', this.baseDic.companyPayWay[this.taskSheetSocialFeeInfo[params.index].companyPayMethod])
+                ])
+              } else {
+                // 组装下拉
+                let optionList = []
+                for (let key in this.baseDic.companyPayWay) {
+                  optionList.push(
+                          h('Option', {
+                            props: {
+                              value: key,
+                              label: this.baseDic.companyPayWay[key],
+                              transfer: true
+                            }
+                          })
+                  )
+                }
+                return h('Select', {
+                  props: {
+                    value: this.taskSheetSocialFeeInfo[params.index].companyPayMethod,
+                    disabled:!this.getControlDisabled(3)
+                  },
+                  on: {
+                    'on-change': (val) => {
+                      this.taskSheetSocialFeeInfo[params.index].companyPayMethod = val
+                    }
+                  }
+                }, optionList)
+              }
+            }
+
+          },
+          {
+            title: '个人收费方式',
+            key: 'employeePayMethod',
+            minWidth: 130,
+            align: 'center',
+            render: (h, params) => {
+              let self = this
+              if (!this.getControlDisabled(3)) {
+                return h('div', [
+                  h('span', this.baseDic.personalpayWay[this.taskSheetSocialFeeInfo[params.index].employeePayMethod])
+                ])
+              } else {
+                // 组装下拉
+                let optionList = []
+                for (let key in this.baseDic.personalpayWay) {
+                  optionList.push(
+                          h('Option', {
+                            props: {
+                              value: key,
+                              label: this.baseDic.personalpayWay[key],
+                              transfer: true
+                            }
+                          })
+                  )
+                }
+                return h('Select', {
+                  props: {
+                    value: this.taskSheetSocialFeeInfo[params.index].employeePayMethod,
+                    disabled:!this.getControlDisabled(3)
+                  },
+                  on: {
+                    'on-change': (val) => {
+                      self.taskSheetSocialFeeInfo[params.index].employeePayMethod = val
+                    }
+                  }
+                }, optionList)
+              }
+            }
+          },
+          {
+            title: '缴纳开始月',
+            width: 110,
+            key: 'startDate',
+            render: (h, params) => {
+              return h('div', this.$dateUtils.stdFormatDate(params.row.startDate));
+            }
+          },
+          {
+            title: '缴纳开始确认月',
+            key: 'startConfirmDate',
+            minWidth: 140,
+            align: 'center',
+            render: (h, params) => {
+
+              if (this.getControlDisabled(3)) {
+                let self = this
+                return h('div', [
+                  h('DatePicker', {
+                    props: {
+                      type: 'month',
+                      value: params.row.startConfirmDate,
+                      format: 'yyyy-MM',
+                      clearable: false,
+                      transfer: true,
+                    },
+                    on: {
+                      'on-change': (val) => {
+                        // 如果是险种合一 统一修改社保类基数
+                        if (self.tnsuranceType && params.row.policyType == '1') {
+                          self.taskSheetSocialFeeInfo.forEach(function (infoItem) {
+                            if (infoItem.policyType === params.row.policyType) {
+                              infoItem.startConfirmDate = new Date(val + '-01')
+                            }
+                          })
+                        } else {
+                          this.taskSheetSocialFeeInfo[params.index].startConfirmDate = new Date(val + '-01')
+                        }
+                      }
+                    }
+                  })
+                ])
+              } else {
+                return h('div', [
+                  h('span', new Date(params.row.startConfirmDate).pattern('yyyy-MM-dd'))
+                ])
+              }
+            }
+          },
+          {
+            title: '缴纳结束月',
+            width: 110,
+            key: 'endDate',
+            render: (h, params) => {
+              return h('div', this.$dateUtils.stdFormatDate(params.row.endDate));
+            }
+          },
+          {
+            title: '缴纳结束确认月',
+            key: 'endConfirmDate',
+            minWidth: 140,
+            align: 'center',
+            render: (h, params) => {
+
+              if (this.getControlDisabled(3)) {
+                let self = this;
+                return h('div', [
+                  h('DatePicker', {
+                    props: {
+                      type: 'month',
+                      value: params.row.endConfirmDate,
+                      format: 'yyyy-MM',
+                      clearable: false,
+                      transfer: true,
+                    },
+                    on: {
+                      'on-change': (val) => {
+                        // 如果是险种合一 统一修改社保类基数
+                        if (self.tnsuranceType && params.row.policyType == '1') {
+                          self.taskSheetSocialFeeInfo.forEach(function (infoItem) {
+                            if (infoItem.policyType === params.row.policyType) {
+                              infoItem.endConfirmDate = new Date(val + '-01')
+                            }
+                          })
+                        } else {
+                          this.taskSheetSocialFeeInfo[params.index].endConfirmDate = new Date(val + '-01')
+                        }
+                      }
+                    }
+                  })
+                ])
+              } else {
+                return h('div', [
+                  h('span', new Date(params.row.endConfirmDate).pattern('yyyy-MM-dd'))
+                ])
+              }
+            }
           },
           {
             title: '企业比例',
@@ -243,6 +491,7 @@
               return h('div', parseFloat((params.row.personalRatio*100).toFixed(4)) + '%')
             }
           },
+
           {
             title: '企业缴费',
             width: 100,
@@ -258,155 +507,6 @@
             width: 100,
             key: 'totalAmount'
           },
-          {
-            title: '开始年月',
-            width: 110,
-            key: 'startDate',
-            render: (h, params) => {
-              return h('div', this.$dateUtils.stdFormatDate(params.row.startDate));
-            }
-          },
-          {
-            title: '结束年月',
-            width: 110,
-            key: 'endDate',
-            render: (h, params) => {
-              return h('div', this.$dateUtils.stdFormatDate(params.row.endDate));
-            }
-          },
-          {
-            title: '反馈状态',
-            width: 150,
-            key: 'socialStatusLabel'
-          },
-          {
-            title: '企业收款方式',
-            width: 120,
-            key: 'companyPayMethod',
-            render: (h, params) => {
-              return h('div', [
-                  h('Select', {
-                      props: {
-                        value: params.row.companyPayMethod,
-                        disabled: this.isTaskSheetProcessed
-                      },
-                      on: {
-                          'on-change':(event) => {
-                            if(this.tnsuranceType){
-                              for (var i=0;i<this.taskSheetSocialFeeInfo.length;i++) {
-                                this.taskSheetSocialFeeInfo[i].companyPayMethod = event;
-                                if(event !=1){
-                                  this.taskSheetSocialFeeInfo[i].companyAmountLabel = 0;
-                                }else{
-                                  this.taskSheetSocialFeeInfo[i].companyAmountLabel = this.taskSheetSocialFeeInfo[i].companyAmount;
-                                }
-                                this.taskSheetSocialFeeInfo[i].totalAmountLabel = this.taskSheetSocialFeeInfo[i].companyAmountLabel +  this.taskSheetSocialFeeInfo[i].personalAmountLabel;
-                              }
-                            }else{
-                              this.taskSheetSocialFeeInfo[params.index].companyPayMethod = event;
-                              if(event !=1){
-                                this.taskSheetSocialFeeInfo[params.index].companyAmountLabel = 0;
-                              }else{
-                                this.taskSheetSocialFeeInfo[params.index].companyAmountLabel = params.row.companyAmount;
-                              }
-                              this.taskSheetSocialFeeInfo[params.index].totalAmountLabel = this.taskSheetSocialFeeInfo[params.index].companyAmountLabel +  this.taskSheetSocialFeeInfo[params.index].personalAmountLabel;
-                            }
-                            this.mutateTaskSheetSocialFeeInfo(this.taskSheetSocialFeeInfo);
-                          }
-                        },
-                    },
-                    [
-                      h('Option', {
-                          props: {
-                            value: 1,
-                            label:'服务费',
-                          },
-                        },'服务费'
-                      ),
-                      h('Option', {
-                          props: {
-                            value: 2,
-                            label: '公司自付',
-                          },
-                        },'公司自付'
-                      ),
-                      h('Option', {
-                          props: {
-                            value: 3,
-                            label: '个人工资自付',
-                          },
-                        },'个人工资自付'
-                      ),
-                    ]
-                  )
-                ]
-              );
-            }
-          },
-          {
-            title: '个人收款方式',
-            width: 120,
-            key: 'employeePayMethod',
-            render: (h, params) => {
-              return h('div', [
-                  h('Select', {
-                    props: {
-                        value: params.row.employeePayMethod,
-                        disabled: this.isTaskSheetProcessed
-                      },
-                    on: {
-                        'on-change':(event) => {
-                          if(this.tnsuranceType){
-                            for (var i=0;i<this.taskSheetSocialFeeInfo.length;i++) {
-                              this.taskSheetSocialFeeInfo[i].employeePayMethod = event;
-                              if(event !=1){
-                                this.taskSheetSocialFeeInfo[i].personalAmountLabel = 0;
-                              }else{
-                                this.taskSheetSocialFeeInfo[i].personalAmountLabel = this.taskSheetSocialFeeInfo[i].personalAmount;
-                              }
-                              this.taskSheetSocialFeeInfo[i].totalAmountLabel = this.taskSheetSocialFeeInfo[i].companyAmountLabel +  this.taskSheetSocialFeeInfo[i].personalAmountLabel;
-                            }
-                          }else{
-                            this.taskSheetSocialFeeInfo[params.index].employeePayMethod = event;
-                            if(event !=1){
-                              this.taskSheetSocialFeeInfo[params.index].personalAmountLabel = 0;
-                            }else{
-                              this.taskSheetSocialFeeInfo[params.index].personalAmountLabel = params.row.personalAmount;
-                            }
-                            this.taskSheetSocialFeeInfo[params.index].totalAmountLabel = this.taskSheetSocialFeeInfo[params.index].companyAmountLabel +  this.taskSheetSocialFeeInfo[params.index].personalAmountLabel;
-                          }
-                          this.mutateTaskSheetSocialFeeInfo(this.taskSheetSocialFeeInfo);
-                        }
-                      },
-                    },
-                    [
-                      h('Option', {
-                          props: {
-                            value: 1,
-                            label:'服务费',
-                          },
-                        },'服务费'
-                      ),
-                      h('Option', {
-                          props: {
-                            value: 2,
-                            label: '公司自付',
-                          },
-                        },'公司自付'
-                      ),
-                      h('Option', {
-                          props: {
-                            value: 3,
-                            label: '个人工资自付',
-                          },
-                        },'个人工资自付'
-                      ),
-                    ]
-                  )
-                ]
-              );
-            }
-          }
         ],
 
 
@@ -431,38 +531,6 @@
           }
         ],
 
-        serviceProductsSelectColumns: [
-          {
-            title: '序号',
-            type: 'index',
-            width: 100,
-            align: 'center',
-          },
-          {
-            title: '操作',
-            key: 'action',
-            align: 'center',
-            width: 200,
-
-            render: (h, params) => {
-              return h('div', [
-
-                h('Button', {
-                  props: {
-                    type: 'error',
-                    size: 'small',
-                    disabled: this.isTaskSheetProcessed
-                  },
-                  on: {
-                    click: () => {
-                      this.remove(params.index)
-                    }
-                  }
-                }, '删除')
-              ]);
-            }
-          }
-        ],
       }
     },
 
@@ -479,6 +547,33 @@
         mutateServiceAgreementType: empBackTaskSheetTypes.MUTATE_SUBMIT_SERVICE_AGREEMENT_TYPE,
         mutateEntrustRemark: empBackTaskSheetTypes.MUTATE_SUBMIT_ENTRUST_REMARK
       }),
+
+      getControlDisabled(modelType){
+        var result = false;
+        if(modelType === 3){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 3){
+            result = true;
+          }
+        }
+        if(modelType === 2){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 2 ){
+            result = true;
+          }
+        }
+        if(modelType === 1){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 1 ){
+            result = true;
+          }
+        }
+        if(modelType === 12){
+          if(this.selectedEmpBackTaskInfo.taskStatus === 1 ||
+                  this.selectedEmpBackTaskInfo.taskStatus ===2){
+            result = true;
+          }
+        }
+
+        return result;
+      },
 
       serviceSelectHandler(selection) {
         this.selectedServiceProduct = selection;
@@ -614,9 +709,10 @@
       ...mapState({
         taskSheetDetail: state => state.empBackTaskSheetDetail,
         taskSheetSocialFeeInfo: state => state.empBackTaskSheetSocialFeeInfo,
+        selectedEmpBackTaskInfo :state=> state.selectedEmpBackTaskInfo,
       }),
       ...mapGetters([
-        'isTaskSheetProcessed',
+
       ]),
     },
 

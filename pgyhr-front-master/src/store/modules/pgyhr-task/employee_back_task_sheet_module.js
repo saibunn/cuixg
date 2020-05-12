@@ -71,7 +71,7 @@ const actions = {
   [empBackTaskSheetTypes.BACK_COMMISSIONER_CONFIRM_BACK_TASK_SHEET] ({state, commit}) {
 
     //console.log("BACK_COMMISSIONER_CONFIRM_BACK_TASK_SHEET"+JSON.stringify(state.selectedEmpBackTaskInfo));
-    return employeeBackTaskSheetApi.subBackCommissionerConfirm(state.selectedEmpBackTaskInfo);
+    return employeeBackTaskSheetApi.submitBackCommissionerConfirm(state.selectedEmpBackTaskInfo);
   },
 
 

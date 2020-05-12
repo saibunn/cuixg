@@ -518,7 +518,6 @@
                         } else {
                           this.importSocialData[params.index].startDate = new Date(val + '-01')
                         }
-                        this.startDateChange(params.row.itemCode)
                       }
                     }
                   })
