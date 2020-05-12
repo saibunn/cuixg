@@ -7,6 +7,8 @@ import com.pgyhr.task.entity.enums.TaskStatusEnum;
 import com.pgyhr.task.entity.po.EmpBackTaskSheetSocialFeeSegmentPO;
 import org.springframework.beans.BeanUtils;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 前道任务单转换类
@@ -33,6 +35,13 @@ public class EmpBackTaskSheetSocialFeeSegmentTranslator {
         }
         if (empBackTaskSheetSocialFeeSegmentResponseDTO.getSocialStatus() != null) {
             empBackTaskSheetSocialFeeSegmentResponseDTO.setSocialStatusLabel(SocialStatusEnum.getValueByKey(empBackTaskSheetSocialFeeSegmentResponseDTO.getSocialStatus()));
+        }
+
+        if (empBackTaskSheetSocialFeeSegmentResponseDTO.getCompanyConfirmBase() == null) {
+            empBackTaskSheetSocialFeeSegmentResponseDTO.setCompanyConfirmBase(new BigDecimal(0L));
+        }
+        if (empBackTaskSheetSocialFeeSegmentResponseDTO.getPersonalConfirmBase() == null) {
+            empBackTaskSheetSocialFeeSegmentResponseDTO.setPersonalConfirmBase(new BigDecimal(0L));
         }
 
         return empBackTaskSheetSocialFeeSegmentResponseDTO;
