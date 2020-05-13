@@ -88,7 +88,7 @@
     methods: {
       ...mapActions('employeeBackTaskSheetModule', {
         getEmpBackTaskSheetDetail: empBackTaskSheetTypes.GET_EMPLOYEE_BACK_TASK_SHEET_DETAIL,
-        submitTaskSheet: empBackTaskSheetTypes.SUBMIT_TASK_SHEET,
+        submitBackTaskSheet: empBackTaskSheetTypes.SUBMIT_EMPLOYEE_BACK_TASK_SHEET,
         rejecteTaskSheet: empBackTaskSheetTypes.BACK_TASK_SHEET_TO_FRONT,
         backServiceConfirmTaskSheet: empBackTaskSheetTypes.BACK_SERVICE_CONFIRM_BACK_TASK_SHEET,
         backCommissionerConfirmTaskSheet: empBackTaskSheetTypes.BACK_COMMISSIONER_CONFIRM_BACK_TASK_SHEET,
@@ -183,35 +183,36 @@
 
       async submit() {
 
-        console.log("taskSheetSocialFeeInfo=====filter====="+this.taskSheetSocialFeeInfo.filter(function(item){ return item.zytSiId === ''; }).length);
+        var params = {
+          empFrontTaskSheetPO: this.empBackTaskSheetDetail,
+          empBackTaskSheetSocialFeeSegmentRequestDTOList: this.empBackTaskSheetSocialFeeInfo
+        };
+        //console.log("MUTATE_SAVE_EMPLOYEE_INFO====dddsds==result============"+JSON.stringify(params));
+        var type = '提交';
+        var title = "后道雇员任务单" + type;
+        this.submitBackTaskSheet(params).then((response) => {
+          console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+          if (response.code == 200) {
+            this.$Notice.success({
+              title: title,
+              desc: title + '成功',
+            });
+            // this.$router.push({
+            //     name: "employee_front_task_sheet_items"
+            // });
 
-
-        console.log("this.formForSubmit.serviceAgreementId====="+!this.formForSubmit.serviceAgreementId);
-
-        console.log("this.formForSubmit.organizationAgreementProductRelationRequestDTOList.length====="+this.formForSubmit.organizationAgreementProductRelationRequestDTOList.length);
-        //服务协议必须选择
-        if(!this.formForSubmit.serviceAgreementId || this.formForSubmit.organizationAgreementProductRelationRequestDTOList.length == 0){
-          this.$Modal.error({
-            title: "<p><h3>错误</h3></p>",
-            content: "<p><h3>服务协议必须选择！</h3></p>",
-          });
-          return;
-        }
-
-
-        this.submitTaskSheet().then(response => {
-          const responseData = response.data
-          if (responseData.code === 0) {
-            this.$Message.info("提交了任务单");
-            // this.getTaskSheetDetail(this.$route.params.id);
-            // this.getHistory();
-            this.backSearch();
-          } else {
-            throw(responseData.message);
+          }else{
+            this.$Notice.error({
+              title: title,
+              content: response.message
+            });
           }
-        }).catch(error => {
-          console.log(error)
-        })
+        }).catch((error) => {
+          this.$Notice.error({
+            title: title,
+            content: title + "错误"
+          });
+        });
 
       },
 
@@ -292,10 +293,8 @@
         'isTaskSheetProcessed'
       ]),
       ...mapState('employeeBackTaskSheetModule', {
-        //cityId: state => state.taskSheetDetail.executeCityId,
-        //companyId: state => state.taskSheetDetail.companyId,
-        taskSheetSocialFeeInfo: state => state.taskSheetSocialFeeInfo,
-        formForSubmit: state => state.formForSubmit,
+        empBackTaskSheetDetail: state => state.empBackTaskSheetDetail,
+        empBackTaskSheetSocialFeeInfo: state => state.empBackTaskSheetSocialFeeInfo,
         selectedEmpBackTaskInfo :state=> state.selectedEmpBackTaskInfo,
       })
     },

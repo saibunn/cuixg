@@ -66,10 +66,10 @@
         </Form-item>
         </i-col>
       </Row>
-
+      <Row style="margin-top: 10px">
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-        <Form-item label="服务费"  prop="serviceCost">
-          {{taskSheetDetail.serviceFee}}
+        <Form-item label="前道服务费"  prop="frontServiceFee">
+          {{taskSheetDetail.frontServiceFee}}
         </Form-item>
         </i-col>
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
@@ -84,13 +84,14 @@
         </i-col>
 
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-        <Form-item label="前道备注" prop="entrustRemarks">
-          <i-input v-model="taskSheetDetail.entrustRemark"   type="textarea" :rows="4" ></i-input>
-        </Form-item>
+          <Form-item label="服务费"  prop="serviceFee">
+            <i-input v-model="taskSheetDetail.serviceFee" :disabled ="!this.getControlDisabled(3)" ></i-input>
+          </Form-item>
         </i-col>
+
         <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-        <Form-item label="后道备注"  prop="trustRemarks">
-          <i-input v-model="taskSheetDetail.beEntrustRemark" @on-change="entrustRemarkChangeHandler" type="textarea" :rows="4" disabled></i-input>
+        <Form-item label="备注"  prop="trustRemarks">
+          <i-input v-model="taskSheetDetail.remark"  type="textarea" :rows="4" :disabled ="!this.getControlDisabled(3)" ></i-input>
         </Form-item>
         </i-col>
       </Row>
@@ -242,8 +243,6 @@
                         } else {
                           self.taskSheetSocialFeeInfo[params.index].companyConfirmBase = val.target.value
                         }
-
-                        //self.syncFundBase(params.row, 'company', val.target.value)
                       }
                     }
                   })
@@ -287,7 +286,6 @@
                           self.taskSheetSocialFeeInfo[params.index].personalConfirmBase = val.target.value
                         }
 
-                        self.syncFundBase(params.row, 'personal', val.target.value)
                       }
                     }
                   })
@@ -536,16 +534,9 @@
 
     methods: {
       ...mapActions({
-        getServiceProductByTaskSheetCity: empBackTaskSheetTypes.GET_SERVICE_PRODUCT_BY_TASK_SHEET_CITY,
       }),
 
       ...mapMutations({
-        mutateTaskSheetSocialFeeInfo: empBackTaskSheetTypes.MUTATE_TASK_SHEET_SOCIAL_FEE_INFO,
-        mutateServiceProductList: empBackTaskSheetTypes.MUTATE_TASK_SHEET_SERVICE_PRODUCT,
-        mutateServiceProductAmount: empBackTaskSheetTypes.MUTATE_TASK_SHEET_SERVICE_PRODUCT_AMOUNT,
-        deleteServiceProduct: empBackTaskSheetTypes.DELETE_TASK_SHEET_SERVICE_PRODUCT,
-        mutateServiceAgreementType: empBackTaskSheetTypes.MUTATE_SUBMIT_SERVICE_AGREEMENT_TYPE,
-        mutateEntrustRemark: empBackTaskSheetTypes.MUTATE_SUBMIT_ENTRUST_REMARK
       }),
 
       getControlDisabled(modelType){
@@ -584,13 +575,6 @@
         this.socialSecurityModal = true;
       },
 
-      showServiceProduct () {
-        //this.getServiceProductByTaskSheetCity();
-
-        this.$refs.serviceProductTable.selectAll(false);
-        this.serviceProductVModel = true;
-      },
-
       ok () {
         let serviceProductList = [...this.taskSheetServiceProductList];
         this.selectedServiceProduct.forEach(i => {
@@ -624,18 +608,6 @@
         }).catch(error => {
           console.log(error);
         })
-      },
-
-      remove(index) {
-        this.deleteServiceProduct(index);
-      },
-
-      serviceAgreementTypeSelectHandler(value) {
-        this.mutateServiceAgreementType(value);
-      },
-
-      entrustRemarkChangeHandler(event) {
-        this.mutateEntrustRemark(event.target.value);
       },
 
       agreementChangeHandler(item) {

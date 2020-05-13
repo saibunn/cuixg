@@ -14,11 +14,14 @@ const submitBackCommissionerConfirm = params => postCollectionRequest('/back/tas
 // 后道退单
 const rejectBackTaskSheetToFront = params => postCollectionRequest('/back/task/rejectBackTaskSheetToFront', params);
 
+// 后道雇员任务单提交
+const submitEmpBackTaskSheetInfo = params => postCollectionRequest('/back/task/submitEmpBackTaskSheetInfo', params);
+
 export default {
   getQueryEmployeeBackTaskSheetListPage,
   getEmployeeBackTaskSheetDetail,
   submitBackServiceConfirm,
   submitBackCommissionerConfirm,
   rejectBackTaskSheetToFront,
-
+  submitEmpBackTaskSheetInfo,
 }

@@ -3,6 +3,7 @@ import Util from "../../../libs/util";
 import empBackTaskSheetTypes from "../../event-types/pgyhr-task/emp_back_task_sheet_types";
 import axios from 'axios';
 import employeeTaskApi from "../../../api/pgyhr-task/employee_front_task_api";
+import employeeTaskSheetTypes from "../../event-types/pgyhr-task/employee_front_task_sheet_types";
 
 const namespaced = true;
 
@@ -76,17 +77,20 @@ const actions = {
 
 
 
-
-  [empBackTaskSheetTypes.SUBMIT_TASK_SHEET]({commit, state}, payload){
-    let params = state.formForSubmit;
-    params.taskSheetId = state.taskSheetDetail.taskSheetId;
-    params.taskSheetServiceProductFeeSegmentRequestDTOList = state.taskSheetServiceProductList;
-    params.taskSheetSocialFeeSegmentRequestDTOList = state.taskSheetSocialFeeInfo;
-    console.log("params.taskSheetServiceProductList==="+JSON.stringify(state.taskSheetServiceProductList));
-    console.log("params.taskSheetServiceProductFeeSegmentRequestDTOList111==="+JSON.stringify(params.taskSheetServiceProductFeeSegmentRequestDTOList));
-
-    return employeeBackTaskSheetApi.submitTaskSheet(params);
+  [empBackTaskSheetTypes.SUBMIT_EMPLOYEE_BACK_TASK_SHEET]({commit}, params){
+    return employeeBackTaskSheetApi.submitEmpBackTaskSheetInfo(params);
   },
+
+  // [empBackTaskSheetTypes.SUBMIT_EMPLOYEE_BACK_TASK_SHEET]({commit, state}, payload){
+  //   let params = state.formForSubmit;
+  //   params.taskSheetId = state.taskSheetDetail.taskSheetId;
+  //   params.taskSheetServiceProductFeeSegmentRequestDTOList = state.taskSheetServiceProductList;
+  //   params.taskSheetSocialFeeSegmentRequestDTOList = state.taskSheetSocialFeeInfo;
+  //   console.log("params.taskSheetServiceProductList==="+JSON.stringify(state.taskSheetServiceProductList));
+  //   console.log("params.taskSheetServiceProductFeeSegmentRequestDTOList111==="+JSON.stringify(params.taskSheetServiceProductFeeSegmentRequestDTOList));
+  //
+  //   return employeeBackTaskSheetApi.submitTaskSheet(params);
+  // },
 
   [empBackTaskSheetTypes.BACK_TASK_SHEET_TO_FRONT]({state, commit}) {
     return employeeBackTaskSheetApi.rejectBackTaskSheetToFront(state.selectedEmpBackTaskInfo);
