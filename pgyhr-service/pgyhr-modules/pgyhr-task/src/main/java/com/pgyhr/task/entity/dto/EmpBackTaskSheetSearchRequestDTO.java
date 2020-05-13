@@ -222,6 +222,11 @@ public class EmpBackTaskSheetSearchRequestDTO extends CommonListDTO implements S
     private BigDecimal actualWage;
 
     /**
+     * 前道服务费
+     */
+    private BigDecimal frontServiceFee;
+
+    /**
      * 服务费
      */
     private BigDecimal serviceFee;

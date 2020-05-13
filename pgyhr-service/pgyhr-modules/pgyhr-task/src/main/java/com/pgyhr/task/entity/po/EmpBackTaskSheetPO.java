@@ -225,6 +225,11 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     private BigDecimal actualWage;
 
     /**
+     * 前道服务费
+     */
+    private BigDecimal frontServiceFee;
+
+    /**
      * 服务费
      */
     private BigDecimal serviceFee;
@@ -725,6 +730,14 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
 
     public void setEmpFrontTaskSheetCode(String empFrontTaskSheetCode) {
         this.empFrontTaskSheetCode = empFrontTaskSheetCode;
+    }
+
+    public BigDecimal getFrontServiceFee() {
+        return frontServiceFee;
+    }
+
+    public void setFrontServiceFee(BigDecimal frontServiceFee) {
+        this.frontServiceFee = frontServiceFee;
     }
 
     @Override

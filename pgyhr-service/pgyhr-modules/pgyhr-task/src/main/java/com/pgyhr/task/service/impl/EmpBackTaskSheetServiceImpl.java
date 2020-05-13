@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -57,6 +58,8 @@ public class EmpBackTaskSheetServiceImpl extends ServiceImpl<EmpBackTaskSheetMap
         addEmpBackTaskSheetPO.setCityName(empFrontTaskSheetPO.getSocialCityName());
         addEmpBackTaskSheetPO.setExecuteCityId(empFrontTaskSheetPO.getSocialCityCode());
         addEmpBackTaskSheetPO.setExecuteCityName(empFrontTaskSheetPO.getSocialCityName());
+        addEmpBackTaskSheetPO.setServiceFee(new BigDecimal(0L));
+        addEmpBackTaskSheetPO.setFrontServiceFee(empFrontTaskSheetPO.getServiceFee());
         if(baseMapper.insert(addEmpBackTaskSheetPO)>0){
             EmpFrontTaskSheetSocialFeeSegmentDTO empFrontTaskSheetSocialFeeSegmentDTO = new EmpFrontTaskSheetSocialFeeSegmentDTO();
             empFrontTaskSheetSocialFeeSegmentDTO.setEmpFrontTaskSheetCode(empFrontTaskSheetPO.getEmpFrontTaskSheetCode());

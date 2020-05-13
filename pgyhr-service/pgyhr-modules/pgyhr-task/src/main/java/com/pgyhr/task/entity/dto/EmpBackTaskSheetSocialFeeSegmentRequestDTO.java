@@ -12,12 +12,12 @@ import java.util.Date;
  * </p>
  *
  * @author xiaoguang.cui
- * @since 2020-04-26
+ * @since 2020-05-14
  */
 @Data
-public class EmpBackTaskSheetSocialFeeSegmentResponseDTO implements Serializable{
+public class EmpBackTaskSheetSocialFeeSegmentRequestDTO implements Serializable{
 
-    private static final long serialVersionUID = 5768898407689814177L;
+    private static final long serialVersionUID = 966482256987328120L;
     /**
      * ID
      */

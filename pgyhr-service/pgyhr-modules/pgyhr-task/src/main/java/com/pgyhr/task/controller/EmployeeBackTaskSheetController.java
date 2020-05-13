@@ -156,4 +156,13 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
     }
 
 
+    @ApiOperation(value = "后道雇员任务单提交")
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @PostMapping(value = "/submitEmpBackTaskSheetInfo")
+    public Result<E> submitEmpBackTaskSheetInfo(@RequestBody EmpBackTaskSaveRequestDTO empBackTaskSaveRequestDTO){
+
+        return new ResultUtil<E>().setErrorMsg("后道雇员任务单提交成功！");
+    }
+
+
 }

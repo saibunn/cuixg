@@ -43,6 +43,7 @@
         <result column="other_fee_start_date" property="otherFeeStartDate" />
         <result column="other_fee_end_date" property="otherFeeEndDate" />
         <result column="actual_wage" property="actualWage" />
+        <result column="front_service_fee" property="frontServiceFee" />
         <result column="service_fee" property="serviceFee" />
         <result column="service_fee_status" property="serviceFeeStatus" />
         <result column="service_fee_status_date" property="serviceFeeStatusDate" />
