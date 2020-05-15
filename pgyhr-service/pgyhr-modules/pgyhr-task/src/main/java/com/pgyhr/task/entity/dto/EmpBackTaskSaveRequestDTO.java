@@ -18,7 +18,7 @@ public class EmpBackTaskSaveRequestDTO implements Serializable {
 
     private static final long serialVersionUID = -5860352817277000960L;
 
-    private EmpBackTaskSheetPO empFrontTaskSheetPO;
+    private EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO;
 
 
     private List<EmpBackTaskSheetSocialFeeSegmentRequestDTO> empBackTaskSheetSocialFeeSegmentRequestDTOList;

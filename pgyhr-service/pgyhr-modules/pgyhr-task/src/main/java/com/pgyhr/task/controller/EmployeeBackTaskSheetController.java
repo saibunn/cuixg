@@ -54,6 +54,9 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
     @Autowired
     private EmpBackTaskSheetService  empBackTaskSheetService;
 
+    @Autowired
+    private EmpFrontTaskSheetService  empFrontTaskSheetService;
+
 
     @Autowired
     private EmpBackTaskSheetSocialFeeSegmentService empBackTaskSheetSocialFeeSegmentService;
@@ -160,8 +163,47 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @PostMapping(value = "/submitEmpBackTaskSheetInfo")
     public Result<E> submitEmpBackTaskSheetInfo(@RequestBody EmpBackTaskSaveRequestDTO empBackTaskSaveRequestDTO){
+        Boolean saveResult = true;
+        if(empBackTaskSaveRequestDTO.getEmpBackTaskSheetSearchRequestDTO() != null){
+            EmpBackTaskSheetPO empBackTaskSheetPO = empBackTaskSheetService.getEmpBackTaskSheetByKey(empBackTaskSaveRequestDTO.getEmpBackTaskSheetSearchRequestDTO().getEmpBackTaskSheetCode());
+            //后道部分完成 todo
+            empBackTaskSheetPO.setTaskStatus(5);
+            empBackTaskSheetPO.setRemark(empBackTaskSaveRequestDTO.getEmpBackTaskSheetSearchRequestDTO().getRemark());
+            empBackTaskSheetPO.setServiceFee(empBackTaskSaveRequestDTO.getEmpBackTaskSheetSearchRequestDTO().getServiceFee());
+            if(empBackTaskSheetService.updateById(empBackTaskSheetPO)){
 
-        return new ResultUtil<E>().setErrorMsg("后道雇员任务单提交成功！");
+                //后道任务单社保费用段表
+                List<EmpBackTaskSheetSocialFeeSegmentPO> empBackTaskSheetSocialFeeSegmentPOList =
+                        CommonTransform.convertToDTOs(empBackTaskSaveRequestDTO.getEmpBackTaskSheetSocialFeeSegmentRequestDTOList(),EmpBackTaskSheetSocialFeeSegmentPO.class);
+
+                if(!CollectionUtils.isEmpty(empBackTaskSheetSocialFeeSegmentPOList)){
+                    empBackTaskSheetSocialFeeSegmentPOList.stream().forEach(item->{
+                                item.setSocialStatus(1);
+                            }
+                    );
+                    if(!empBackTaskSheetSocialFeeSegmentService.saveBatch(empBackTaskSheetSocialFeeSegmentPOList)){
+                        log.error("后道任务单社保费用段表表保存失败:" + empBackTaskSheetPO.toString());
+                        saveResult = false;
+                    }
+                }
+
+                if(saveResult) {
+                    //回写前道任务单社保费用明细
+                    saveResult = empFrontTaskSheetService.changeEmpFrontTaskSheetStatus(empBackTaskSheetPO,empBackTaskSheetSocialFeeSegmentPOList);
+                }
+
+            }else{
+                saveResult = false;
+
+            }
+        }
+
+
+        if(!saveResult){
+            return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败！");
+        }
+        return new ResultUtil<E>().setSuccessMsg("雇员新增任务单成功！");
+
     }
 
 

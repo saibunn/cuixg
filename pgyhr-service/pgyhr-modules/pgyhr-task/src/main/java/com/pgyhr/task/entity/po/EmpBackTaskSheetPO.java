@@ -40,7 +40,7 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     private Integer taskArea;
 
     /**
-     * 任务单状态:0-后道批退,1-前道提交,2-后道客服确认,3-后道专员确认4-后道部分完成,5-后道完成,
+     * 任务单状态:0-后道批退,1-前道提交,2-后道客服确认,3-后道专员确认,4-后道部分完成,5-后道完成,
      */
     private Integer taskStatus;
 

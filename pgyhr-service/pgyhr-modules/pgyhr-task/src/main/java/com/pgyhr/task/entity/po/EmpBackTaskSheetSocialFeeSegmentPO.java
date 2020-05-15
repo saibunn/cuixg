@@ -85,7 +85,7 @@ public class EmpBackTaskSheetSocialFeeSegmentPO extends PgyhrBaseEntityNoId<EmpB
     private String socialName;
 
     /**
-     * 反馈状态:0-取消委托，1-委托成功，2-委托办理
+     * 反馈状态:0-取消办理，1-办理成功，2-办理中
      */
     private Integer socialStatus;
 

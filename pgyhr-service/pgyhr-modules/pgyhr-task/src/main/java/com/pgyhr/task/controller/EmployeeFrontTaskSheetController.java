@@ -415,12 +415,14 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
         }
 
         if(saveResult){
-
             //生成后道任务单
-            Boolean generatorFlag = empBackTaskSheetService.generatorEmpBackTaskSheet(addEmpFrontTaskSheetPO);
-            return new ResultUtil<E>().setSuccessMsg("雇员新增任务单成功！");
-        }else{
+            if(empBackTaskSheetService.generatorEmpBackTaskSheet(addEmpFrontTaskSheetPO)){
+                saveResult = false;
+            }
+        }
+        if(!saveResult){
             return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败！");
         }
+        return new ResultUtil<E>().setSuccessMsg("雇员新增任务单成功！");
     }
 }
