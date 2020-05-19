@@ -298,84 +298,6 @@
             }
           },
           {
-            title: '企业收费方式',
-            key: 'companyPayMethod',
-            minWidth: 130,
-            align: 'center',
-            render: (h, params) => {
-              if (!this.getControlDisabled(3)) {
-                return h('div', [
-                  h('span', this.baseDic.companyPayWay[this.taskSheetSocialFeeInfo[params.index].companyPayMethod])
-                ])
-              } else {
-                // 组装下拉
-                let optionList = []
-                for (let key in this.baseDic.companyPayWay) {
-                  optionList.push(
-                          h('Option', {
-                            props: {
-                              value: key,
-                              label: this.baseDic.companyPayWay[key],
-                              transfer: true
-                            }
-                          })
-                  )
-                }
-                return h('Select', {
-                  props: {
-                    value: this.taskSheetSocialFeeInfo[params.index].companyPayMethod,
-                    disabled:!this.getControlDisabled(3)
-                  },
-                  on: {
-                    'on-change': (val) => {
-                      this.taskSheetSocialFeeInfo[params.index].companyPayMethod = val
-                    }
-                  }
-                }, optionList)
-              }
-            }
-
-          },
-          {
-            title: '个人收费方式',
-            key: 'employeePayMethod',
-            minWidth: 130,
-            align: 'center',
-            render: (h, params) => {
-              let self = this
-              if (!this.getControlDisabled(3)) {
-                return h('div', [
-                  h('span', this.baseDic.personalpayWay[this.taskSheetSocialFeeInfo[params.index].employeePayMethod])
-                ])
-              } else {
-                // 组装下拉
-                let optionList = []
-                for (let key in this.baseDic.personalpayWay) {
-                  optionList.push(
-                          h('Option', {
-                            props: {
-                              value: key,
-                              label: this.baseDic.personalpayWay[key],
-                              transfer: true
-                            }
-                          })
-                  )
-                }
-                return h('Select', {
-                  props: {
-                    value: this.taskSheetSocialFeeInfo[params.index].employeePayMethod,
-                    disabled:!this.getControlDisabled(3)
-                  },
-                  on: {
-                    'on-change': (val) => {
-                      self.taskSheetSocialFeeInfo[params.index].employeePayMethod = val
-                    }
-                  }
-                }, optionList)
-              }
-            }
-          },
-          {
             title: '缴纳开始月',
             width: 110,
             key: 'startDate',
@@ -472,6 +394,84 @@
                 ])
               }
             }
+          },
+          {
+            title: '企业收费方式',
+            key: 'companyPayMethodLabel',
+            minWidth: 130,
+            align: 'center',
+            // render: (h, params) => {
+            //   if (!this.getControlDisabled(3)) {
+            //     return h('div', [
+            //       h('span', this.baseDic.companyPayWay[this.taskSheetSocialFeeInfo[params.index].companyPayMethod])
+            //     ])
+            //   } else {
+            //     // 组装下拉
+            //     let optionList = []
+            //     for (let key in this.baseDic.companyPayWay) {
+            //       optionList.push(
+            //               h('Option', {
+            //                 props: {
+            //                   value: key,
+            //                   label: this.baseDic.companyPayWay[key],
+            //                   transfer: true
+            //                 }
+            //               })
+            //       )
+            //     }
+            //     return h('Select', {
+            //       props: {
+            //         value: this.taskSheetSocialFeeInfo[params.index].companyPayMethod,
+            //         disabled:!this.getControlDisabled(3)
+            //       },
+            //       on: {
+            //         'on-change': (val) => {
+            //           this.taskSheetSocialFeeInfo[params.index].companyPayMethod = val
+            //         }
+            //       }
+            //     }, optionList)
+            //   }
+            // }
+
+          },
+          {
+            title: '个人收费方式',
+            key: 'employeePayMethodLabel',
+            minWidth: 130,
+            // align: 'center',
+            // render: (h, params) => {
+            //   let self = this
+            //   if (!this.getControlDisabled(3)) {
+            //     return h('div', [
+            //       h('span', this.baseDic.personalpayWay[this.taskSheetSocialFeeInfo[params.index].employeePayMethod])
+            //     ])
+            //   } else {
+            //     // 组装下拉
+            //     let optionList = []
+            //     for (let key in this.baseDic.personalpayWay) {
+            //       optionList.push(
+            //               h('Option', {
+            //                 props: {
+            //                   value: key,
+            //                   label: this.baseDic.personalpayWay[key],
+            //                   transfer: true
+            //                 }
+            //               })
+            //       )
+            //     }
+            //     return h('Select', {
+            //       props: {
+            //         value: this.taskSheetSocialFeeInfo[params.index].employeePayMethod,
+            //         disabled:!this.getControlDisabled(3)
+            //       },
+            //       on: {
+            //         'on-change': (val) => {
+            //           self.taskSheetSocialFeeInfo[params.index].employeePayMethod = val
+            //         }
+            //       }
+            //     }, optionList)
+            //   }
+            // }
           },
           {
             title: '企业比例',

@@ -84,6 +84,17 @@ export const otherRouter = {
     ]
 };
 
+// 客户管理
+export const companyRouter = {
+    path: '/',
+    name: 'companyRouter',
+    redirect: '/home',
+    component: Main,
+    children: [
+        { path: 'add-company-info', title: '新增客户', name: 'add-company-info', component: () => import('@/views/pgyhr-company/companydetail.vue') },
+    ]
+};
+
 // 雇员前道管理
 export const employeeFrontRouter = {
     path: '/',
@@ -117,6 +128,7 @@ export const routers = [
     registResult,
     authorizeRouter,
     otherRouter,
+    companyRouter,
     employeeFrontRouter,
     employeeBackRouter,
     locking,

@@ -184,7 +184,7 @@
       async submit() {
 
         var params = {
-          empFrontTaskSheetPO: this.empBackTaskSheetDetail,
+          empBackTaskSheetSearchRequestDTO: this.empBackTaskSheetDetail,
           empBackTaskSheetSocialFeeSegmentRequestDTOList: this.empBackTaskSheetSocialFeeInfo
         };
         //console.log("MUTATE_SAVE_EMPLOYEE_INFO====dddsds==result============"+JSON.stringify(params));

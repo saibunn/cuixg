@@ -1,105 +1,83 @@
-<style scoped>
-
-  .form {
-    width: 80%;
-  }
-
-  .pageSize{
-    width: 100%;
-    text-align: center;
-    margin: 20px auto;
-  }
-
-
-
+<style lang="less">
+  @import "../../styles/table-common.less";
 </style>
 
 <template>
     
-    <div class="form" >
-        <Form :model="companyItem" :label-width="100">
-          
-          <Row>
+    <div class="search">
+        <Card>
+          <Form :model="companyItem"  inline :label-width="90">
+              <Row>
+<!--                <Form-item label="城市" prop="companyAreaId">-->
+<!--                  <Cascader-->
+<!--                        v-model="companyItem.companyCityCode"-->
+<!--                        :data="areaData"-->
+<!--                        not-found-text="无匹配数据"-->
+<!--                        style="width: 250px"-->
+<!--                        change-on-select-->
+<!--                        @on-change="handleChangeDep"-->
+<!--                  ></Cascader>-->
+<!--                </Form-item>-->
 
-            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-              <Form-item label="城市" prop="companyAreaId">
-                <Cascader
-                        :value.sync="companyItem.companyAreaId"
-                        :data="areaData"
-                        trigger="hover"
-                        not-found-text="无匹配数据"
-                ></Cascader>
-              </Form-item>
-            </i-col>
+                <Form-item label="公司名称" prop="companyName" class="ivu-form-item-batch">
+                  <i-input v-model="companyItem.companyName" style="width: 250px"></i-input>
+                </Form-item>
+                <span v-if="drop">
+                  <Form-item label="公司编号" prop="companyCode" >
+                    <i-input v-model="companyItem.companyCode" style="width: 250px"></i-input>
+                  </Form-item>
 
-            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-              <Form-item label="公司编号" prop="companyCode" >
-                <i-input v-model="companyItem.companyCode"></i-input>
-              </Form-item>
-            </i-col>
+                  <Form-item label="签约销售" prop="signedSales" class="ivu-form-item-batch">
+                    <i-input v-model="companyItem.signedSales" style="width: 250px"></i-input>
+                  </Form-item>
 
-            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-              <Form-item label="公司名称" prop="companyName" class="ivu-form-item-batch">
-                <i-input v-model="companyItem.companyName"></i-input>
-              </Form-item>
-            </i-col>
+                  <Form-item label="责任客服" prop="responsibilityService" class="ivu-form-item-batch">
+                    <i-input v-model="companyItem.responsibilityService" style="width: 250px"></i-input>
+                  </Form-item>
 
-            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-              <Form-item label="使用状态" prop="active">
-                <Select v-model="companyItem.active"  :label-in-value="true" :clearable="true">
-                  <Option v-for="item in useStateList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                </Select>
-              </Form-item>
-            </i-col>
-  
-            <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}" >
-              <i-button type="primary" style="margin-left: 50px" @click="queryByPage">查询</i-button>
-              <i-button type="warning"  style="margin-left: 50px" @click="resetSearchItem">重置</i-button>
-            </i-col>
-          </Row>
-          
-        
-          <Row>
-            <i-col span="15" align="right">
-              <Button type="primary" style="width: 80px" @click="this.showAddCompanyModel">新增</Button>
-            </i-col>
-          </Row>
-          
-          <Row style="margin-top: 10px">
-            <i-col span="22">
-              <Table border :columns="companyColumns" :data="companyData" width="800"   ref="companyDataTable"></Table>
-            </i-col>
-          </Row>
-        
-          <Row>
-            <i-col span="14" align="center">
-              <Page
-                @on-change="this.handleCurrentChange"
-                :current="companyPage.currentPage"
-                :page-size="companyPage.size"
-                :total="companyPage.total"
-                show-total
-                show-elevator>
-              </Page>
-            </i-col>
-          </Row>
-        </Form>
-  
-      <Modal
-        v-model="addCompanyModelFlg"
-        title="新增客户"
-        width="600">
-        <add-company-model ref="addCompanyModal"></add-company-model>
-        <div slot="footer">
-          <Row>
-            <i-col span="24" >
-              <i-button type="ghost"  @click="this.closeAddCompanyModel">关闭</i-button>
-              <i-button type="primary" @click="this.addCompany" >保存</i-button>
+                  <Form-item label="使用状态" prop="isActive">
+                    <Select v-model="companyItem.isActive"  :label-in-value="true" :clearable="true" style="width: 250px">
+                      <Option v-for="item in useStateList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </Select>
+                  </Form-item>
+                </span>
 
-            </i-col>
-          </Row>
-        </div>
-      </Modal>
+
+                <Form-item style="margin-left:-35px;" class="br">
+                  <i-button type="primary" @click="queryByPage" icon="ios-search">查询</i-button>
+                  <i-button type="warning" @click="resetSearchItem">重置</i-button>
+                  <a class="drop-down" @click="dropDown">
+                    {{dropDownContent}}
+                    <Icon :type="dropDownIcon"></Icon>
+                  </a>
+                </Form-item>
+              </Row>
+          </Form>
+
+
+            <Row class="operation">
+              <Button style="float:right" type="primary" @click="this.showAddCompanyModel" icon="md-add">新增客户</Button>
+            </Row>
+
+            <Row style="margin-top: 10px">
+              <i-col span="24">
+                <Table border :columns="companyColumns" :data="companyData"  ref="companyDataTable"></Table>
+              </i-col>
+            </Row>
+
+            <Row>
+              <i-col span="14" align="center">
+                <Page
+                  @on-change="this.handleCurrentChange"
+                  :current="companyPage.currentPage"
+                  :page-size="companyPage.size"
+                  :total="companyPage.total"
+                  show-total
+                  show-elevator>
+                </Page>
+              </i-col>
+            </Row>
+        </Card>
       </div>
 </template>
 
@@ -108,6 +86,7 @@
   import addCompanyModel from "./company-components/addCompanyModel.vue";
   import {mapState, mapGetters, mapActions} from 'vuex';
   import companyTypes from "../../store/event-types/pgyhr-company/company-types.js";
+  import expandRow from "../sys/user-manage/expand";
   export default {
     components: {addCompanyModel},
     name: 'Company',
@@ -115,12 +94,17 @@
       return {
         addCompanyModelFlg: false,
         showDetail: false,
-  
+        drop: false,
+        dropDownContent: "展开",
+        dropDownIcon: "ios-arrow-down",
+
         companyItem: {
-          companyAreaId:[],
+          // companyCityCode:"",
           companyCode:'',
           companyName:'',
-          active:'',
+          signedSales:'',
+          responsibilityService:'',
+          isActive:'',
           currentPage:'',
           size:'',
         },
@@ -138,35 +122,98 @@
   
         companyColumns: [
           {
-            title: '序号',
-            key: 'companyId',
-            width: 100,
+            type: "selection",
+            width: 60,
+            align: "center",
+            fixed: "left"
           },
           {
-            title: '城市',
-            key: 'companyCityName',
-            width: 100,
-          },
-          {
-            title: '使用状态',
-            key: 'active',
-            render: (h, params) => {
-              return params.row.active? "在用" : "禁用";
-            }
+            title: '客户编号',
+            key: 'companyCode',
+            align: "center",
+            width: 170,
           },
           {
             title: '公司名称',
             key: 'companyName',
+            align: "center",
+            width: 220,
+          },
+          /*{
+            title: '城市',
+            key: 'companyCityName',
+            align: "center",
+            width: 210,
+              render: (h, params) => {
+                  if (params.row.active == true) {
+                      return h("div", [
+                          h("Cascader", {
+                              props: {
+                                  status: "success",
+                                  text: "正常"
+                              }
+                          })
+                      ]);
+                  }
+              }
+          },*/
+          {
+            title: '签约销售',
+            key: 'signedSales',
+            align: "center",
+            width: 150,
+          },
+          {
+            title: '责任客服',
+            key: 'responsibilityService',
+            align: "center",
+            width: 150,
+          },
+          {
+            title: '应收费用',
+            key: '',
+            align: "center",
+            width: 150,
+            // sortable: true,
+            // sortType: "desc"
+          },
+          {
+            title: '使用状态',
+            key: 'active',
+            align: "center",
+            width: 150,
+            render: (h, params) => {
+              if (params.row.active == true) {
+                return h("div", [
+                  h("Badge", {
+                    props: {
+                      status: "success",
+                      text: "正常"
+                    }
+                  })
+                ]);
+              } else if (params.row.active == false) {
+                return h("div", [
+                  h("Badge", {
+                    props: {
+                      status: "error",
+                      text: "禁用"
+                    }
+                  })
+                ]);
+              }
+            }
           },
           {
             title: '操作',
             key: 'action',
             align: 'center',
+            width: 200,
             render: (h, params) => {
               return h('div', [
                 h('Button', {
                   props: {
-                    type: 'success',
+                    type: 'primary',
                     size: 'small'
                   },
                   style: {
@@ -175,14 +222,33 @@
                   on: {
                     click: () => {
                       this.$router.push({
-                        name: 'companyDetail',
-                        params: {
-                          data: this.companyData[params.index]
+                        name:"add-company-info",
+                        query: {
+                          data: this.companyData[params.index].companyCode
                         }
                       });
                     }
                   }
-                }, '详细'),
+                }, '查看'),
+                h('Button', {
+                  props: {
+                    type: 'error',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px',
+                    marginLeft: '10px'
+                  },
+                  on: {
+                    click: () => {
+
+                      if(confirm('确定要删除吗')==true){
+                        this.deleteCompany(this.companyData[params.index].companyCode);
+                      }
+
+                    }
+                  }
+                }, '删除'),
               ]);
             }
           }
@@ -190,18 +256,18 @@
       }
       
     },
-  
+
     created(){
       this.queryByPage();
     },
   
     computed: {
-  
+
       ...mapState('companyModule', {
         title: state => state.title,
         companyPage: state => state.companyPage,
         companyData: state => state.rows,
-    
+
       }),
 
       ...mapState('areaModule', {
@@ -209,14 +275,34 @@
       }),
 
     },
-    
+
     methods: {
-      ...mapActions('companyModule', [companyTypes.ADD_COMPANY,
-        companyTypes.COMPANY_PAGE,
+      ...mapActions('companyModule', [
+              companyTypes.ADD_COMPANY,
+              companyTypes.COMPANY_PAGE,
+              companyTypes.DELETE_COMANY,
       ]),
 
+      dropDown() {
+        if (this.drop) {
+          this.dropDownContent = "展开";
+          this.dropDownIcon = "ios-arrow-down";
+        } else {
+          this.dropDownContent = "收起";
+          this.dropDownIcon = "ios-arrow-up";
+        }
+        this.drop = !this.drop;
+      },
+      handleChangeDep(value, selectedData) {
+        let companyCityCode = "";
+        // 获取最后一个值
+        if (value && value.length > 0) {
+          companyCityCode = value[value.length - 1];
+        }
+        this.companyCityCode=companyCityCode;
+        //console.log(selectedData[1].__label);
+      },
 
-      
       reload: function () {
         this.showDetail = false;
       },
@@ -230,23 +316,28 @@
       },
   
       showAddCompanyModel(){
-        this.addCompanyModelFlg = true;
+        //this.addCompanyModelFlg = true;
+        this.$router.push({name:"add-company-info"});
       },
   
   
   
       queryByPage(){
+
         this.handleCurrentChange(1);
       },
   
       resetSearchItem(){
-        this.companyItem.companyCode = null;
-        this.companyItem.companyName = null;
-        this.companyItem.useStatus = null;
+        this.companyItem.companyCode = '';
+        this.companyItem.companyName = '';
+        this.companyItem.useStatus = '';
+        this.companyItem.responsibilityService = '';
+        this.companyItem.signedSales = '';
+        this.isActive = '';
       },
   
       handleCurrentChange(val) {
-        this.companyPage.pageNum = val;
+        this.companyPage.currentPage = val;
         this.finds();
       },
   
@@ -260,8 +351,7 @@
        var params = this.companyItem;
 
         let submitForm = {...this.companyItem};
-        submitForm.companyAreaId = submitForm.companyAreaId.length > 1 ? submitForm.companyAreaId[1] : submitForm.companyAreaId[0];
-
+        // submitForm.companyCityCode = submitForm.companyCityCode.length > 1 ? submitForm.companyCityCode[1] : submitForm.companyCityCode[0];
         console.log("params:================="+JSON.stringify(submitForm));
         
         this[companyTypes.COMPANY_PAGE](submitForm);
@@ -277,7 +367,7 @@
             console.log("addCompanyItem:================="+JSON.stringify(this.$refs.addCompanyModal.addCompanyItem));
             var type = '新增';
             var title = this.title + type;
-            this[CompanyType.ADD_COMPANY](params).then((response) => {
+            this[companyTypes.ADD_COMPANY](params).then((response) => {
               if (response.data.code == 0) {
                 this.$Notice.success({
                   title: title,
@@ -306,6 +396,22 @@
       closeAddCompanyModel(){
         this.addCompanyModelFlg = false;
       },
+
+      deleteCompany(code){
+        console.log(code);
+        this[companyTypes.DELETE_COMANY]({compamyCode:code}).then((response)=>{
+            console.log(response)
+            if(response.code==200){
+                this.$Message.success('删除成功');
+                this.queryByPage();
+            }
+        }).catch((error) => {
+            this.$Notice.error({
+                title: title,
+                content: title + "错误"
+            });
+        });
+      }
       
     }
   }

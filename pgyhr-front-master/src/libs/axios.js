@@ -87,6 +87,19 @@ export const postRequest = (url, params) => {
     });
 };
 
+export const postRequestJSON = (url, params) => {
+    let accessToken = getStore("accessToken");
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            'Content-Type': 'application/json',
+            'accessToken': accessToken
+        }
+    });
+};
+
 export const postCollectionRequest = (url, params) => {
     let accessToken = getStore("accessToken");
     return axios({
@@ -116,6 +129,19 @@ export const putRequest = (url, params) => {
         }],
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
+            'accessToken': accessToken
+        }
+    });
+};
+
+export const putRequestJSON = (url, params) => {
+    let accessToken = getStore("accessToken");
+    return axios({
+        method: 'put',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            'Content-Type': 'application/json',
             'accessToken': accessToken
         }
     });
