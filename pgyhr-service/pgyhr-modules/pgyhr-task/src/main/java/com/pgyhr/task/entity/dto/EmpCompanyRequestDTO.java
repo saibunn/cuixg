@@ -31,9 +31,19 @@ public class EmpCompanyRequestDTO implements Serializable {
     private String companyId;
 
     /**
+     * 公司ID
+     */
+    private String companyName;
+
+    /**
      * 雇员ID
      */
     private String employeeId;
+
+    /**
+     * 雇员ID
+     */
+    private String employeeName;
 
     /**
      * 管理方ID
@@ -256,7 +266,7 @@ public class EmpCompanyRequestDTO implements Serializable {
     private String wechatCode;
 
     /**
-     * 是否可用:0-禁用 1-可用 
+     * 是否可用:0-禁用 1-可用
      */
     private Boolean isActive;
 
@@ -310,6 +320,49 @@ public class EmpCompanyRequestDTO implements Serializable {
      */
     private LocalDateTime modifiedTime;
 
+
+    /**
+     * 证件类型
+     */
+    private String idCardType;
+
+    /**
+     * 证件号
+     */
+    private String idNum;
+
+
+    public String getIdCardType() {
+        return idCardType;
+    }
+
+    public void setIdCardType(String idCardType) {
+        this.idCardType = idCardType;
+    }
+
+    public String getIdNum() {
+        return idNum;
+    }
+
+    public void setIdNum(String idNum) {
+        this.idNum = idNum;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
 
     public String getEmpCompanyId() {
         return empCompanyId;
@@ -777,65 +830,69 @@ public class EmpCompanyRequestDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EmpCompanyPO{" +
-        "empCompanyId=" + empCompanyId +
-        ", companyId=" + companyId +
-        ", employeeId=" + employeeId +
-        ", managementId=" + managementId +
-        ", oldEmployeeId=" + oldEmployeeId +
-        ", channelId=" + channelId +
-        ", templateType=" + templateType +
-        ", inDate=" + inDate +
-        ", isTransActBankCard=" + isTransActBankCard +
-        ", isNeedBankCard=" + isNeedBankCard +
-        ", bankType=" + bankType +
-        ", bankCode=" + bankCode +
-        ", salary=" + salary +
-        ", salaryPayType=" + salaryPayType +
-        ", laborStartDate=" + laborStartDate +
-        ", laborEndDate=" + laborEndDate +
-        ", laborSide=" + laborSide +
-        ", deptName=" + deptName +
-        ", empCode=" + empCode +
-        ", position=" + position +
-        ", empPost=" + empPost +
-        ", empProfession=" + empProfession +
-        ", trySalary=" + trySalary +
-        ", tryStartDate=" + tryStartDate +
-        ", tryEndDate=" + tryEndDate +
-        ", workType=" + workType +
-        ", postType=" + postType +
-        ", employStyle=" + employStyle +
-        ", socialUnit=" + socialUnit +
-        ", fundUnit=" + fundUnit +
-        ", hireUnit=" + hireUnit +
-        ", workCityCode=" + workCityCode +
-        ", socialCityCode=" + socialCityCode +
-        ", fundCityCode=" + fundCityCode +
-        ", outDate=" + outDate +
-        ", outReason=" + outReason +
-        ", socialStopType=" + socialStopType +
-        ", fundStopType=" + fundStopType +
-        ", materialPosition=" + materialPosition +
-        ", empInType=" + empInType +
-        ", status=" + status +
-        ", sos=" + sos +
-        ", sosPhone=" + sosPhone +
-        ", remark=" + remark +
-        ", remarkOut=" + remarkOut +
-        ", isUploadWechatData=" + isUploadWechatData +
-        ", wechatCode=" + wechatCode +
-        ", isActive=" + isActive +
-        ", leadershipId=" + leadershipId +
-        ", leadershipName=" + leadershipName +
-        ", laborContractCode=" + laborContractCode +
-        ", jobContent=" + jobContent +
-        ", dispatchingTerm=" + dispatchingTerm +
-        ", version=" + version +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", modifiedBy=" + modifiedBy +
-        ", modifiedTime=" + modifiedTime +
-        "}";
+        return "EmpCompanyRequestDTO{" +
+                "empCompanyId='" + empCompanyId + '\'' +
+                ", companyId='" + companyId + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", employeeName='" + employeeName + '\'' +
+                ", managementId='" + managementId + '\'' +
+                ", oldEmployeeId='" + oldEmployeeId + '\'' +
+                ", channelId='" + channelId + '\'' +
+                ", templateType=" + templateType +
+                ", inDate=" + inDate +
+                ", isTransActBankCard=" + isTransActBankCard +
+                ", isNeedBankCard=" + isNeedBankCard +
+                ", bankType=" + bankType +
+                ", bankCode='" + bankCode + '\'' +
+                ", salary=" + salary +
+                ", salaryPayType=" + salaryPayType +
+                ", laborStartDate=" + laborStartDate +
+                ", laborEndDate=" + laborEndDate +
+                ", laborSide='" + laborSide + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", empCode='" + empCode + '\'' +
+                ", position='" + position + '\'' +
+                ", empPost='" + empPost + '\'' +
+                ", empProfession='" + empProfession + '\'' +
+                ", trySalary=" + trySalary +
+                ", tryStartDate=" + tryStartDate +
+                ", tryEndDate=" + tryEndDate +
+                ", workType=" + workType +
+                ", postType=" + postType +
+                ", employStyle=" + employStyle +
+                ", socialUnit=" + socialUnit +
+                ", fundUnit=" + fundUnit +
+                ", hireUnit=" + hireUnit +
+                ", workCityCode='" + workCityCode + '\'' +
+                ", socialCityCode='" + socialCityCode + '\'' +
+                ", fundCityCode='" + fundCityCode + '\'' +
+                ", outDate=" + outDate +
+                ", outReason=" + outReason +
+                ", socialStopType=" + socialStopType +
+                ", fundStopType=" + fundStopType +
+                ", materialPosition='" + materialPosition + '\'' +
+                ", empInType=" + empInType +
+                ", status=" + status +
+                ", sos='" + sos + '\'' +
+                ", sosPhone='" + sosPhone + '\'' +
+                ", remark='" + remark + '\'' +
+                ", remarkOut='" + remarkOut + '\'' +
+                ", isUploadWechatData=" + isUploadWechatData +
+                ", wechatCode='" + wechatCode + '\'' +
+                ", isActive=" + isActive +
+                ", leadershipId='" + leadershipId + '\'' +
+                ", leadershipName='" + leadershipName + '\'' +
+                ", laborContractCode='" + laborContractCode + '\'' +
+                ", jobContent='" + jobContent + '\'' +
+                ", dispatchingTerm='" + dispatchingTerm + '\'' +
+                ", version=" + version +
+                ", createdBy='" + createdBy + '\'' +
+                ", createdTime=" + createdTime +
+                ", modifiedBy='" + modifiedBy + '\'' +
+                ", modifiedTime=" + modifiedTime +
+                ", idCardType='" + idCardType + '\'' +
+                ", idNum='" + idNum + '\'' +
+                '}';
     }
 }
