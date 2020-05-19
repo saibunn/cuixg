@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pgyhr.core.base.PgyhrBaseEntityNoId;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -51,7 +54,7 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
     /**
      * 雇员出生日期
      */
-    private LocalDateTime birthday;
+    private Date birthday;
 
     /**
      * 户口性质:1: 非农业户口, 2: 农业户口
@@ -159,7 +162,7 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
     private String fileAddress;
 
     /**
-     * 是否可用:0-禁用 1-可用 
+     * 是否可用:0-禁用 1-可用
      */
     private Boolean isActive;
 
@@ -209,11 +212,14 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
         this.idNum = idNum;
     }
 
-    public LocalDateTime getBirthday() {
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public Date getBirthday() {
         return birthday;
     }
-
-    public void setBirthday(LocalDateTime birthday) {
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -405,35 +411,35 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
     @Override
     public String toString() {
         return "EmployeeInfoPO{" +
-        "employeeId=" + employeeId +
-        ", employeeName=" + employeeName +
-        ", formerName=" + formerName +
-        ", idCardType=" + idCardType +
-        ", idNum=" + idNum +
-        ", birthday=" + birthday +
-        ", residentType=" + residentType +
-        ", gender=" + gender +
-        ", marriageStatus=" + marriageStatus +
-        ", marriageDate=" + marriageDate +
-        ", childStatus=" + childStatus +
-        ", childNum=" + childNum +
-        ", healthStatus=" + healthStatus +
-        ", policy=" + policy +
-        ", countryCode=" + countryCode +
-        ", nationality=" + nationality +
-        ", socialAccount=" + socialAccount +
-        ", fundAccount=" + fundAccount +
-        ", addFundAccount=" + addFundAccount +
-        ", employeeEmail=" + employeeEmail +
-        ", employeeMobile=" + employeeMobile +
-        ", employeeAddress=" + employeeAddress +
-        ", employeeZipCode=" + employeeZipCode +
-        ", residenceAddress=" + residenceAddress +
-        ", emergencyContactName=" + emergencyContactName +
-        ", emergencyMobile=" + emergencyMobile +
-        ", fileAddress=" + fileAddress +
-        ", isActive=" + isActive +
-        ", version=" + version +
-        "}";
+                "employeeId=" + employeeId +
+                ", employeeName=" + employeeName +
+                ", formerName=" + formerName +
+                ", idCardType=" + idCardType +
+                ", idNum=" + idNum +
+                ", birthday=" + birthday +
+                ", residentType=" + residentType +
+                ", gender=" + gender +
+                ", marriageStatus=" + marriageStatus +
+                ", marriageDate=" + marriageDate +
+                ", childStatus=" + childStatus +
+                ", childNum=" + childNum +
+                ", healthStatus=" + healthStatus +
+                ", policy=" + policy +
+                ", countryCode=" + countryCode +
+                ", nationality=" + nationality +
+                ", socialAccount=" + socialAccount +
+                ", fundAccount=" + fundAccount +
+                ", addFundAccount=" + addFundAccount +
+                ", employeeEmail=" + employeeEmail +
+                ", employeeMobile=" + employeeMobile +
+                ", employeeAddress=" + employeeAddress +
+                ", employeeZipCode=" + employeeZipCode +
+                ", residenceAddress=" + residenceAddress +
+                ", emergencyContactName=" + emergencyContactName +
+                ", emergencyMobile=" + emergencyMobile +
+                ", fileAddress=" + fileAddress +
+                ", isActive=" + isActive +
+                ", version=" + version +
+                "}";
     }
 }

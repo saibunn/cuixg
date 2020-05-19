@@ -1,5 +1,7 @@
 package com.pgyhr.task.entity.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.pgyhr.core.base.PgyhrBaseEntityNoId;
 
@@ -24,6 +26,7 @@ public class EmpFrontTaskSheetPO extends PgyhrBaseEntityNoId<EmpFrontTaskSheetPO
     /**
      * 雇员前道任务单ID
      */
+    @TableId(value = "emp_front_task_sheet_code", type = IdType.AUTO)
     private String empFrontTaskSheetCode;
 
     /**

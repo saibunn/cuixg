@@ -181,7 +181,7 @@ public class EmployeeBackTaskSheetController<E, ID extends Serializable>{
                                 item.setSocialStatus(1);
                             }
                     );
-                    if(!empBackTaskSheetSocialFeeSegmentService.saveBatch(empBackTaskSheetSocialFeeSegmentPOList)){
+                    if(!empBackTaskSheetSocialFeeSegmentService.updateBatchById(empBackTaskSheetSocialFeeSegmentPOList)){
                         log.error("后道任务单社保费用段表表保存失败:" + empBackTaskSheetPO.toString());
                         saveResult = false;
                     }

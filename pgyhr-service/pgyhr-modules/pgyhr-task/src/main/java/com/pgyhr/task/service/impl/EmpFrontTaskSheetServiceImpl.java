@@ -74,7 +74,7 @@ public class EmpFrontTaskSheetServiceImpl extends ServiceImpl<EmpFrontTaskSheetM
 
                     }
                 }
-                if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){
+                if(!empFrontTaskSheetSocialFeeSegmentService.updateBatchById(empFrontTaskSheetSocialFeeSegmentPOList)){
                     log.error("前道任务单社保费用段表表保存失败:" + empFrontTaskSheetPO.toString());
                     changeFlg = false;
                 }

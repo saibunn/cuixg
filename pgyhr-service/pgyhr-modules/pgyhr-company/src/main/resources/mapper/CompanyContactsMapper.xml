@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pgyhr.company.dao.mapper.CompanyContactsMapper">
+
+    <resultMap id="BaseResultMap" type="com.pgyhr.company.entity.po.CompanyContacts">
+        <id column="contact_id" property="contactId" />
+        <result column="company_code" property="companyCode" />
+        <result column="contact_name" property="contactName" />
+        <result column="mobile" property="mobile" />
+        <result column="telephone" property="telephone" />
+        <result column="duty" property="duty" />
+        <result column="qqnumber" property="qqnumber" />
+        <result column="mail" property="mail" />
+        <result column="company_sup_name" property="companySupName" />
+        <result column="mobile_sup" property="mobileSup" />
+        <result column="telephone_sup" property="telephoneSup" />
+        <result column="duty_sup" property="dutySup" />
+        <result column="qqnumber_sup" property="qqnumberSup" />
+        <result column="mail_sup" property="mailSup" />
+        <result column="contact_location" property="contactLocation" />
+        <result column="contact_detailed_address" property="contactDetailedAddress" />
+    </resultMap>
+
+<!--    <insert id="insertC" parameterType="com.pgyhr.company.entity.po.CompanyContacts" >-->
+<!--        INSERT INTO `p_company_contacts` (-->
+<!--         company_code,contact_name,mobile,telephone,duty,qqnumber,mail-->
+<!--        ) values(-->
+<!--            #{companyCode,jdbcType=VARCHAR},-->
+<!--            #{contactName,jdbcType=VARCHAR},-->
+<!--            #{mobile,jdbcType=VARCHAR},-->
+<!--            #{telephone,jdbcType=VARCHAR},-->
+<!--            #{duty,jdbcType=VARCHAR},-->
+<!--            #{qqnumber,jdbcType=VARCHAR},-->
+<!--            #{mail,jdbcType=VARCHAR}-->
+<!--        )-->
+<!--    </insert>-->
+
+</mapper>

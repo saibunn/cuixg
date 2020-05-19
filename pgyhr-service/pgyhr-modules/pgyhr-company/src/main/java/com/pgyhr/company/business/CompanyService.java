@@ -2,6 +2,7 @@ package com.pgyhr.company.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.company.entity.dto.CompanyAndContactsListDTO;
 import com.pgyhr.company.entity.dto.CompanyRequestDTO;
 import com.pgyhr.company.entity.po.CompanyPO;
 
@@ -18,4 +19,8 @@ import java.util.List;
 public interface CompanyService extends IService<CompanyPO> {
 
     Page<CompanyPO> getCompanyPageByParam(Page<CompanyPO> companyPOPage, CompanyRequestDTO companyRequestDTO);
+
+    List<CompanyPO> getCompanyPOLevel(int companyLevel);
+
+    int delCompany(String compamyCode);
 }

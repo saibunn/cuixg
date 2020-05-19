@@ -1,50 +1,397 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pgyhr.company.dao.mapper.CompanyMapper">
+<mapper namespace="com.pgyhr.company.dao.mapper.CompanyDTOMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.pgyhr.company.entity.po.CompanyPO">
+    <resultMap id="BaseResultMap" type="com.pgyhr.company.entity.dto.CompanyAndContactsListDTO">
         <id column="company_code" property="companyCode" />
         <result column="company_name" property="companyName" />
-        <result column="company_city_code" property="companyCityCode" />
-        <result column="company_city_name" property="companyCityName" />
+        <result column="company_level" property="companyLevel" />
+        <result column="company_parentId" property="companyParentid" />
+        <result column="tax_types" property="taxTypes" />
+        <result column="photocopy_business_licence" property="photocopyBusinessLicence" />
+        <result column="company_registered_location" property="companyRegisteredLocation" />
+        <result column="detailed_address_registered" property="detailedAddressRegistered" />
+        <result column="company_reality_location" property="companyRealityLocation" />
+        <result column="detailed_address_reality" property="detailedAddressReality" />
+        <result column="social_security_agent" property="socialSecurityAgent" />
+        <result column="pension_account" property="pensionAccount" />
+        <result column="medical_account" property="medicalAccount" />
+        <result column="unemployment_account" property="unemploymentAccount" />
+        <result column="inductrial_injury_accounts" property="inductrialInjuryAccounts" />
+        <result column="family_account" property="familyAccount" />
+        <result column="housing_fund_agent" property="housingFundAgent" />
+        <result column="basic_housing_fund_agent" property="basicHousingFundAgent" />
+        <result column="replenish_housing_fund_agent" property="replenishHousingFundAgent" />
+        <result column="signed_sales_id" property="signedSalesId" />
+        <result column="signed_sales" property="signedSales" />
+<!--        <result column="contract_scanning" property="contractScanning" />-->
+<!--        <result column="contract_no" property="contractNo" />-->
+<!--        <result column="contract_start_time" property="contractStartTime" />-->
+<!--        <result column="contract_end_time" property="contractEndTime" />-->
+<!--        <result column="contracting_company" property="contractingCompany" />-->
+<!--        <result column="service_company" property="serviceCompany" />-->
+<!--        <result column="undertake_city" property="undertakeCity" />-->
+<!--        <result column="comment" property="comment" />-->
+        <result column="service_start_time" property="serviceStartTime" />
+        <result column="responsibility_service_id" property="responsibilityServiceId" />
+        <result column="responsibility_service" property="responsibilityService" />
+        <result column="charge_type" property="chargeType" />
+        <result column="social_security_interior_charge" property="socialSecurityInteriorCharge" />
+        <result column="social_security_external_charge" property="socialSecurityExternalCharge" />
+        <result column="opening_bank" property="openingBank" />
+        <result column="bank_account" property="bankAccount" />
+        <result column="invoice_contacter" property="invoiceContacter" />
+        <result column="invoice_type" property="invoiceType" />
+        <result column="invoice_period" property="invoicePeriod" />
         <result column="use_status" property="useStatus" />
         <result column="use_count" property="useCount" />
-        <result column="standard" property="standard" />
-        <result column="advance" property="advance" />
-        <result column="company_adress" property="companyAdress" />
-        <result column="company_zip_code" property="companyZipCode" />
-        <result column="company_zip_tel" property="companyZipTel" />
-        <result column="company_zip_fax" property="companyZipFax" />
-        <result column="company_mail" property="companyMail" />
-        <result column="employee_services_contact" property="employeeServicesContact" />
-        <result column="employee_services_contact_tel" property="employeeServicesContactTel" />
-        <result column="employee_services_contact_mail" property="employeeServicesContactMail" />
-        <result column="contact_person" property="contactPerson" />
-        <result column="contact_tel" property="contactTel" />
-        <result column="contact_mail" property="contactMail" />
-        <result column="department_manager" property="departmentManager" />
-        <result column="department_manager_tel" property="departmentManagerTel" />
-        <result column="department_manager_mail" property="departmentManagerMail" />
-        <result column="company_manager" property="companyManager" />
-        <result column="company_manager_tel" property="companyManagerTel" />
-        <result column="company_manager_mail" property="companyManagerMail" />
-        <result column="account_name" property="accountName" />
-        <result column="account_bank" property="accountBank" />
-        <result column="bank_account" property="bankAccount" />
-        <result column="associated_account" property="associatedAccount" />
-        <result column="invoice_title" property="invoiceTitle" />
-        <result column="tax_identification_number" property="taxIdentificationNumber" />
-        <result column="three_in_one_code" property="threeInOneCode" />
-        <result column="tax_payer_type" property="taxPayerType" />
-        <result column="customer_invoice_type" property="customerInvoiceType" />
-        <result column="remark" property="remark" />
         <result column="is_active" property="isActive" />
         <result column="version" property="version" />
         <result column="created_by" property="createdBy" />
         <result column="created_time" property="createdTime" />
         <result column="modified_by" property="modifiedBy" />
         <result column="modified_time" property="modifiedTime" />
+        <collection property="companyContactsDTOList" column="company_code" select="getCompanyContactsDTOByCode"
+                    javaType="ArrayList"  ofType="com.pgyhr.company.entity.dto.CompanyContactsDTO">
+        </collection>
     </resultMap>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        company_code, company_name, company_city_code, company_city_name, company_level, company_parentId, tax_types, photocopy_business_licence, company_registered_location, detailed_address_registered, company_reality_location, detailed_address_reality, social_security_agent, pension_account, medical_account, unemployment_account, inductrial_injury_accounts, family_account, housing_fund_agent, basic_housing_fund_agent, replenish_housing_fund_agent, signed_sales_id, contract_scanning, contract_no, contract_start_time, contract_end_time, contracting_company, service_company, undertake_city, comment, service_start_time, responsibility_service, charge_type, social_security_interior_charge, social_security_external_charge, opening_bank, bank_account, invoice_contacter, invoice_type, invoice_period, use_status, use_count, is_active, version, created_by, created_time, modified_by, modified_time
+    </sql>
 
+    <select id="queryCompany" parameterType="com.pgyhr.company.entity.dto.CompanyRequestDTO"  resultMap="BaseResultMap">
+        SELECT c.*,u1.`nick_name` AS signedSales ,u2.`nick_name` AS responsibilityServiceName
+        FROM `p_company` c LEFT JOIN `t_user` u1 ON c.`signed_sales_id`=u1.`id`
+        LEFT JOIN `t_user` u2 ON c.`responsibility_service`=u2.`id`
+<!--        <where>-->
+<!--            <if test="companyCode != null and companyCode != ''">-->
+<!--                AND c.`company_code` LIKE CONCAT('%',#{companyCode},'%' )-->
+<!--            </if>-->
+<!--            <if test="companyName != null and companyName != ''">-->
+<!--                AND c.`company_name` LIKE CONCAT('%',#{companyName},'%' )-->
+<!--            </if>-->
+<!--            <if test="signedSales != null and signedSales != ''">-->
+<!--                AND u1.`nick_name` LIKE CONCAT('%',#{signedSales},'%' )-->
+<!--            </if>-->
+<!--            <if test="responsibilityServiceName != null and responsibilityServiceName != ''">-->
+<!--                AND u2.`nick_name` LIKE CONCAT('%',#{responsibilityServiceName},'%' )-->
+<!--            </if>-->
+<!--            <if test="isActive != null and isActive != ''">-->
+<!--                AND c.`is_active`= #{isActive}-->
+<!--            </if>-->
+<!--        </where>-->
+--         ORDER BY c.`created_time` DESC LIMIT #{currentPage},#{size}
+    </select>
+
+
+    <!-- 主从新增 -->
+    <insert id="insertDetails" useGeneratedKeys="true" keyProperty="companyCode" parameterType="com.pgyhr.company.entity.dto.CompanyAndContactsListDTO" >
+        INSERT INTO `p_company`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="companyCode != null" >
+                company_code,
+            </if>
+            <if test="companyName != null" >
+                company_name,
+            </if>
+            <if test="companyLevel != null" >
+                company_level,
+            </if>
+            <if test="companyParentid != null" >
+                company_ParentId,
+            </if>
+            <if test="taxTypes != null" >
+                tax_types,
+            </if>
+            <if test="photocopyBusinessLicence != null" >
+                photocopy_businessLicence,
+            </if>
+            <if test="companyRegisteredLocation != null" >
+                company_registered_location,
+            </if>
+            <if test="detailedAddressRegistered != null" >
+                detailed_address_registered,
+            </if>
+            <if test="companyRealityLocation != null" >
+                company_reality_location,
+            </if>
+            <if test="detailedAddressReality != null" >
+                detailed_address_reality,
+            </if>
+            <if test="socialSecurityAgent != null" >
+                social_security_agent,
+            </if>
+            <if test="pensionAccount != null" >
+                pension_account,
+            </if>
+            <if test="medicalAccount != null" >
+                medical_account,
+            </if>
+            <if test="unemploymentAccount != null" >
+                unemployment_account,
+            </if>
+            <if test="inductrialInjuryAccounts != null" >
+                inductrial_injury_accounts,
+            </if>
+            <if test="familyAccount != null" >
+                family_account,
+            </if>
+            <if test="housingFundAgent != null" >
+                housing_fund_agent,
+            </if>
+            <if test="basicHousingFundAgent != null" >
+                basic_housing_fund_agent,
+            </if>
+            <if test="replenishHousingFundAgent != null" >
+                replenish_housing_fund_agent,
+            </if>
+            <if test="serviceStartTime != null" >
+                service_start_time,
+            </if>
+            <if test="responsibilityServiceId != null" >
+                responsibility_service_id,
+            </if>
+            <if test="responsibilityService != null" >
+                responsibility_service,
+            </if>
+            <if test="chargeType != null" >
+                charge_type,
+            </if>
+            <if test="invoiceType != null" >
+                invoice_type,
+            </if>
+            <if test="invoicePeriod != null" >
+                invoice_period,
+            </if>
+            <if test="invoiceContacter != null" >
+                invoice_contacter,
+            </if>
+            <if test="createdTime != null" >
+                created_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="companyCode != null" >
+                #{companyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null" >
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="companyLevel != null" >
+                #{companyLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="companyParentid != null" >
+                #{companyParentid,jdbcType=VARCHAR},
+            </if>
+            <if test="taxTypes != null" >
+                #{taxTypes,jdbcType=VARCHAR},
+            </if>
+            <if test="photocopyBusinessLicence != null" >
+                #{photocopyBusinessLicence,jdbcType=VARCHAR},
+            </if>
+            <if test="companyRegisteredLocation != null" >
+                #{companyRegisteredLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="detailedAddressRegistered != null" >
+                #{detailedAddressRegistered,jdbcType=VARCHAR},
+            </if>
+            <if test="companyRealityLocation != null" >
+                #{companyRealityLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="detailedAddressReality != null" >
+                #{detailedAddressReality,jdbcType=VARCHAR},
+            </if>
+            <if test="socialSecurityAgent != null" >
+                #{socialSecurityAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="pensionAccount != null" >
+                #{pensionAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="medicalAccount != null" >
+                #{medicalAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="unemploymentAccount != null" >
+                #{unemploymentAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="inductrialInjuryAccounts != null" >
+                #{inductrialInjuryAccounts,jdbcType=VARCHAR},
+            </if>
+            <if test="familyAccount != null" >
+                #{familyAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="housingFundAgent != null" >
+                #{housingFundAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="basicHousingFundAgent != null" >
+                #{basicHousingFundAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="replenishHousingFundAgent != null" >
+                #{replenishHousingFundAgent,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceStartTime != null" >
+                #{serviceStartTime,jdbcType=VARCHAR},
+            </if>
+            <if test="responsibilityServiceId != null" >
+                #{responsibilityServiceId,jdbcType=VARCHAR},
+            </if>
+            <if test="responsibilityService != null" >
+                #{responsibilityService,jdbcType=VARCHAR},
+            </if>
+            <if test="chargeType != null" >
+                #{chargeType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceType != null" >
+                #{invoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoicePeriod != null" >
+                #{invoicePeriod,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceContacter != null" >
+                #{invoiceContacter,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null" >
+                #{createdTime,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertCC" parameterType="com.pgyhr.company.entity.dto.CompanyAndContactsListDTO" >
+        INSERT INTO `p_company_contacts` (
+        company_code,contact_name,mobile,telephone,duty,qqnumber,mail,company_sup_name,mobile_sup,telephone_sup,duty_Sup,qqnumber_sup,mail_sup,contact_location,contact_detailed_address
+        ) values
+        <foreach collection="companyContactsDTOList" item="cc" separator=",">
+            (#{companyCode,jdbcType=VARCHAR},
+            #{cc.contactName,jdbcType=VARCHAR},
+            #{cc.mobile,jdbcType=VARCHAR},
+            #{cc.telephone,jdbcType=VARCHAR},
+            #{cc.duty,jdbcType=VARCHAR},
+            #{cc.qqnumber,jdbcType=VARCHAR},
+            #{cc.mail,jdbcType=VARCHAR},
+            #{cc.companySupName,jdbcType=VARCHAR},
+            #{cc.mobileSup,jdbcType=VARCHAR},
+            #{cc.telephoneSup,jdbcType=VARCHAR},
+            #{cc.dutySup,jdbcType=VARCHAR},
+            #{cc.qqnumberSup,jdbcType=VARCHAR},
+            #{cc.mailSup,jdbcType=VARCHAR},
+            #{cc.contactLocation,jdbcType=VARCHAR},
+            #{cc.contactDetailedAddress,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+
+
+    <!--  按ID主从查询  -->
+    <select id="queryCompanyCode" resultMap="BaseResultMap">
+        SELECT c.* FROM p_company c where c.company_code=#{companyCode}
+    </select>
+    <resultMap id="CompanyContactsDTOByCodeMap" type="com.pgyhr.company.entity.po.CompanyContacts">
+        <result column="contact_id" property="contactId" />
+        <result column="company_code" property="companyCode" />
+        <result column="contact_name" property="contactName" />
+        <result column="mobile" property="mobile" />
+        <result column="telephone" property="telephone" />
+        <result column="duty" property="duty" />
+        <result column="qqnumber" property="qqnumber" />
+        <result column="mail" property="mail" />
+        <result column="company_sup_name" property="companySupName" />
+        <result column="mobile_sup" property="mobileSup" />
+        <result column="telephone_sup" property="telephoneSup" />
+        <result column="duty_sup" property="dutySup" />
+        <result column="qqnumber_sup" property="qqnumberSup" />
+        <result column="mail_sup" property="mailSup" />
+        <result column="contact_location" property="contactLocation" />
+        <result column="contact_detailed_address" property="contactDetailedAddress" />
+    </resultMap>
+    <select id="getCompanyContactsDTOByCode"
+            resultType="com.pgyhr.company.entity.dto.CompanyContactsDTO"
+            resultMap="CompanyContactsDTOByCodeMap">
+      SELECT cc.* FROM p_company_contacts cc where cc.company_code=#{companyCode}
+    </select>
+
+    <update id="updateCompany" parameterType="com.pgyhr.company.entity.dto.CompanyAndContactsListDTO">
+        UPDATE p_company
+        <set>
+            <if test="companyName != null" >
+                company_name = #{companyName},
+            </if>
+            <if test="companyLevel != null" >
+                company_level = #{companyLevel},
+            </if>
+            <if test="companyParentid != null" >
+                company_parentId = #{companyParentid},
+            </if>
+            <if test="taxTypes != null" >
+                tax_types = #{taxTypes},
+            </if>
+            <if test="photocopyBusinessLicence != null" >
+                photocopy_businessLicence = #{photocopyBusinessLicence},
+            </if>
+            <if test="companyRegisteredLocation != null" >
+                company_registered_location = #{companyRegisteredLocation},
+            </if>
+            <if test="detailedAddressRegistered != null" >
+                detailed_address_registered = #{detailedAddressRegistered},
+            </if>
+            <if test="companyRealityLocation != null" >
+                company_reality_location = #{companyRealityLocation},
+            </if>
+            <if test="detailedAddressReality != null" >
+                detailed_address_reality = #{detailedAddressReality},
+            </if>
+            <if test="socialSecurityAgent != null" >
+                social_security_agent = #{socialSecurityAgent},
+            </if>
+            <if test="pensionAccount != null" >
+                pension_account = #{pensionAccount},
+            </if>
+            <if test="medicalAccount != null" >
+                medical_account = #{medicalAccount},
+            </if>
+            <if test="unemploymentAccount != null" >
+                unemployment_account = #{unemploymentAccount},
+            </if>
+            <if test="inductrialInjuryAccounts != null" >
+                inductrial_injury_accounts = #{inductrialInjuryAccounts},
+            </if>
+            <if test="familyAccount != null" >
+                family_account = #{familyAccount},
+            </if>
+            <if test="housingFundAgent != null" >
+                housing_fund_agent = #{housingFundAgent},
+            </if>
+            <if test="basicHousingFundAgent != null" >
+                basic_housing_fund_agent = #{basicHousingFundAgent},
+            </if>
+            <if test="replenishHousingFundAgent != null" >
+                replenish_housing_fund_agent = #{replenishHousingFundAgent},
+            </if>
+            <if test="serviceStartTime != null" >
+                service_start_time = #{serviceStartTime},
+            </if>
+            <if test="responsibilityServiceId != null" >
+                responsibility_service_id = #{responsibilityServiceId},
+            </if>
+            <if test="responsibilityService != null" >
+                responsibility_service = #{responsibilityService},
+            </if>
+            <if test="chargeType != null" >
+                charge_type = #{chargeType},
+            </if>
+            <if test="invoiceType != null" >
+                invoice_type = #{invoiceType},
+            </if>
+            <if test="invoicePeriod != null" >
+                invoice_period = #{invoicePeriod},
+            </if>
+            <if test="invoiceContacter != null" >
+                invoice_contacter = #{invoiceContacter},
+            </if>
+            <if test="modifiedTime != null" >
+                modified_time = #{modifiedTime},
+            </if>
+        </set>
+        WHERE company_code = #{companyCode}
+    </update>
 </mapper>

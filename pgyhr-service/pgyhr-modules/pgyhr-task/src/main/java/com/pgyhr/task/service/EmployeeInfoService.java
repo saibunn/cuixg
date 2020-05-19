@@ -1,7 +1,9 @@
 package com.pgyhr.task.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pgyhr.task.entity.dto.EmployeeInfoRequsetDTO;
+import com.pgyhr.task.entity.dto.EmployeeRequestDTO;
 import com.pgyhr.task.entity.po.EmployeeInfoPO;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 public interface EmployeeInfoService extends IService<EmployeeInfoPO> {
 
     List<EmployeeInfoPO> selectEmployeeInfoByParam(EmployeeInfoRequsetDTO employeeInfoRequsetDTO);
+
+    Page<EmployeeInfoPO> getEmployeeInfoPageByParam(Page<EmployeeInfoPO> employeeInfoPOPage, EmployeeRequestDTO employeeRequestDTO);
 
     EmployeeInfoPO getemployeeInfoByKey(String employeeId);
 }

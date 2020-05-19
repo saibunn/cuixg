@@ -35,4 +35,18 @@ public class CompanyRequestDTO extends CommonListDTO implements Serializable {
 	 * 使用状态:1-使用，0-禁用
 	 */
 	private Boolean isActive;
+
+	/**
+	 *公司级别：0:-母公司，1：子公司
+	 */
+	private Integer level;
+
+	/**
+	 * 城市编号
+	 */
+	private Integer companyCityCode;
+
+	private String signedSales;
+
+	private String responsibilityService;
 }
