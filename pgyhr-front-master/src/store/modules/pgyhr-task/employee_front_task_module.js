@@ -14,6 +14,8 @@ const state = {
         currentPage: 1,
     },
     searchForm:{},
+    existEmployeeInfo:{
+    },
     addEmployeeInfo:{},
     employeeInfo:{},
 
@@ -72,6 +74,16 @@ const actions = {
                 commit(employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, response.result)
             }
         )
+    },
+
+    [employeeTaskSheetTypes.SEARCH_EMPLOYEE_INFO]({commit}, params){
+        console.log("this.SEARCH_EMPLOYEE_INFO=================="+JSON.stringify(params));
+        const empParams = {
+            idCardType:params.idCardType,
+            idNum: params.idNum,
+        };
+
+        return employeeTaskApi.getEmployeeInfo(empParams);
     },
 
     [employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO]({commit}, params){
@@ -146,6 +158,9 @@ const mutations = {
         console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE======result=====aaaaaqqq======="+JSON.stringify(list));
     },
 
+    [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_INFO](state, data){
+        state.existEmployeeInfo = data;
+    },
 
     [employeeTaskSheetTypes.MUTATE_ADD_EMPLOYEE_INFO](state, data){
         state.addEmployeeInfo = data;

@@ -23,7 +23,7 @@
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="证件号：" prop="idNum">
-                  <Input type="text" v-model="empInfo.idNum" placeholder="请输入">
+                  <Input type="text" v-model="empInfo.idNum" @on-blur="idNumChange" placeholder="请输入">
                   </Input>
                 </Form-item>
                 </Col>
@@ -66,9 +66,14 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="联系地址：">
+                <Form-item label="现居住地址：" prop="employeeAddress">
                   <Input type="text" v-model="empInfo.employeeAddress" placeholder="请输入"/>
                 </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="参加工作时间：" prop="workDate">
+                        <DatePicker transfer v-model="empInfo.workDate" type="date" placement="bottom"  placeholder="选择日期" style="width: 100%;"></DatePicker>
+                    </Form-item>
                 </Col>
 
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
@@ -88,11 +93,24 @@
                 </Col>
 
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="文化程度：" prop="eduLevel">
+                        <Select v-model="empInfo.eduLevel">
+                            <Option v-for="(value,key) in this.baseDic.eduLevel" :value="key" :key="key">{{ value }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="户口性质：" prop="residentType">
                   <Select v-model="empInfo.residentType">
                     <Option v-for="(value,key) in this.baseDic.residentType" :value="key" :key="key">{{ value }}</Option>
                   </Select>
                 </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="户口所在地地址：" prop="residenceAddress">
+                        <Input type="text" v-model="empInfo.residenceAddress" placeholder="请输入"/>
+                    </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="婚姻状况：" prop="marriageStatus">
@@ -101,6 +119,20 @@
                     </Radio>
                   </RadioGroup>
                 </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="人员类别：" prop="empType">
+                        <Select v-model="empInfo.empType">
+                            <Option v-for="(value,key) in this.baseDic.empType" :value="key" :key="key">{{ value }}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="个人身份：" prop="empIdentity">
+                        <Select v-model="empInfo.empType">
+                            <Option v-for="(value,key) in this.baseDic.empIdentity" :value="key" :key="key">{{ value }}</Option>
+                        </Select>
+                    </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="紧急联系人：">
@@ -145,27 +177,10 @@
 
         // 国籍是否必填
         isCountryCode: false,
-        // 雇员
-        empInfo: {
-          employeeId: '',
-          employeeName: '',
-          idCardType: '1',
-          idNum: '',
-          gender: '',
-          birthday: null,
-          countryCode: '',
-          nationality:'',
-          socialAccount:'',
-          fundAccount:'',
-          addFundAccount:'',
-          employeeMobile: '',
-          employeeEmail: '',
-          employeeAddress: '',
-          residentType: '',
-          marriageStatus: '',
-          emergencyContactName:'',
-          emergencyMobile:''
-        },
+        // 雇员信息
+          empInfo:{
+              idCardType: '1',
+          },
 
           empInfoRuleValidate: {
           employeeName: [
@@ -188,6 +203,21 @@
               message: '请选择证件类型',
               trigger: 'change'
             }
+          ],
+        workDate: [
+              {
+                  type: 'date',
+                  required: true,
+                  message: '请选择参加工作时间',
+                  trigger: 'change'
+              }
+          ],
+          residentType: [
+              {
+                  required: true,
+                  message: '请选择户口性质',
+                  trigger: 'change'
+              }
           ],
           idNum: [
             {
@@ -227,7 +257,7 @@
               type: 'date',
               required: true,
               message: '请选择出生年月',
-              trigger: 'blur'
+              trigger: 'change'
             }
           ],
           countryCode: [
@@ -259,14 +289,20 @@
                   trigger: 'blur'
               }
           ],
-
-            // emergencyMobile: [
-            //     {
-            //         pattern: '^\\d{11}$',
-            //         message: '请输入正确紧急联系人手机号',
-            //         trigger: 'blur'
-            //     }
-            // ],
+          employeeAddress: [
+              {
+                  required: true,
+                  message: '请输入现居住地址',
+                  trigger: 'blur'
+              }
+          ],
+          residenceAddress: [
+              {
+                  required: true,
+                  message: '请输入户口所在地地址',
+                  trigger: 'blur'
+              }
+          ],
         },
       }
     },
@@ -287,45 +323,87 @@
       ...mapActions('employeeFrontTaskModule', [employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO
       ]),
 
+      ...mapActions('employeeFrontTaskModule', [employeeTaskSheetTypes.SEARCH_EMPLOYEE_INFO
+      ]),
+
       errModalClick () {
       },
 
-      addEmployeeInfo() {
-          this.$router.push({
-              name: "employee_front_task_sheet_items"
-          });
+        //雇员证件号带入数据
+        idNumChange () {
+            //console.log("this.SEARCH_EMPLOYEE_INFO====dsdfds=============="+JSON.stringify(this.empInfo));
 
-          // this.$refs['empInfo'].validate((valid) => {
-          //     if (valid) {
-          //         var params = this.empInfo;
-          //         var type = '新增';
-          //         var title = "雇员信息" + type;
-          //         this[employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO](params).then((response) => {
-          //             //console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
-          //             if (response.code == 200){
-          //                 this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_ADD_EMPLOYEE_INFO, response.result);
-          //                 this.$Notice.success({
-          //                     title: title,
-          //                     desc: title + '成功',
-          //                 });
-          //                 this.$router.push({
-          //                     name: "employee_front_task_sheet_items"
-          //                 });
-          //
-          //             }else{
-          //                 this.$Notice.error({
-          //                     title: title,
-          //                     content: response.message
-          //                 });
-          //             }
-          //         }).catch((error) => {
-          //             this.$Notice.error({
-          //                 title: title,
-          //                 content: title + "错误"
-          //             });
-          //         });
-          //     }
-          // })
+          if(this.empInfo != null && this.empInfo  != undefined){
+              if(this.empInfo.idCardType != "" && this.empInfo.idCardType  != undefined && this.empInfo.idCardType  != null &&
+                  this.empInfo.idNum != "" && this.empInfo.idNum  != undefined && this.empInfo.idNum  != null )
+              this[employeeTaskSheetTypes.SEARCH_EMPLOYEE_INFO](this.empInfo).then((response) => {
+                  //console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+                  if (response.code == 200){
+                      this.empInfo = response.result;
+                      if(this.empInfo.idCardType){
+                          this.empInfo.idCardType = this.empInfo.idCardType.toString();
+                      }
+                      if(this.empInfo.residentType){
+                          this.empInfo.residentType = this.empInfo.residentType.toString();
+                      }
+                      if(this.empInfo.marriageStatus){
+                          this.empInfo.marriageStatus = this.empInfo.marriageStatus.toString();
+                      }
+                      if(this.empInfo.empType){
+                          this.empInfo.empType = this.empInfo.empType.toString();
+                      }
+                      if(this.empInfo.gender){
+                          this.empInfo.gender = this.empInfo.gender.toString();
+                      }
+                      if(this.empInfo.eduLevel){
+                          this.empInfo.eduLevel = this.empInfo.eduLevel.toString();
+                      }
+                      if(this.empInfo.empIdentity){
+                          this.empInfo.empIdentity = this.empInfo.empIdentity.toString();
+                      }
+                      console.log(" this.empInfo=============="+JSON.stringify(this.empInfo));
+                  }
+              });
+          }
+
+        },
+
+      addEmployeeInfo() {
+          // this.$router.push({
+          //     name: "employee_front_task_sheet_items"
+          // });
+
+          this.$refs['empInfo'].validate((valid) => {
+              if (valid) {
+                  var params = this.empInfo;
+                  var type = '新增';
+                  var title = "雇员信息" + type;
+                  this[employeeTaskSheetTypes.SAVE_EMPLOYEE_INFO](params).then((response) => {
+                      //console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+                      if (response.code == 200){
+                          this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_ADD_EMPLOYEE_INFO, response.result);
+                          this.$Notice.success({
+                              title: title,
+                              desc: response.message,
+                          });
+                          this.$router.push({
+                              name: "employee_front_task_sheet_items"
+                          });
+
+                      }else{
+                          this.$Notice.error({
+                              title: title,
+                              content: response.message
+                          });
+                      }
+                  }).catch((error) => {
+                      this.$Notice.error({
+                          title: title,
+                          content: title + "错误"
+                      });
+                  });
+              }
+          })
       },
 
     // dropDown() {

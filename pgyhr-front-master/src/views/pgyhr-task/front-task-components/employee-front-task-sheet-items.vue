@@ -13,7 +13,7 @@
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="客户：" class="mb5" prop="companyId">
                         <Select v-model="empCompanyInfo.companyId" filterable @on-change="companySelected">
-                            <Option v-for="item in myCompanyList" :value="item.companyId" :key="item.companyId">{{ item.title }}</Option>
+                            <Option v-for="item in this.companyList" :value="item.companyCode" :key="item.companyCode">{{ item.companyName }}</Option>
                         </Select>
                     </Form-item>
                 </Col>
@@ -86,6 +86,13 @@
                     <Option v-for="(value, key) in this.baseDic.postType" :value="key" :key="key">{{value}}</Option>
                   </Select>
                 </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="合同签订类别：" prop="laborSignType">
+                        <Select v-model="empCompanyInfo.laborSignType">
+                            <Option v-for="(value,key) in this.baseDic.laborSignType" :value="key" :key="key">{{ value }}</Option>
+                        </Select>
+                    </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="合同签订方：">
@@ -180,6 +187,20 @@
                 </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="专业技术职务：" prop="technicalPost">
+                        <Select v-model="empCompanyInfo.technicalPost">
+                            <Option v-for="(value, key) in this.baseDic.technicalPost" :value="key" :key="key">{{ value}}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+                    <Form-item label="行政职务：" prop="administrativePost">
+                        <Select v-model="empCompanyInfo.administrativePost">
+                            <Option v-for="(value, key) in this.baseDic.administrativePost" :value="key" :key="key">{{ value}}</Option>
+                        </Select>
+                    </Form-item>
+                </Col>
+                <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="部门：">
                   <Input type="text" v-model="empCompanyInfo.deptName" placeholder="请输入"/>
                 </Form-item>
@@ -272,6 +293,9 @@
   import empFrontTaskSheetSocialFeeSegmentTypes from "../../../store/event-types/pgyhr-task/emp_front_task_sheet_social_fee_segment_types";
   import socialPolicyTypes from "../../../store/event-types/pgyhr-task/social_policy_types";
   import util from "../../../libs/util";
+  import areaTypes from "../../../store/event-types/common/area_types";
+  import companyTypes from "../../../store/event-types/pgyhr-company/company-types";
+  import countryTypes from "../../../store/event-types/common/country_types";
 
   export default {
     components: {
@@ -360,6 +384,7 @@
           isNeedBankCard: 0,
           bankCode: '',
           salary: '',
+          laborSignType:'',
           salaryPayType: '',
           laborStartDate: null,
           laborEndDate: null,
@@ -371,8 +396,8 @@
           tryStartDate: null,
           tryEndDate: null,
           workType: '',
-          postType: '1',
-          employStyle: '1',
+          postType: '',
+          employStyle: '',
           socialUnit: '',
           fundUnit: '',
           hireUnit: '',
@@ -430,6 +455,13 @@
               trigger: 'change'
             }
           ],
+            laborSignType: [
+                {
+                    required: true,
+                    message: '请选择合同签订类别',
+                    trigger: 'change'
+                }
+            ],
           workType: [
             {
               required: true,
@@ -451,14 +483,14 @@
                     trigger: 'change'
                 }
             ],
-          dispatchingTerm: [
-            {
-              required: false,
-              type: 'number',
-              message: '请选择派遣期限',
-              trigger: 'change'
-            }
-          ],
+          // dispatchingTerm: [
+          //   {
+          //     required: false,
+          //     type: 'number',
+          //     message: '请选择派遣期限',
+          //     trigger: 'change'
+          //   }
+          // ],
           jobContent: [
             {
               required: false,
@@ -556,7 +588,7 @@
         packageDataList: [],
 
         // 当前用户的客户
-        myCompanyList: [],
+        // myCompanyList: [],
         socialRuleTemplateGroup: [],
         socialRuleTemplateList: [],
         fundRuleTemplateGroup: [],
@@ -583,6 +615,10 @@
       ...mapState('areaModule', {
           areaAllData: state => state.areaAllData
       }),
+
+        ...mapState('companyModule', {
+            companyList: state => state.companyList
+        }),
 
         ...mapState('countryModule', {
             countryData: state => state.countryData
@@ -614,9 +650,12 @@
         ...mapActions('employeeFrontTaskModule', [employeeFrontTaskSheetTypes.SAVE_EMPLOYEE_TASK_SHEET_INFO
         ]),
 
+        ...mapActions('companyModule', [companyTypes.ALL_COMPANY]),
 
-        initData(){
-            this.getSocialPolicyByCity("320400");
+
+        async initData(){
+            await this.getSocialPolicyByCity("320400");
+            await this[companyTypes.ALL_COMPANY]();
         },
 
         async socialCityChange(){

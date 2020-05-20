@@ -60,6 +60,15 @@ export default {
       idCardType: {
         1: '身份证', 2: '护照', 3: '军(警)官证', 4: '士兵证', 5: '台胞证', 6: '回乡证', 7: '其他'
       },
+      // idCardType: [
+      //   {value: 1, label: '身份证'},
+      //   {value: 2, label: '护照'},
+      //   {value: 3, label: '军(警)官证'},
+      //   {value: 4, label: '士兵证'},
+      //   {value: 5, label: '台胞证'},
+      //   {value: 5, label: '回乡证'},
+      //   {value: 5, label: '其他'},
+      // ],
       gender: {
         1: '男', 0: '女'
       },
