@@ -8,7 +8,7 @@
       <p>雇员基本信息</p>
       <Card>
           <Row>
-            <Form ref="empInfo" :model="empInfo" :rules="empInfoRuleValidate" inline :label-width="150">
+            <Form ref="empInfoForm" :model="empInfo" :rules="empInfoRuleValidate" inline :label-width="150">
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="姓名：" prop="employeeName">
                   <Input v-model="empInfo.employeeName" type="text" placeholder="请输入"/>
@@ -179,7 +179,25 @@
         isCountryCode: false,
         // 雇员信息
           empInfo:{
+              // employeeId: '',
+              // employeeName: '',
               idCardType: '1',
+              // idNum: '',
+              // gender: '',
+              // workDate:null,
+              // birthday: null,
+              // countryCode: '',
+              // nationality:'',
+              // socialAccount:'',
+              // fundAccount:'',
+              // addFundAccount:'',
+              // employeeMobile: '',
+              // employeeEmail: '',
+              // employeeAddress: '',
+              // residentType: '',
+              // marriageStatus: '',
+              // emergencyContactName:'',
+              // emergencyMobile:''
           },
 
           empInfoRuleValidate: {
@@ -194,14 +212,14 @@
             {
               required: true,
               message: '请选择性别',
-              trigger: 'change'
+              trigger: 'blur'
             }
           ],
           idCardType: [
             {
               required: true,
               message: '请选择证件类型',
-              trigger: 'change'
+              trigger: 'blur'
             }
           ],
         workDate: [
@@ -209,14 +227,14 @@
                   type: 'date',
                   required: true,
                   message: '请选择参加工作时间',
-                  trigger: 'change'
+                  trigger: 'blur'
               }
           ],
           residentType: [
               {
                   required: true,
                   message: '请选择户口性质',
-                  trigger: 'change'
+                  trigger: 'blur'
               }
           ],
           idNum: [
@@ -257,21 +275,21 @@
               type: 'date',
               required: true,
               message: '请选择出生年月',
-              trigger: 'change'
+              trigger: 'blur'
             }
           ],
           countryCode: [
             {
               required: true,
               message: '请选择国籍',
-              trigger: 'change'
+              trigger: 'blur'
             }
           ],
           nationality: [
               {
                   required: true,
                   message: '请选择民族',
-                  trigger: 'change'
+                  trigger: 'blur'
               }
           ],
 
@@ -337,31 +355,33 @@
               if(this.empInfo.idCardType != "" && this.empInfo.idCardType  != undefined && this.empInfo.idCardType  != null &&
                   this.empInfo.idNum != "" && this.empInfo.idNum  != undefined && this.empInfo.idNum  != null )
               this[employeeTaskSheetTypes.SEARCH_EMPLOYEE_INFO](this.empInfo).then((response) => {
-                  //console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
+                  console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(response));
                   if (response.code == 200){
-                      this.empInfo = response.result;
-                      if(this.empInfo.idCardType){
-                          this.empInfo.idCardType = this.empInfo.idCardType.toString();
+                      if(response.result != null){
+                          this.empInfo = response.result;
+                          if(this.empInfo.idCardType){
+                              this.empInfo.idCardType = this.empInfo.idCardType.toString();
+                          }
+                          if(this.empInfo.residentType){
+                              this.empInfo.residentType = this.empInfo.residentType.toString();
+                          }
+                          if(this.empInfo.marriageStatus){
+                              this.empInfo.marriageStatus = this.empInfo.marriageStatus.toString();
+                          }
+                          if(this.empInfo.empType){
+                              this.empInfo.empType = this.empInfo.empType.toString();
+                          }
+                          if(this.empInfo.gender){
+                              this.empInfo.gender = this.empInfo.gender.toString();
+                          }
+                          if(this.empInfo.eduLevel){
+                              this.empInfo.eduLevel = this.empInfo.eduLevel.toString();
+                          }
+                          if(this.empInfo.empIdentity){
+                              this.empInfo.empIdentity = this.empInfo.empIdentity.toString();
+                          }
+                          console.log(" this.empInfo=============="+JSON.stringify(this.empInfo));
                       }
-                      if(this.empInfo.residentType){
-                          this.empInfo.residentType = this.empInfo.residentType.toString();
-                      }
-                      if(this.empInfo.marriageStatus){
-                          this.empInfo.marriageStatus = this.empInfo.marriageStatus.toString();
-                      }
-                      if(this.empInfo.empType){
-                          this.empInfo.empType = this.empInfo.empType.toString();
-                      }
-                      if(this.empInfo.gender){
-                          this.empInfo.gender = this.empInfo.gender.toString();
-                      }
-                      if(this.empInfo.eduLevel){
-                          this.empInfo.eduLevel = this.empInfo.eduLevel.toString();
-                      }
-                      if(this.empInfo.empIdentity){
-                          this.empInfo.empIdentity = this.empInfo.empIdentity.toString();
-                      }
-                      console.log(" this.empInfo=============="+JSON.stringify(this.empInfo));
                   }
               });
           }
@@ -373,7 +393,7 @@
           //     name: "employee_front_task_sheet_items"
           // });
 
-          this.$refs['empInfo'].validate((valid) => {
+          this.$refs['empInfoForm'].validate((valid) => {
               if (valid) {
                   var params = this.empInfo;
                   var type = '新增';
