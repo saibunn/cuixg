@@ -10,7 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * <p>
@@ -54,7 +53,7 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
     /**
      * 雇员出生日期
      */
-    private Date birthday;
+    private LocalDateTime birthday;
 
     /**
      * 户口性质:1: 非农业户口, 2: 农业户口
@@ -90,6 +89,26 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
      * 健康状况:0:健康或良好 1:残疾 2:一般或软弱 3: 有疾病, 4: 有生理缺陷
      */
     private Integer healthStatus;
+
+    /**
+     * 教育程度：1.博士后,2.博士研究生,3.硕士,4.硕士研究生,5.大学本科,6.大学专科,7.中专,8.中等专科,9.职业高中,10.技工学校,11.技校,12.普通高中,13.职高,14.职专,15.初中,16.小学,17.文盲或半文盲,18.其他
+     */
+    private Integer eduLevel;
+
+    /**
+     * 人员类别:1.新成长失业人员,2.就业转失业人员,3.其他失业人员,4.在业人员,5.退休人员,6.在学人员,7.退伍军人,8.农村劳动力,9.外来劳动力	10.其他
+     */
+    private Integer empType;
+
+    /**
+     * 个人身份:1.工人,2.原工商业者,3.农民,4.学生,5.干部,6.现役军人,7.无业人员,8.其他
+     */
+    private Integer empIdentity;
+
+    /**
+     * 参加工作日期
+     */
+    private LocalDateTime workDate;
 
     /**
      * 政治面貌：0: 群众, 1: 党员，2：团员
@@ -212,14 +231,11 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
         this.idNum = idNum;
     }
 
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public Date getBirthday() {
+    public LocalDateTime getBirthday() {
         return birthday;
     }
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public void setBirthday(Date birthday) {
+
+    public void setBirthday(LocalDateTime birthday) {
         this.birthday = birthday;
     }
 
@@ -407,6 +423,37 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
         this.version = version;
     }
 
+    public Integer getEduLevel() {
+        return eduLevel;
+    }
+
+    public void setEduLevel(Integer eduLevel) {
+        this.eduLevel = eduLevel;
+    }
+
+    public Integer getEmpType() {
+        return empType;
+    }
+
+    public void setEmpType(Integer empType) {
+        this.empType = empType;
+    }
+
+    public Integer getEmpIdentity() {
+        return empIdentity;
+    }
+
+    public void setEmpIdentity(Integer empIdentity) {
+        this.empIdentity = empIdentity;
+    }
+
+    public LocalDateTime getWorkDate() {
+        return workDate;
+    }
+
+    public void setWorkDate(LocalDateTime workDate) {
+        this.workDate = workDate;
+    }
 
     @Override
     public String toString() {

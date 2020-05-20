@@ -20,6 +20,7 @@ import java.util.Date;
  * @author xiaoguang.cui
  * @since 2020-04-20
  */
+@Data
 public class EmployeeInfoRequsetDTO implements Serializable{
 
 
@@ -52,9 +53,9 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 雇员出生日期
      */
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
+//    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDateTime birthday;
 
     /**
      * 户口性质:1: 非农业户口, 2: 农业户口
@@ -74,7 +75,7 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     /**
      * 结婚日期
      */
-    private Date marriageDate;
+    private LocalDateTime marriageDate;
 
     /**
      * 子女情况:0:无子女 1:独生子女 2:有子女但非独生子女
@@ -90,6 +91,25 @@ public class EmployeeInfoRequsetDTO implements Serializable{
      * 健康状况:0:健康或良好 1:残疾 2:一般或软弱 3: 有疾病, 4: 有生理缺陷
      */
     private Integer healthStatus;
+    /**
+     * 教育程度：1.博士后,2.博士研究生,3.硕士,4.硕士研究生,5.大学本科,6.大学专科,7.中专,8.中等专科,9.职业高中,10.技工学校,11.技校,12.普通高中,13.职高,14.职专,15.初中,16.小学,17.文盲或半文盲,18.其他
+     */
+    private Integer eduLevel;
+
+    /**
+     * 人员类别:1.新成长失业人员,2.就业转失业人员,3.其他失业人员,4.在业人员,5.退休人员,6.在学人员,7.退伍军人,8.农村劳动力,9.外来劳动力	10.其他
+     */
+    private Integer empType;
+
+    /**
+     * 个人身份:1.工人,2.原工商业者,3.农民,4.学生,5.干部,6.现役军人,7.无业人员,8.其他
+     */
+    private Integer empIdentity;
+
+    /**
+     * 参加工作日期
+     */
+    private LocalDateTime workDate;
 
     /**
      * 政治面貌：0: 群众, 1: 党员，2：团员
@@ -195,307 +215,4 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifiedTime;
 
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public String getFormerName() {
-        return formerName;
-    }
-
-    public void setFormerName(String formerName) {
-        this.formerName = formerName;
-    }
-
-    public Integer getIdCardType() {
-        return idCardType;
-    }
-
-    public void setIdCardType(Integer idCardType) {
-        this.idCardType = idCardType;
-    }
-
-    public String getIdNum() {
-        return idNum;
-    }
-
-    public void setIdNum(String idNum) {
-        this.idNum = idNum;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Integer getResidentType() {
-        return residentType;
-    }
-
-    public void setResidentType(Integer residentType) {
-        this.residentType = residentType;
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
-    public Integer getMarriageStatus() {
-        return marriageStatus;
-    }
-
-    public void setMarriageStatus(Integer marriageStatus) {
-        this.marriageStatus = marriageStatus;
-    }
-
-    public Date getMarriageDate() {
-        return marriageDate;
-    }
-
-    public void setMarriageDate(Date marriageDate) {
-        this.marriageDate = marriageDate;
-    }
-
-    public Integer getChildStatus() {
-        return childStatus;
-    }
-
-    public void setChildStatus(Integer childStatus) {
-        this.childStatus = childStatus;
-    }
-
-    public Integer getChildNum() {
-        return childNum;
-    }
-
-    public void setChildNum(Integer childNum) {
-        this.childNum = childNum;
-    }
-
-    public Integer getHealthStatus() {
-        return healthStatus;
-    }
-
-    public void setHealthStatus(Integer healthStatus) {
-        this.healthStatus = healthStatus;
-    }
-
-    public Integer getPolicy() {
-        return policy;
-    }
-
-    public void setPolicy(Integer policy) {
-        this.policy = policy;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public String getSocialAccount() {
-        return socialAccount;
-    }
-
-    public void setSocialAccount(String socialAccount) {
-        this.socialAccount = socialAccount;
-    }
-
-    public String getFundAccount() {
-        return fundAccount;
-    }
-
-    public void setFundAccount(String fundAccount) {
-        this.fundAccount = fundAccount;
-    }
-
-    public String getAddFundAccount() {
-        return addFundAccount;
-    }
-
-    public void setAddFundAccount(String addFundAccount) {
-        this.addFundAccount = addFundAccount;
-    }
-
-    public String getEmployeeEmail() {
-        return employeeEmail;
-    }
-
-    public void setEmployeeEmail(String employeeEmail) {
-        this.employeeEmail = employeeEmail;
-    }
-
-    public String getEmployeeMobile() {
-        return employeeMobile;
-    }
-
-    public void setEmployeeMobile(String employeeMobile) {
-        this.employeeMobile = employeeMobile;
-    }
-
-    public String getEmployeeAddress() {
-        return employeeAddress;
-    }
-
-    public void setEmployeeAddress(String employeeAddress) {
-        this.employeeAddress = employeeAddress;
-    }
-
-    public String getEmployeeZipCode() {
-        return employeeZipCode;
-    }
-
-    public void setEmployeeZipCode(String employeeZipCode) {
-        this.employeeZipCode = employeeZipCode;
-    }
-
-    public String getResidenceAddress() {
-        return residenceAddress;
-    }
-
-    public void setResidenceAddress(String residenceAddress) {
-        this.residenceAddress = residenceAddress;
-    }
-
-    public String getEmergencyContactName() {
-        return emergencyContactName;
-    }
-
-    public void setEmergencyContactName(String emergencyContactName) {
-        this.emergencyContactName = emergencyContactName;
-    }
-
-    public String getEmergencyMobile() {
-        return emergencyMobile;
-    }
-
-    public void setEmergencyMobile(String emergencyMobile) {
-        this.emergencyMobile = emergencyMobile;
-    }
-
-    public String getFileAddress() {
-        return fileAddress;
-    }
-
-    public void setFileAddress(String fileAddress) {
-        this.fileAddress = fileAddress;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-    public Date getModifiedTime() {
-        return modifiedTime;
-    }
-
-    public void setModifiedTime(Date modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
-
-    @Override
-    public String toString() {
-        return "PEmployeeInfoPO{" +
-        "employeeId=" + employeeId +
-        ", employeeName=" + employeeName +
-        ", formerName=" + formerName +
-        ", idCardType=" + idCardType +
-        ", idNum=" + idNum +
-        ", birthday=" + birthday +
-        ", residentType=" + residentType +
-        ", gender=" + gender +
-        ", marriageStatus=" + marriageStatus +
-        ", marriageDate=" + marriageDate +
-        ", childStatus=" + childStatus +
-        ", childNum=" + childNum +
-        ", healthStatus=" + healthStatus +
-        ", policy=" + policy +
-        ", countryCode=" + countryCode +
-        ", nationality=" + nationality +
-        ", socialAccount=" + socialAccount +
-        ", fundAccount=" + fundAccount +
-        ", addFundAccount=" + addFundAccount +
-        ", employeeEmail=" + employeeEmail +
-        ", employeeMobile=" + employeeMobile +
-        ", employeeAddress=" + employeeAddress +
-        ", employeeZipCode=" + employeeZipCode +
-        ", residenceAddress=" + residenceAddress +
-        ", emergencyContactName=" + emergencyContactName +
-        ", emergencyMobile=" + emergencyMobile +
-        ", fileAddress=" + fileAddress +
-        ", isActive=" + isActive +
-        ", version=" + version +
-        ", createdBy=" + createdBy +
-        ", createdTime=" + createdTime +
-        ", modifiedBy=" + modifiedBy +
-        ", modifiedTime=" + modifiedTime +
-        "}";
-    }
 }

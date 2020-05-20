@@ -65,7 +65,7 @@ public class MapperGenerator {
         strategy.setTablePrefix(new String[]{"p_"});// 此处可以修改为您的表前缀
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
         //strategy.setInclude(new String[]{"agt_service_product","agt_service_organization","agt_service_organization_agreement","agt_service_organization_operator_info","agt_service_organization_rule"}); // 需要生成的表
-        strategy.setInclude(new String[]{"p_emp_back_task_sheet","p_emp_back_task_sheet_social_fee_segment","p_emp_back_task_sheet_service_agreement"}); // 需要生成的表
+        strategy.setInclude(new String[]{"p_emp_company","p_employee_info"}); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         mpg.setStrategy(strategy);
 

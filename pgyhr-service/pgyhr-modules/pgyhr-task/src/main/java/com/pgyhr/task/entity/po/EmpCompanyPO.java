@@ -104,6 +104,16 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
     private Integer salaryPayType;
 
     /**
+     * 合同类别:1.固定期限劳动合同	,2.无固定期限劳动合同,3.完成一定工作为期限劳动合同,4.非全日制劳动合同
+     */
+    private Integer laborType;
+
+    /**
+     * 合同签订类别:1.新订,2.续订,3.变更,4.未订
+     */
+    private Integer laborSignType;
+
+    /**
      * 合同开始时间
      */
     private LocalDateTime laborStartDate;
@@ -307,6 +317,16 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
      * 岗位描述
      */
     private String jobContent;
+
+    /**
+     * 专业技术职务:1.正高级技术职务,2.副高级技术职务,3.中级技术职务,4.助理级技术职务,5.员级技术职务,6.职改前工程师,7.未评定技术职务
+     */
+    private Integer technicalPost;
+
+    /**
+     * 行政职务:1.无行政职务级别,2.部长级,3.相当部长级,4.副部长级,5.相当副部长级,6.司局级,7.巡视员,8.相当司局级,9.副司局级,10.助理巡视员,11.相当副司局级,12.处级
+     */
+    private Integer administrativePost;
 
     /**
      * 派遣期限
@@ -789,6 +809,38 @@ public class EmpCompanyPO extends PgyhrBaseEntityNoId<EmpCompanyPO> {
 
     public void setLaborSide(Integer laborSide) {
         this.laborSide = laborSide;
+    }
+
+    public Integer getLaborType() {
+        return laborType;
+    }
+
+    public void setLaborType(Integer laborType) {
+        this.laborType = laborType;
+    }
+
+    public Integer getLaborSignType() {
+        return laborSignType;
+    }
+
+    public void setLaborSignType(Integer laborSignType) {
+        this.laborSignType = laborSignType;
+    }
+
+    public Integer getTechnicalPost() {
+        return technicalPost;
+    }
+
+    public void setTechnicalPost(Integer technicalPost) {
+        this.technicalPost = technicalPost;
+    }
+
+    public Integer getAdministrativePost() {
+        return administrativePost;
+    }
+
+    public void setAdministrativePost(Integer administrativePost) {
+        this.administrativePost = administrativePost;
     }
 
     @Override

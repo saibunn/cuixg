@@ -1,6 +1,7 @@
 package com.pgyhr.task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pgyhr.task.entity.dto.EmpCompanyRequestDTO;
 import com.pgyhr.task.entity.po.EmpCompanyPO;
 
 /**
@@ -13,4 +14,5 @@ import com.pgyhr.task.entity.po.EmpCompanyPO;
  */
 public interface EmpCompanyService extends IService<EmpCompanyPO> {
 
+    EmpCompanyPO getEmpCompanyInfoByParam(EmpCompanyRequestDTO empCompanyRequestDTO);
 }

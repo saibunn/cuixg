@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
@@ -85,7 +86,12 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
     @ApiOperation(value = "根据雇员ID取雇员信息")
     public Result<EmployeeInfoPO> getEmployeeInfoById(EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
-        EmployeeInfoPO employeeInfoPO = employeeInfoService.getemployeeInfoByKey(employeeInfoRequsetDTO.getEmployeeId());
+        EmployeeInfoPO employeeInfoPO;
+        if(StringUtils.isEmpty(employeeInfoRequsetDTO.getEmployeeId())){
+            employeeInfoPO = employeeInfoService.selectEmployeeInfoByParam(employeeInfoRequsetDTO);
+        }else{
+            employeeInfoPO = employeeInfoService.getemployeeInfoByKey(employeeInfoRequsetDTO.getEmployeeId());
+        }
         return new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
     }
 
@@ -287,6 +293,7 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
         addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
         addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
         addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
+        addEmpCompanyPO.setEmpInType(3);
         //生成雇员任务单
         EmpFrontTaskSheetPO addEmpFrontTaskSheetPO = new EmpFrontTaskSheetPO();
         //雇员公司信息表保存

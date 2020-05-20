@@ -25,11 +25,11 @@ import java.util.List;
 public class EmployeeInfoServiceImpl extends ServiceImpl<EmployeeInfoMapper, EmployeeInfoPO> implements EmployeeInfoService {
 
     @Override
-    public List<EmployeeInfoPO> selectEmployeeInfoByParam(EmployeeInfoRequsetDTO employeeInfoRequsetDTO) {
+    public EmployeeInfoPO selectEmployeeInfoByParam(EmployeeInfoRequsetDTO employeeInfoRequsetDTO) {
         QueryWrapper<EmployeeInfoPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id_card_type",employeeInfoRequsetDTO.getIdCardType());
         queryWrapper.eq("id_num",employeeInfoRequsetDTO.getIdNum());
-        return baseMapper.selectList(queryWrapper);
+        return baseMapper.selectOne(queryWrapper);
     }
 
     @Override

@@ -20,6 +20,8 @@
         <result column="bank_code" property="bankCode" />
         <result column="salary" property="salary" />
         <result column="salary_pay_type" property="salaryPayType" />
+        <result column="labor_type" property="laborType" />
+        <result column="labor_sign_type" property="laborSignType" />
         <result column="labor_start_date" property="laborStartDate" />
         <result column="labor_end_date" property="laborEndDate" />
         <result column="labor_side" property="laborSide" />
@@ -61,6 +63,8 @@
         <result column="leadership_name" property="leadershipName" />
         <result column="labor_contract_code" property="laborContractCode" />
         <result column="job_content" property="jobContent" />
+        <result column="technical post" property="technicalPost" />
+        <result column="administrative_post" property="administrativePost" />
         <result column="dispatching_term" property="dispatchingTerm" />
         <result column="version" property="version" />
         <result column="created_by" property="createdBy" />

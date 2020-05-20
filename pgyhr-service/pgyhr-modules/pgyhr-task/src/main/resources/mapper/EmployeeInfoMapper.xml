@@ -17,6 +17,10 @@
         <result column="child_status" property="childStatus" />
         <result column="child_num" property="childNum" />
         <result column="health_status" property="healthStatus" />
+        <result column="edu_level" property="eduLevel" />
+        <result column="emp_type" property="empType" />
+        <result column="emp_identity" property="empIdentity" />
+        <result column="work_date" property="workDate" />
         <result column="policy" property="policy" />
         <result column="country_code" property="countryCode" />
         <result column="nationality" property="nationality" />

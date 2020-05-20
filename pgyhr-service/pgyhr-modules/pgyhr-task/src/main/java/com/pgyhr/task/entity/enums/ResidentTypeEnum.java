@@ -4,7 +4,7 @@ package com.pgyhr.task.entity.enums;
  * package: com.ciicsh.gto.agentcenter.site.service.entity.enums
  * describe: TODO
  * creat_user: cuixiaoguang
- * creat_date: 2018/2/5
+ * creat_date: 2020/5/19
  * creat_time: 15:24
  **/
 public enum ResidentTypeEnum {
@@ -12,12 +12,27 @@ public enum ResidentTypeEnum {
     /**
      * 非农业户口
      */
-    NON_AGRICULTURE(1, "非农业户口"),
+    LOCAL_TOWN(1, "本地城镇"),
 
     /**
-     * 农业户口
+     * 省内市外
      */
-    AGRICULTURE(2, "农业户口");
+    PROVINCE(2, "省内市外"),
+
+    /**
+     * 本地农业
+     */
+    LOCAL_AGRICULTURE(3, "本地农业"),
+
+    /**
+     * 外省
+     */
+    OUTSIDE_PROVINCE(4, "外省"),
+
+    /**
+     * 其他
+     */
+    OTHER(5, "其他");
 
     private int key;
 

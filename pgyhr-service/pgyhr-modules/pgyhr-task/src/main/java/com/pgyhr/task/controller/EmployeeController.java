@@ -10,8 +10,10 @@ import com.pgyhr.task.entity.CodePrefixUtil;
 import com.pgyhr.task.entity.dto.EmpCompanyRequestDTO;
 import com.pgyhr.task.entity.dto.EmpCompanyWhereDTO;
 import com.pgyhr.task.entity.dto.EmployeeInfoRequsetDTO;
+import com.pgyhr.task.entity.po.EmpCompanyPO;
 import com.pgyhr.task.entity.po.EmployeeInfoPO;
 import com.pgyhr.task.service.EmpCompanyDTOService;
+import com.pgyhr.task.service.EmpCompanyService;
 import com.pgyhr.task.service.EmployeeInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +47,9 @@ public class EmployeeController <E, ID extends Serializable>{
     @Autowired
     private EmpCompanyDTOService empCompanyDTOService;
 
+    @Autowired
+    private EmpCompanyService empCompanyService;
+
     @ApiOperation(value = "根据雇员ID取雇员信息")
     @RequestMapping(value = "/getEmployeeInfoById",method = RequestMethod.GET)
     public Result<EmployeeInfoPO> getEmployeeInfoById(EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
@@ -56,21 +61,34 @@ public class EmployeeController <E, ID extends Serializable>{
     @PostMapping(value = "/saveEmployeeInfo")
     public Result<EmployeeInfoPO> addEmployeeInfoById(@RequestBody EmployeeInfoRequsetDTO employeeInfoRequsetDTO){
         EmployeeInfoPO employeeInfoPO = CommonTransform.convertToDTO(employeeInfoRequsetDTO,EmployeeInfoPO.class);
-        List<EmployeeInfoPO> employeeInfoPOList  = employeeInfoService.selectEmployeeInfoByParam(employeeInfoRequsetDTO);
-        if(CollectionUtils.isEmpty(employeeInfoPOList)){
+        EmployeeInfoPO existEmployeeInfoPO  = employeeInfoService.selectEmployeeInfoByParam(employeeInfoRequsetDTO);
+        if(existEmployeeInfoPO == null){
             employeeInfoPO.setEmployeeId(CommonUtil.buildId(CodePrefixUtil.EMP_CODE_PREFIX));
             if(employeeInfoService.save(employeeInfoPO)) {
                 Result<EmployeeInfoPO> result = new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
-                result.setMessage("新增雇员成功");
+                result.setMessage("新增雇员成功！");
                 return result;
             }else {
 
                 return new ResultUtil<EmployeeInfoPO>().setErrorMsg("新增雇员失败！");
             }
         }else{
-            return new ResultUtil<EmployeeInfoPO>().setErrorMsg("新增雇员已存在");
+            EmpCompanyRequestDTO empCompanyRequestDTO = new EmpCompanyRequestDTO();
+            empCompanyRequestDTO.setEmployeeId(existEmployeeInfoPO.getEmployeeId());
+            EmpCompanyPO empCompanyPO =  empCompanyService.getEmpCompanyInfoByParam(empCompanyRequestDTO);
+            if(empCompanyPO != null && empCompanyPO.getEmpInType() == 4){
+                employeeInfoPO.setEmployeeId(existEmployeeInfoPO.getEmployeeId());
+                employeeInfoService.updateById(employeeInfoPO);
+                Result<EmployeeInfoPO> result = new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);
+                result.setMessage("新增雇员个人信息已存在，信息已修正！");
+                return result;
+            }else{
+                return new ResultUtil<EmployeeInfoPO>().setErrorMsg("新增雇员还是在职状态，无法新增！");
+            }
+
         }
     }
+
 
     @ApiOperation(value = "多条件分页获取雇员信息")
     @RequestMapping(value = "/getEmpCompanyDTOPage",method = RequestMethod.GET)
