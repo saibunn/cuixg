@@ -197,9 +197,9 @@
               title: title,
               desc: title + '成功',
             });
-            // this.$router.push({
-            //     name: "employee_front_task_sheet_items"
-            // });
+            this.$router.push({
+              name: "employee-back-manage"
+            });
 
           }else{
             this.$Notice.error({

@@ -95,7 +95,7 @@
                     </Form-item>
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
-                    <Form-item label="合同签订方：">
+                    <Form-item label="合同签订方：" prop="laborSide">
                         <Select v-model="empCompanyInfo.laborSide">
                             <Option v-for="(value,key) in this.baseDic.laborSide" :value="key" :key="key">{{ value }}</Option>
                         </Select>
@@ -469,6 +469,13 @@
               trigger: 'change'
             }
           ],
+        laborSide: [
+            {
+                required: true,
+                message: '请选择合同签订方',
+                trigger: 'change'
+            }
+        ],
             socialUnit: [
                 {
                     required: true,
@@ -685,9 +692,9 @@
                                 title: title,
                                 desc: title + '成功',
                             });
-                            // this.$router.push({
-                            //     name: "employee_front_task_sheet_items"
-                            // });
+                            this.$router.push({
+                                name: "employee-front-manage"
+                            });
 
                         }else{
                             this.$Notice.error({
