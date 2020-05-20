@@ -289,70 +289,75 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     @PostMapping(value = "/saveNewEmployeeTaskSheetInfo")
     public Result<E> saveNewEmployeeTaskSheetInfo(@RequestBody EmpFrontTaskSaveRequestDTO empFrontTaskSaveRequestDTO){
         Boolean saveResult = true;
-        EmpCompanyPO addEmpCompanyPO = empFrontTaskSaveRequestDTO.getEmpCompanyPO();
-        addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
-        addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
-        addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
-        addEmpCompanyPO.setEmpInType(3);
-        //生成雇员任务单
-        EmpFrontTaskSheetPO addEmpFrontTaskSheetPO = new EmpFrontTaskSheetPO();
-        //雇员公司信息表保存
-        boolean saveEmpCompanyResult = empCompanyService.save(addEmpCompanyPO);
-        if(saveEmpCompanyResult){
 
-            //雇员前道任务单ID
-            addEmpFrontTaskSheetPO.setEmpFrontTaskSheetCode(CommonUtil.buildId(CodePrefixUtil.EFT_CODE_PREFIX));
-            //任务单域
-            addEmpFrontTaskSheetPO.setTaskArea(0);
-            //任务单状态:0-后道批退,1-前道提交,2-后道处理,3-后道部分完成,4-后道完成,
-            addEmpFrontTaskSheetPO.setTaskStatus(1);
-            //任务单类型:0-新增,1-调整,2-年度调整,3-终止,4-一次性费用,5-服务费调整
-            addEmpFrontTaskSheetPO.setTaskType(0);
-            //社保城市code
-            addEmpFrontTaskSheetPO.setSocialCityCode(addEmpCompanyPO.getSocialCityCode());
-            //社保城市名称
-            addEmpFrontTaskSheetPO.setSocialCityName(addEmpCompanyPO.getSocialCityName());
-            //公积金城市code
-            addEmpFrontTaskSheetPO.setFundCityCode(addEmpCompanyPO.getFundCityCode());
-            //公积金城市名称
-            addEmpFrontTaskSheetPO.setFundCityName(addEmpCompanyPO.getFundCityName());
-            //补充公积金城市code
-            addEmpFrontTaskSheetPO.setAddFundCityCode(addEmpCompanyPO.getFundCityCode());
-            //补充公积金社保城市名称
-            addEmpFrontTaskSheetPO.setAddFundCityName(addEmpCompanyPO.getFundCityName());
-            //委托机构ID
-            //addEmpFrontTaskSheetPO.setEntrustOrganizationId();
-            //委托机构名称
-            //addEmpFrontTaskSheetPO.setEntrustOrganizationName();
-            //客户雇员ID
-            addEmpFrontTaskSheetPO.setEmpCompanyId(addEmpCompanyPO.getEmpCompanyId());
-            //雇员编号
-            addEmpFrontTaskSheetPO.setEmployeeId(addEmpCompanyPO.getEmployeeId());
-            //雇员姓名
-            addEmpFrontTaskSheetPO.setEmployeeName(addEmpCompanyPO.getEmployeeName());
-            //公司ID
-            addEmpFrontTaskSheetPO.setCompanyId(addEmpCompanyPO.getCompanyId());
-            //公司名称
-            addEmpFrontTaskSheetPO.setCompanyName(addEmpCompanyPO.getCompanyName());
-            //办理用工日期
-            addEmpFrontTaskSheetPO.setEmploymentDate(addEmpCompanyPO.getInDate());
-            //合同开始日期
-            addEmpFrontTaskSheetPO.setContractStartDate(addEmpCompanyPO.getLaborStartDate());
-            //合同结束日期
-            addEmpFrontTaskSheetPO.setContractEndDate(addEmpCompanyPO.getLaborEndDate());
-            //雇员社保账号
-            addEmpFrontTaskSheetPO.setEmployeesSocialAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getSocialAccount());
-            //雇员公积金账号
-            addEmpFrontTaskSheetPO.setEmployeesFundAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getFundAccount());
-            //雇员补充公积金账号
-            addEmpFrontTaskSheetPO.setEmployeesAddFundAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getAddFundAccount());
-            //社保福利办理方:1: 独立户, 2: 大库
-            addEmpFrontTaskSheetPO.setSocialUnit(addEmpCompanyPO.getSocialUnit());
-            //公积金福利办理方:1: 独立户, 2: 大库
-            addEmpFrontTaskSheetPO.setFundUnit(addEmpCompanyPO.getFundUnit());
-            //用退工福利办理方:1: 独立户, 2: 大库
-            addEmpFrontTaskSheetPO.setHireUnit(addEmpCompanyPO.getHireUnit());
-            //todo 服务产品
+        EmpCompanyRequestDTO empCompanyRequestDTO = new EmpCompanyRequestDTO();
+        empCompanyRequestDTO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
+        EmpCompanyPO empCompanyPO =  empCompanyService.getEmpCompanyInfoByParam(empCompanyRequestDTO);
+        if(empCompanyPO == null || (empCompanyPO !=null && empCompanyPO.getEmpInType() == 4)){
+            EmpCompanyPO addEmpCompanyPO = empFrontTaskSaveRequestDTO.getEmpCompanyPO();
+            addEmpCompanyPO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
+            addEmpCompanyPO.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
+            addEmpCompanyPO.setEmpCompanyId(CommonUtil.buildId(CodePrefixUtil.ECO_CODE_PREFIX));
+            addEmpCompanyPO.setEmpInType(3);
+            //生成雇员任务单
+            EmpFrontTaskSheetPO addEmpFrontTaskSheetPO = new EmpFrontTaskSheetPO();
+            //雇员公司信息表保存
+            boolean saveEmpCompanyResult = empCompanyService.save(addEmpCompanyPO);
+            if(saveEmpCompanyResult){
+
+                //雇员前道任务单ID
+                addEmpFrontTaskSheetPO.setEmpFrontTaskSheetCode(CommonUtil.buildId(CodePrefixUtil.EFT_CODE_PREFIX));
+                //任务单域
+                addEmpFrontTaskSheetPO.setTaskArea(0);
+                //任务单状态:0-后道批退,1-前道提交,2-后道处理,3-后道部分完成,4-后道完成,
+                addEmpFrontTaskSheetPO.setTaskStatus(1);
+                //任务单类型:0-新增,1-调整,2-年度调整,3-终止,4-一次性费用,5-服务费调整
+                addEmpFrontTaskSheetPO.setTaskType(0);
+                //社保城市code
+                addEmpFrontTaskSheetPO.setSocialCityCode(addEmpCompanyPO.getSocialCityCode());
+                //社保城市名称
+                addEmpFrontTaskSheetPO.setSocialCityName(addEmpCompanyPO.getSocialCityName());
+                //公积金城市code
+                addEmpFrontTaskSheetPO.setFundCityCode(addEmpCompanyPO.getFundCityCode());
+                //公积金城市名称
+                addEmpFrontTaskSheetPO.setFundCityName(addEmpCompanyPO.getFundCityName());
+                //补充公积金城市code
+                addEmpFrontTaskSheetPO.setAddFundCityCode(addEmpCompanyPO.getFundCityCode());
+                //补充公积金社保城市名称
+                addEmpFrontTaskSheetPO.setAddFundCityName(addEmpCompanyPO.getFundCityName());
+                //委托机构ID
+                //addEmpFrontTaskSheetPO.setEntrustOrganizationId();
+                //委托机构名称
+                //addEmpFrontTaskSheetPO.setEntrustOrganizationName();
+                //客户雇员ID
+                addEmpFrontTaskSheetPO.setEmpCompanyId(addEmpCompanyPO.getEmpCompanyId());
+                //雇员编号
+                addEmpFrontTaskSheetPO.setEmployeeId(addEmpCompanyPO.getEmployeeId());
+                //雇员姓名
+                addEmpFrontTaskSheetPO.setEmployeeName(addEmpCompanyPO.getEmployeeName());
+                //公司ID
+                addEmpFrontTaskSheetPO.setCompanyId(addEmpCompanyPO.getCompanyId());
+                //公司名称
+                addEmpFrontTaskSheetPO.setCompanyName(addEmpCompanyPO.getCompanyName());
+                //办理用工日期
+                addEmpFrontTaskSheetPO.setEmploymentDate(addEmpCompanyPO.getInDate());
+                //合同开始日期
+                addEmpFrontTaskSheetPO.setContractStartDate(addEmpCompanyPO.getLaborStartDate());
+                //合同结束日期
+                addEmpFrontTaskSheetPO.setContractEndDate(addEmpCompanyPO.getLaborEndDate());
+                //雇员社保账号
+                addEmpFrontTaskSheetPO.setEmployeesSocialAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getSocialAccount());
+                //雇员公积金账号
+                addEmpFrontTaskSheetPO.setEmployeesFundAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getFundAccount());
+                //雇员补充公积金账号
+                addEmpFrontTaskSheetPO.setEmployeesAddFundAccount(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getAddFundAccount());
+                //社保福利办理方:1: 独立户, 2: 大库
+                addEmpFrontTaskSheetPO.setSocialUnit(addEmpCompanyPO.getSocialUnit());
+                //公积金福利办理方:1: 独立户, 2: 大库
+                addEmpFrontTaskSheetPO.setFundUnit(addEmpCompanyPO.getFundUnit());
+                //用退工福利办理方:1: 独立户, 2: 大库
+                addEmpFrontTaskSheetPO.setHireUnit(addEmpCompanyPO.getHireUnit());
+                //todo 服务产品
 //            //服务产品反馈状态:0-取消委托，1-委托成功，2-委托办理
 //            addEmpFrontTaskSheetPO.setServiceProductStatus(2);
 //            //服务产品反馈日期
@@ -361,9 +366,9 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 //            addEmpFrontTaskSheetPO.setServiceProductStartDate();
 //            //服务产品结束年月
 //            addEmpFrontTaskSheetPO.setServiceProductEndDate();
-            //档案所在地
-            addEmpFrontTaskSheetPO.setFileAddress(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getFileAddress());
-            //todo 档案和额外费用
+                //档案所在地
+                addEmpFrontTaskSheetPO.setFileAddress(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getFileAddress());
+                //todo 档案和额外费用
 //            //档案保管费
 //            addEmpFrontTaskSheetPO.setFileKeepFee();
 //            //档案保管费反馈状态:0-取消委托，1-委托成功，2-委托办理
@@ -384,48 +389,49 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
 //            addEmpFrontTaskSheetPO.setOtherFeeStartDate();
 //            //额外费用结束年月
 //            addEmpFrontTaskSheetPO.setOtherFeeEndDate();
-            //实际工资
-            addEmpFrontTaskSheetPO.setActualWage(addEmpCompanyPO.getSalary());
-            //服务费
-            addEmpFrontTaskSheetPO.setServiceFee(new BigDecimal(20));
+                //实际工资
+                addEmpFrontTaskSheetPO.setActualWage(addEmpCompanyPO.getSalary());
+                //服务费
+                addEmpFrontTaskSheetPO.setServiceFee(new BigDecimal(20));
 
-            boolean saveAddEmpFrontTaskSheetPOResult = empFrontTaskSheetService.save(addEmpFrontTaskSheetPO);
+                boolean saveAddEmpFrontTaskSheetPOResult = empFrontTaskSheetService.save(addEmpFrontTaskSheetPO);
 
-            if(saveAddEmpFrontTaskSheetPOResult){
-                //前道任务单服务约定表
-                if(empFrontTaskSheetServiceAgreementService.saveEmpFrontTaskSheetServiceAgreement(addEmpCompanyPO,addEmpFrontTaskSheetPO) != 1){
-                    log.error("前道任务单服务约定表保存失败:" + addEmpFrontTaskSheetPO.toString());
-                    saveResult = false;
-                }
-                //前道任务单社保费用段表
-                List<EmpFrontTaskSheetSocialFeeSegmentPO> empFrontTaskSheetSocialFeeSegmentPOList =
-                        CommonTransform.convertToDTOs(empFrontTaskSaveRequestDTO.getEmpFrontTaskSheetSocialFeeSegmentForSocialInfoDTOList(),EmpFrontTaskSheetSocialFeeSegmentPO.class);
-
-                if(!CollectionUtils.isEmpty(empFrontTaskSheetSocialFeeSegmentPOList)){
-
-                    empFrontTaskSheetSocialFeeSegmentPOList.stream().forEach(item->{
-                                item.setEmpFrontTaskSheetCode(addEmpFrontTaskSheetPO.getEmpFrontTaskSheetCode());
-                                item.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
-                                item.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
-                                item.setStartDate(addEmpCompanyPO.getLaborStartDate());
-                                item.setEndDate(addEmpCompanyPO.getLaborEndDate());
-                            }
-                            );
-                    if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){
-                        log.error("前道任务单社保费用段表表保存失败:" + addEmpFrontTaskSheetPO.toString());
+                if(saveAddEmpFrontTaskSheetPOResult){
+                    //前道任务单服务约定表
+                    if(empFrontTaskSheetServiceAgreementService.saveEmpFrontTaskSheetServiceAgreement(addEmpCompanyPO,addEmpFrontTaskSheetPO) != 1){
+                        log.error("前道任务单服务约定表保存失败:" + addEmpFrontTaskSheetPO.toString());
                         saveResult = false;
                     }
-                }
-            }
-        }else{
-            saveResult = false;
-        }
+                    //前道任务单社保费用段表
+                    List<EmpFrontTaskSheetSocialFeeSegmentPO> empFrontTaskSheetSocialFeeSegmentPOList =
+                            CommonTransform.convertToDTOs(empFrontTaskSaveRequestDTO.getEmpFrontTaskSheetSocialFeeSegmentForSocialInfoDTOList(),EmpFrontTaskSheetSocialFeeSegmentPO.class);
 
-        if(saveResult){
-            //生成后道任务单
-            if(empBackTaskSheetService.generatorEmpBackTaskSheet(addEmpFrontTaskSheetPO)){
+                    if(!CollectionUtils.isEmpty(empFrontTaskSheetSocialFeeSegmentPOList)){
+
+                        empFrontTaskSheetSocialFeeSegmentPOList.stream().forEach(item->{
+                                    item.setEmpFrontTaskSheetCode(addEmpFrontTaskSheetPO.getEmpFrontTaskSheetCode());
+                                    item.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
+                                    item.setEmployeeName(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeName());
+                                    item.setStartDate(addEmpCompanyPO.getLaborStartDate());
+                                    item.setEndDate(addEmpCompanyPO.getLaborEndDate());
+                                }
+                        );
+                        if(!empFrontTaskSheetSocialFeeSegmentService.saveBatch(empFrontTaskSheetSocialFeeSegmentPOList)){
+                            log.error("前道任务单社保费用段表表保存失败:" + addEmpFrontTaskSheetPO.toString());
+                            saveResult = false;
+                        }
+                    }
+                }
+            }else{
                 saveResult = false;
             }
+
+            if(saveResult){
+                //生成后道任务单
+                saveResult = empBackTaskSheetService.generatorEmpBackTaskSheet(addEmpFrontTaskSheetPO);
+            }
+        }else{
+            return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败,该雇员在其他公司没有离职！");
         }
         if(!saveResult){
             return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败！");

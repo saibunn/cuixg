@@ -76,7 +76,7 @@ public class EmployeeController <E, ID extends Serializable>{
             EmpCompanyRequestDTO empCompanyRequestDTO = new EmpCompanyRequestDTO();
             empCompanyRequestDTO.setEmployeeId(existEmployeeInfoPO.getEmployeeId());
             EmpCompanyPO empCompanyPO =  empCompanyService.getEmpCompanyInfoByParam(empCompanyRequestDTO);
-            if(empCompanyPO != null && empCompanyPO.getEmpInType() == 4){
+            if(empCompanyPO == null || (empCompanyPO !=null && empCompanyPO.getEmpInType() == 4)){
                 employeeInfoPO.setEmployeeId(existEmployeeInfoPO.getEmployeeId());
                 employeeInfoService.updateById(employeeInfoPO);
                 Result<EmployeeInfoPO> result = new ResultUtil<EmployeeInfoPO>().setData(employeeInfoPO);

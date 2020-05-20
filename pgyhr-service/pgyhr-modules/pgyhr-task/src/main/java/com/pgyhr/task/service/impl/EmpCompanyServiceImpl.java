@@ -8,6 +8,10 @@ import com.pgyhr.task.entity.po.EmpCompanyPO;
 import com.pgyhr.task.entity.po.EmpFrontTaskSheetPO;
 import com.pgyhr.task.service.EmpCompanyService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +28,11 @@ public class EmpCompanyServiceImpl extends ServiceImpl<EmpCompanyMapper, EmpComp
     public EmpCompanyPO getEmpCompanyInfoByParam(EmpCompanyRequestDTO empCompanyRequestDTO) {
         QueryWrapper<EmpCompanyPO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("employee_id",empCompanyRequestDTO.getEmployeeId());
-        return baseMapper.selectOne(queryWrapper);
+        queryWrapper.orderByDesc("created_time");
+        List<EmpCompanyPO> empCompanyPOList = baseMapper.selectList(queryWrapper);
+        if(!CollectionUtils.isEmpty(empCompanyPOList)){
+            return  empCompanyPOList.get(0);
+        }
+        return null;
     }
 }

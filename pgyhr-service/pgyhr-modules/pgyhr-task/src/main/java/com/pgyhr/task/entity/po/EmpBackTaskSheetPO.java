@@ -26,7 +26,7 @@ public class EmpBackTaskSheetPO extends PgyhrBaseEntityNoId<EmpBackTaskSheetPO> 
     /**
      * 雇员后道任务单ID
      */
-    @TableId(value = "emp_back_task_sheet_code", type = IdType.AUTO)
+    @TableId(value = "emp_back_task_sheet_code")
     private String empBackTaskSheetCode;
 
     /**
