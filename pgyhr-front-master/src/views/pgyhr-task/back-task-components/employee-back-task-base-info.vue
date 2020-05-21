@@ -53,6 +53,11 @@
           <label>{{employeeInfo.residentTypeLabel}}</label>
         </Form-item>
       </i-col>
+      <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
+        <Form-item label="户口所在地地址：" prop="residenceAddress">
+          <label>{{employeeInfo.residenceAddress}}</label>
+        </Form-item>
+      </Col>
 
       <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
         <Form-item label="性别：" prop="sex" class="ivu-form-item-baseInfo">
