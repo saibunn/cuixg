@@ -118,7 +118,13 @@ public class EmpBackTaskSheetServiceImpl extends ServiceImpl<EmpBackTaskSheetMap
     @Override
     public Page<EmpBackTaskSheetPO> getEmployeeBackTaskSheetPageByParam(Page<EmpBackTaskSheetPO> empBackTaskSheetPOPage, EmpBackTaskSheetSearchRequestDTO empBackTaskSheetSearchRequestDTO) {
         QueryWrapper<EmpBackTaskSheetPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getCompanyName()),"company_name",empBackTaskSheetSearchRequestDTO.getCompanyName());
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getExecuteCityId()),"execute_city_id",empBackTaskSheetSearchRequestDTO.getExecuteCityId());
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getTaskStatus()),"task_status",empBackTaskSheetSearchRequestDTO.getTaskStatus());
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getTaskType()),"task_type",empBackTaskSheetSearchRequestDTO.getTaskType());
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getEmployeeId()),"employee_id",empBackTaskSheetSearchRequestDTO.getEmployeeId());
+        queryWrapper.eq(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getCompanyId()),"company_id",empBackTaskSheetSearchRequestDTO.getCompanyId());
+        queryWrapper.like(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getCompanyName()),"company_name",empBackTaskSheetSearchRequestDTO.getCompanyName());
+        queryWrapper.like(!StringUtils.isEmpty(empBackTaskSheetSearchRequestDTO.getEmployeeName()),"employee_name",empBackTaskSheetSearchRequestDTO.getEmployeeName());
         return baseMapper.selectPage(empBackTaskSheetPOPage,queryWrapper);
     }
 

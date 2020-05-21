@@ -290,6 +290,9 @@ public class EmployeeFrontTaskSheetController<E, ID extends Serializable>{
     public Result<E> saveNewEmployeeTaskSheetInfo(@RequestBody EmpFrontTaskSaveRequestDTO empFrontTaskSaveRequestDTO){
         Boolean saveResult = true;
 
+        if(StringUtils.isEmpty(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId())){
+            return new ResultUtil<E>().setErrorMsg("雇员新增任务单失败！");
+        }
         EmpCompanyRequestDTO empCompanyRequestDTO = new EmpCompanyRequestDTO();
         empCompanyRequestDTO.setEmployeeId(empFrontTaskSaveRequestDTO.getEmployeeInfoPO().getEmployeeId());
         EmpCompanyPO empCompanyPO =  empCompanyService.getEmpCompanyInfoByParam(empCompanyRequestDTO);

@@ -38,7 +38,14 @@ public class EmpFrontTaskSheetServiceImpl extends ServiceImpl<EmpFrontTaskSheetM
     @Override
     public Page<EmpFrontTaskSheetPO> getEmployeeFrontTaskSheetPageByParam(Page<EmpFrontTaskSheetPO> empFrontTaskSheetPOPage, EmpFrontTaskSheetSearchDTO empFrontTaskSheetSearchDTO) {
         QueryWrapper<EmpFrontTaskSheetPO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getCompanyName()),"company_name",empFrontTaskSheetSearchDTO.getCompanyName());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getSocialCityCode()),"social_city_code",empFrontTaskSheetSearchDTO.getSocialCityCode());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getFundCityCode()),"fund_city_code",empFrontTaskSheetSearchDTO.getFundCityCode());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getTaskStatus()),"task_status",empFrontTaskSheetSearchDTO.getTaskStatus());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getTaskType()),"task_type",empFrontTaskSheetSearchDTO.getTaskType());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getEmployeeId()),"employee_id",empFrontTaskSheetSearchDTO.getEmployeeId());
+        queryWrapper.eq(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getCompanyId()),"company_id",empFrontTaskSheetSearchDTO.getCompanyId());
+        queryWrapper.like(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getCompanyName()),"company_name",empFrontTaskSheetSearchDTO.getCompanyName());
+        queryWrapper.like(!StringUtils.isEmpty(empFrontTaskSheetSearchDTO.getEmployeeName()),"employee_name",empFrontTaskSheetSearchDTO.getEmployeeName());
         return baseMapper.selectPage(empFrontTaskSheetPOPage,queryWrapper);
     }
 
