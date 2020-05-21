@@ -37,7 +37,7 @@ const actions = {
         };
 
         console.log("this.SEARCH_EMPLOYEE_TASK_SHEET_PAGE=================="+JSON.stringify(pageParams));
-        return employeeTaskApi.getEmployeeTaskSheetListPage(params).then(response => {
+        return employeeTaskApi.getEmployeeTaskSheetListPage(pageParams).then(response => {
                 commit(employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, response.result)
             }
         )

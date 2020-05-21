@@ -12,7 +12,7 @@
 
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                     <Form-item label="客户：" class="mb5" prop="companyId">
-                        <Select v-model="empCompanyInfo.companyId" filterable @on-change="companySelected">
+                        <Select v-model="empCompanyInfo.companyId" :label-in-value="true" filterable @on-change="companySelected" >
                             <Option v-for="item in this.companyList" :value="item.companyCode" :key="item.companyCode">{{ item.companyName }}</Option>
                         </Select>
                     </Form-item>
@@ -376,6 +376,7 @@
         // 雇员公司关系
         empCompanyInfo: {
           companyId: '',
+          companyName: '',
           employeeId:'',
           managementId: '',
           templateType: '',
@@ -416,6 +417,7 @@
           empAgreementId: '',
           templateType: '',
           employeeId: '',
+          companyName:'',
           companyId: '',
           empCompanyId: '',
           startDate: '',
@@ -692,6 +694,7 @@
                                 title: title,
                                 desc: title + '成功',
                             });
+                            console.log("employee-front-manage");
                             this.$router.push({
                                 name: "employee-front-manage"
                             });
@@ -718,10 +721,14 @@
         },
 
         async companySelected (selectValue) {
-            this.empCompanyInfo.companyId = selectValue;
-            this.empAgreementInfo.companyId = selectValue;
-            this.empSocialFundConfigs.companyId = selectValue;
-            this.socialConfigs.companyId = selectValue;
+            // console.log("companySelected type====="+selectValue.value);
+            // console.log("companySelected type====="+selectValue.label);
+            this.empCompanyInfo.companyId = selectValue.value;
+            this.empCompanyInfo.companyName = selectValue.label;
+            this.empAgreementInfo.companyId = selectValue.value;
+            this.empAgreementInfo.companyName = selectValue.label;
+            this.empSocialFundConfigs.companyId = selectValue.value;
+            this.socialConfigs.companyId = selectValue.value;
         },
 
 

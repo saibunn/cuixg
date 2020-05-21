@@ -69,8 +69,8 @@ const actions = {
             currentPage: state.empTaskPage.currentPage
         };
 
-        console.log("this.SEARCH_EMPLOYEE_TASK_SHEET_PAGE==rrrrrrr================"+JSON.stringify(pageParams));
-        return employeeTaskApi.getEmployeeTaskSheetListPage(params).then(response => {
+        console.log("this.SEARCH_EMPLOYEE_TASK_SHEET_PAGE==rrrsdffsrrrr================"+JSON.stringify(pageParams));
+        return employeeTaskApi.getEmployeeTaskSheetListPage(pageParams).then(response => {
                 commit(employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE, response.result)
             }
         )
@@ -155,7 +155,7 @@ const mutations = {
         var list = result;
         state.empTaskList = list.records;
         state.empTaskPage.total = result.total;
-        console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE======result=====aaaaaqqq======="+JSON.stringify(list));
+        //console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PAGE======result=====aaaaaqqq======="+JSON.stringify(list));
     },
 
     [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_INFO](state, data){
@@ -167,7 +167,7 @@ const mutations = {
     },
 
     [employeeTaskSheetTypes.MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM](state, data){
-        console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM======result============"+JSON.stringify(data));
+        //console.log("MUTATE_SEARCH_EMPLOYEE_TASK_SHEET_PARAM======result============"+JSON.stringify(data));
         state.searchForm = data;
     },
 
@@ -184,7 +184,7 @@ const mutations = {
         state.empFrontTaskSheetDetail = data.empFrontTaskSheetResponseDTO;
         state.taskSheetSocialFeeInfo = data.empFrontTaskSheetSocialFeeSegmentResponseDTOList;
         state.employeeInfo = data.employeeInfoResponseDTO;
-        console.log("taskSheetSocialFeeInfo======result============"+JSON.stringify(state.taskSheetSocialFeeInfo));
+        //console.log("taskSheetSocialFeeInfo======result============"+JSON.stringify(state.taskSheetSocialFeeInfo));
 
 
     },

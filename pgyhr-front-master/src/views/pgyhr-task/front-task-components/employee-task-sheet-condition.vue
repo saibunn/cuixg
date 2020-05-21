@@ -42,15 +42,15 @@
                   </Select>
                 </Form-item>
               </Col>
-              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
-                <Form-item label="入职时间：" prop="contractStartDate">
-                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateStart" placeholder="入职开始时间"
-                              style="width: 44%;"></DatePicker>
-                  至
-                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateEnd" placeholder="入职结束时间"
-                              style="width: 44%;"></DatePicker>
-                </Form-item>
-              </Col>
+<!--              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">-->
+<!--                <Form-item label="入职时间：" prop="contractStartDate">-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateStart" placeholder="入职开始时间"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                  至-->
+<!--                  <DatePicker type="date" transfer v-model="searchCondition.employmentDateEnd" placeholder="入职结束时间"-->
+<!--                              style="width: 44%;"></DatePicker>-->
+<!--                </Form-item>-->
+<!--              </Col>-->
 
 <!--              <Col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">-->
 <!--                <Form-item label="离职时间：" prop="outDateStart">-->
