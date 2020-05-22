@@ -23,6 +23,7 @@
         <result column="work_date" property="workDate" />
         <result column="policy" property="policy" />
         <result column="country_code" property="countryCode" />
+        <result column="country_name" property="countryName" />
         <result column="nationality" property="nationality" />
         <result column="social_account" property="socialAccount" />
         <result column="fund_account" property="fundAccount" />

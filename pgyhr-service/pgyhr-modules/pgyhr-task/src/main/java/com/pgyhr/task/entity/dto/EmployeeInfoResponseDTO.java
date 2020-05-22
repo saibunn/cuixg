@@ -133,7 +133,7 @@ public class EmployeeInfoResponseDTO implements Serializable {
     /**
      * 国籍
      */
-    private String countryCodeLabel;
+    private String countryName;
 
     /**
      * 民族

@@ -117,9 +117,15 @@ public class EmployeeInfoRequsetDTO implements Serializable{
     private Integer policy;
 
     /**
-     * 国籍
+     * 国籍code
      */
     private String countryCode;
+
+
+    /**
+     * 国籍
+     */
+    private String countryName;
 
     /**
      * 民族

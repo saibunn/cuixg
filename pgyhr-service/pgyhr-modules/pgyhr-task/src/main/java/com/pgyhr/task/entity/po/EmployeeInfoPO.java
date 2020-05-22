@@ -116,9 +116,14 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
     private Integer policy;
 
     /**
-     * 国籍
+     * 国籍code
      */
     private String countryCode;
+
+    /**
+     * 国籍
+     */
+    private String countryName;
 
     /**
      * 民族
@@ -453,6 +458,14 @@ public class EmployeeInfoPO extends PgyhrBaseEntityNoId {
 
     public void setWorkDate(LocalDateTime workDate) {
         this.workDate = workDate;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     @Override

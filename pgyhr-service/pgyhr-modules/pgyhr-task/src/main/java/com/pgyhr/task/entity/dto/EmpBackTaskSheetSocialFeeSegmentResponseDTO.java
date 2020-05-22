@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -91,42 +91,42 @@ public class EmpBackTaskSheetSocialFeeSegmentResponseDTO implements Serializable
     /**
      * 反馈日期
      */
-    private Date socialStatusDate;
+    private LocalDateTime socialStatusDate;
 
     /**
      * 申请日期
      */
-    private Date applyDate;
+    private LocalDateTime applyDate;
 
     /**
      * 办理日期
      */
-    private Date handleDate;
+    private LocalDateTime handleDate;
 
     /**
      * 执行日期
      */
-    private Date executeDate;
+    private LocalDateTime executeDate;
 
     /**
      * 缴纳开始月(yyyy-MM格式)
      */
-    private Date startDate;
+    private LocalDateTime startDate;
 
     /**
      * 缴纳结束月(yyyy-MM格式)
      */
-    private Date endDate;
+    private LocalDateTime endDate;
 
     /**
      * 缴纳开始月确认月(yyyy-MM格式)
      */
-    private Date startConfirmDate;
+    private LocalDateTime startConfirmDate;
 
     /**
      * 缴纳结束月确认月(yyyy-MM格式)
      */
-    private Date endConfirmDate;
+    private LocalDateTime endConfirmDate;
 
     /**
      * 公司付款方式:1-公司自付，2-管理费
