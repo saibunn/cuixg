@@ -478,11 +478,9 @@
             align: 'center',
             render: (h, params) => {
               // 年调时申报开始月不允许修改
-              if (this.changeType === 'empAdjustYearly') {
-                return h('div', [
-                  h('span', new Date(params.row.startDate).pattern('yyyy-MM-dd'))
-                ])
-              }
+              // if (this.changeType === 'empAdjustYearly') {
+              //   return h('div', this.$dateUtils.stdFormatDate(params.row.startDate));
+              // }
 
               if (!this.$commons.isEmpty(this.socialStartDate)) {
                 let self = this
@@ -523,9 +521,7 @@
                   })
                 ])
               } else {
-                return h('div', [
-                  h('span', new Date(params.row.startDate).pattern('yyyy-MM-dd'))
-                ])
+                return h('div', this.$dateUtils.stdFormatDate(params.row.startDate));
               }
             }
           },
@@ -578,9 +574,7 @@
             align: 'center',
             render: (h, params) => {
               if (params.row.startConfirmDate) {
-                return h('div', [
-                  h('span', new Date(params.row.startConfirmDate).pattern('yyyy-MM-dd'))
-                ])
+                return h('div', this.$dateUtils.stdFormatDate(params.row.startConfirmDate));
               }
             }
           },
@@ -591,9 +585,7 @@
             align: 'center',
             render: (h, params) => {
               if (params.row.endConfirmDate) {
-                return h('div', [
-                  h('span', new Date(params.row.endConfirmDate).pattern('yyyy-MM-dd'))
-                ])
+                return h('div', this.$dateUtils.stdFormatDate(params.row.endConfirmDate));
               }
             }
           },

@@ -140,10 +140,9 @@
 
         insuranceItemsColumns: [
           {
-            type: 'index',
-            width: 60,
-            align: 'center',
-            fixed: 'left'
+            title: '反馈状态',
+            width: 100,
+            key: 'socialStatusLabel'
           },
           {
             title: '项目',
@@ -165,9 +164,19 @@
             key: 'companyBase'
           },
           {
+            title: '企业实缴基数',
+            width: 100,
+            key: 'companyConfirmBase'
+          },
+          {
             title: '人个基数',
             width: 100,
             key: 'personalBase'
+          },
+          {
+            title: '个人实缴基数',
+            width: 100,
+            key: 'personalConfirmBase'
           },
           {
             title: '企业比例',
@@ -201,7 +210,7 @@
             key: 'totalAmount'
           },
           {
-            title: '开始年月',
+            title: '缴纳开始月',
             width: 110,
             key: 'startDate',
             render: (h, params) => {
@@ -209,7 +218,15 @@
             }
           },
           {
-            title: '结束年月',
+            title: '缴纳开始确认月',
+            width: 140,
+            key: 'startConfirmDate',
+            render: (h, params) => {
+              return h('div', this.$dateUtils.stdFormatDate(params.row.startConfirmDate));
+            }
+          },
+          {
+            title: '缴纳结束月',
             width: 110,
             key: 'endDate',
             render: (h, params) => {
@@ -217,9 +234,12 @@
             }
           },
           {
-            title: '反馈状态',
-            width: 100,
-            key: 'socialStatusLabel'
+            title: '缴纳结束确认月',
+            width: 140,
+            key: 'endConfirmDate',
+            render: (h, params) => {
+              return h('div', this.$dateUtils.stdFormatDate(params.row.endConfirmDate));
+            }
           }
         ],
       }

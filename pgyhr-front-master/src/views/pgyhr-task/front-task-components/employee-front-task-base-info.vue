@@ -45,7 +45,7 @@
       </i-col>
       <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">
         <Form-item label="国籍：" prop="nationality" class="ivu-form-item-baseInfo">
-          <label>{{employeeInfo.countryCode}}</label>
+          <label>{{employeeInfo.countryName}}</label>
         </Form-item>
       </i-col>
       <i-col :sm="{span:22}" :md="{span: 12}" :lg="{span: 8}">

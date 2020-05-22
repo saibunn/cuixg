@@ -204,7 +204,7 @@
       },
       changePage(page) {
         this.$store.commit("employeeFrontTaskModule/" + employeeTaskSheetTypes.MUTATE_EMPLOYEE_TASK_SHEET_CURRENT_PAGE, page);
-        //this.getEmployeeTaskSheetPageData();
+        this.getEmployeeTaskSheetPageData();
       },
     },
     computed: {

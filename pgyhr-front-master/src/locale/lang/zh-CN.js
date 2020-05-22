@@ -1,5 +1,5 @@
 export default {
-    pgyhr: '开发平台',
+    pgyhr: '蒲公英HR系统平台',
     usernameLogin: '账户密码登录',
     mobileLogin: '手机号登录',
     autoLogin: '自动登录',

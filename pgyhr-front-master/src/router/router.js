@@ -5,7 +5,7 @@ export const loginRouter = {
     path: '/login',
     name: 'login',
     meta: {
-        title: '登录 开发平台 '
+        title: '登录 蒲公英HR系统 '
     },
     component: () => import('@/views/login.vue')
 };
@@ -14,7 +14,7 @@ export const registRouter = {
     path: '/regist',
     name: 'regist',
     meta: {
-        title: '注册 开发平台'
+        title: '注册 蒲公英HR系统'
     },
     component: () => import('@/views/regist.vue')
 };
@@ -23,7 +23,7 @@ export const registResult = {
     path: '/regist-result',
     name: 'regist-result',
     meta: {
-        title: '注册结果 开发平台'
+        title: '注册结果 蒲公英HR系统'
     },
     component: () => import('@/views/regist-result.vue')
 };

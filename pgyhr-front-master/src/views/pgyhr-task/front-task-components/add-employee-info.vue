@@ -41,7 +41,7 @@
                 </Col>
                 <Col :sm="{span: 22}" :md="{span: 12}" :lg="{span: 8}">
                 <Form-item label="国籍：" prop="countryCode">
-                  <Select v-model="empInfo.countryCode" :disabled="isCountryCode" filterable>
+                  <Select v-model="empInfo.countryCode" :label-in-value="true" @on-change="countrySelected" :disabled="isCountryCode" filterable>
                     <Option v-for="item in countryData" :value="item.code" :key="item.code">{{ item.name }}</Option>
                   </Select>
                 </Form-item>
@@ -186,7 +186,8 @@
               // gender: '',
               // workDate:null,
               // birthday: null,
-              // countryCode: '',
+              countryCode: '',
+              countryName: '',
               // nationality:'',
               // socialAccount:'',
               // fundAccount:'',
@@ -346,6 +347,14 @@
 
       errModalClick () {
       },
+
+        async countrySelected (selectValue) {
+            // console.log("companySelected type====="+selectValue.value);
+            // console.log("companySelected type====="+selectValue.label);
+            this.empInfo.countryCode = selectValue.value;
+            this.empInfo.countryName = selectValue.label;
+            console.log("MUTATE_SAVE_EMPLOYEE_INFO======result============"+JSON.stringify(empInfo));
+        },
 
         //雇员证件号带入数据
         idNumChange () {

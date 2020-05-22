@@ -340,9 +340,7 @@
                   })
                 ])
               } else {
-                return h('div', [
-                  h('span', new Date(params.row.startConfirmDate).pattern('yyyy-MM-dd'))
-                ])
+                return h('div', this.$dateUtils.stdFormatDate(params.row.startConfirmDate));
               }
             }
           },
@@ -389,9 +387,7 @@
                   })
                 ])
               } else {
-                return h('div', [
-                  h('span', new Date(params.row.endConfirmDate).pattern('yyyy-MM-dd'))
-                ])
+                return h('div', this.$dateUtils.stdFormatDate(params.row.endConfirmDate));
               }
             }
           },
