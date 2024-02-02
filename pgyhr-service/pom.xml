@@ -33,7 +33,7 @@
         <hutool.version>5.1.3</hutool.version>
         <lombok.version>1.18.12</lombok.version>
         <jasypt.version>3.0.2</jasypt.version>
-        <beetl.version>2.9.10</beetl.version>
+        <beetl.version>3.15.13.RELEASE</beetl.version>
         <qiniu.version>7.2.27</qiniu.version>
         <joda.version>2.9.9</joda.version>
     </properties>
